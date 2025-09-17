@@ -11,6 +11,10 @@ GPATH
 flake.lock
 .direnv/
 
+#platformio
+.pio/
+.piolibdeps/
+
 # emacs
 .dir-locals.el
 
