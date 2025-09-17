@@ -1,5 +1,5 @@
 {
-  description = "A Python development environment";
+  description = "embedded systems devshell";
 
   inputs = { nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05"; };
 
@@ -21,7 +21,6 @@
         # Environment variables for your Python shell
         shellHook = ''
           export PYTHONPATH=$(pwd)
-          echo "Welcome to your Python development shell!"
         '';
       };
   };
