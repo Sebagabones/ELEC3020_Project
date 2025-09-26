@@ -1,6 +1,6 @@
 # Embedded Systems Project
 
-idk what to put here for now
+will add setup guide later, but the TL:CR is clone the repo, and done - deps are setup in `platformio.ini`
 
 
 thoughts:
