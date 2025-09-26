@@ -118,3 +118,4 @@ XUNIT_RESULT*.xml
 
 # Vale
 .vale/styles/*
+/compile_commands.json
