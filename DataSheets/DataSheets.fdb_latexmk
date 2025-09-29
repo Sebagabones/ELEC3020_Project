@@ -1,0 +1,9 @@
+# Fdb version 4
+["lualatex"] 0 "DataSheets.tex" "DataSheets.pdf" "DataSheets" 0 -1
+  "DataSheets.aux" 0 -1 0 "lualatex"
+  "DataSheets.tex" 0 -1 0 ""
+  (generated)
+  "DataSheets.aux"
+  "DataSheets.log"
+  "DataSheets.pdf"
+  (rewritten before read)

@@ -1,0 +1,78 @@
+#+title: Items Purchased
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./.style.css" />
+#+OPTIONS: toc:3 \n:t
+
+** Items
+#+begin_center
+/Unless otherwise stated, prices are in AUD/
+#+end_center
+
+#+begin_comment
+Template:
+*Model Number:* N/A (Generic)
+*Quantity*: X
+*Purchased from:* X
+*Cost (each):* =$X=
+*Other notes:*
+N/A
+
+
+#+end_comment
+*** Motor Driver Board:
+Model Number: MDD3A
+Quantity: 1
+Purchased from: [[https://rapidroboticsaustralia.com/collections/dc-motor-controllers/products/3amp-4v-16v-dc-motor-driver-2-channels][Rapid Robotics]]
+Cost (each): =$17.50=
+Other notes:
+-> [[file:MDD3A Datasheet.pdf][Datasheet]]
+-> [[https://github.com/CytronTechnologies/CytronMotorDriver][Example Code]]
+--> This /official/ library ain't great, so I have written a wrapper around it - go look at the code :)
+
+*** Motors:
+Model Number: N/A (Generic)
+Quantity: 2
+Purchased from: [[https://www.aliexpress.com/item/4000406376595.html][AliExpress]]
+Cost (each): =$7.20=
+Other notes:
+N/A
+
+*** Motor Hubs
+Quantity: 2
+Purchased from: [[https://rapidroboticsaustralia.com/products/universal-motor-mounting-hub-6mm][Rapid Robotics]]
+Cost (each): =$3.50=
+Other notes:
+N/A
+
+*** Colour Sensors:
+Model Number: TCS34725
+Quantity: 4 *(UPDATE THIS WHEN YOU KNOW)*
+Purchased from: [[https://rapidroboticsaustralia.com/products/tcs34725-color-recognition-sensor-module][Rapid Robotics]]
+Cost (each): =$4.95=
+Other notes:
+Uses ~I2C~ /not/ UART (yay, faster)
+-> [[file:TCS34725.pdf][Datasheet]]
+
+*** Time Of Flight Sensors:
+#+begin_center
+Note that these are from what I can tell, basically the same, aside from one having a cover.
+[[https://www.makerguides.com/vl53l0x-distance-sensor-with-arduino/][This guide]] seems like it would be very helpful when setting them up
+#+end_center
+
+**** VLX53L0X
+Model Number: VLX53L0X
+Quantity: 1
+Purchased from: [[https://rapidroboticsaustralia.com/products/vl53l0x-time-of-flight-tof-laser-ranging-sensor-breakout-module][Rapid Robotics]]
+Cost (each): =$4.95=
+Other notes:
+-> [[file:vl53l0x.pdf][Datashet]]
+-> [[https://github.com/adafruit/Adafruit_VL53L0X][Adafruit example code]]  for a different board, but same sensor, so may need adjusting, make sure you check before wiring in so you don't blow anything up
+-> [[https://github.com/pololu/vl53l0x-arduino][Pololu example code]] again, for a different board, [[https://www.makerguides.com/vl53l0x-distance-sensor-with-arduino/][this]] person says that it /may/ work better - "it offers more configuration options for the VL53L0X. For instance, you can switch between long or short range mode, and between slow or fast mode." Which might be useful for us?
+
+
+**** TOF200C VL53L0X
+Model Number: TOF200C VL53L0X
+Quantity: 1
+Purchased from: [[https://rapidroboticsaustralia.com/products/tof200c-vl53l0x-time-of-flight-tof-laser-ranging-sensor-breakout-module][Rapid Robotics]]
+Cost (each): =$7.95=
+Other notes:
+-> I don't really know what the differences between this and the other ToF sensor are, except maybe that this one "includes Inbuilt Optical Cover Sheet"
