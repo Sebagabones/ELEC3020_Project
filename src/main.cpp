@@ -1,4 +1,4 @@
-#include "HC-SR04/main.hpp"
+#include "Sensors/HC-SR04.hpp"
 #include "WiFi.h"
 #include "debouncing.hpp"
 #include <AsyncDelay.h>
@@ -8,6 +8,9 @@
 #define CHANNEL0 0
 #define CHANNEL1 1
 #define TOTAL_TIME_PERIOD 20
+#define TRIGGER_PIN_1 12
+#define ECHO_PIN_1 13
+#define MAX_DISTANCE 100
 // ask lab facilaitator about why i needed to set this to 10
 #define PWM_RESOLUTION 10
 #define INITIAL_FREQ 50
@@ -18,7 +21,7 @@
 
 // Use Serial1 for UART communication
 TFT_eSPI tft = TFT_eSPI(170, 320); // Init screen size
-
+UltraSonic sonic1 = UltraSonic(TRIGGER_PIN_1, ECHO_PIN_1, MAX_DISTANCE);
 // The max duty cycle value based on PWM resolution (will be 255 if resolution
 // is 8 bits)  borrowed from here,
 // https://lastminuteengineers.com/esp32-pwm-tutorial/ - makes sense, just nice
@@ -38,7 +41,7 @@ void loop() {
   // static int state = 0, L_old = 1, R_old = 1, L, R;
   tft.setTextColor(TFT_CATPPUCCIN_MAUVE, TFT_CATPPUCCIN_BASE, true);
   // if (getButtonPressedL()) {
-  unsigned int distance = sendPulse();
+  unsigned int distance = sonic1.sendPulse();
   tft.drawString("About " + String(distance) + "cm away", 00, 00);
   // }
   // resetButtonL();
