@@ -8,12 +8,12 @@ signed int getSpeedForDir(int speed, signed int direction) {
     if (speed > 255) {
       speed = 255;
     }
-    speed = 255 - speed; // (speed is negative here?)
+    speed = 256 - speed; // (speed is negative here?)
     return (-speed);
   }
 }
-Motor1::Motor1(int pinA, int pinB) : motor1(PWM_DIR, pinA, pinB) {}
-Motor2::Motor2(int pinA, int pinB) : motor2(PWM_DIR, pinA, pinB) {}
+Motor1::Motor1(int pinA, int pinB) : motor1(PWM_DIR, pinA, pinB, 0) {}
+Motor2::Motor2(int pinA, int pinB) : motor2(PWM_DIR, pinA, pinB, 1) {}
 
 void Motor1::stopMotor() { motor1.setSpeed(0); }
 

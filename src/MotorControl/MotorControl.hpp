@@ -25,7 +25,7 @@ public:
   void
   setSpeedDir(int speed,
               signed int direction); // Speed can be from 0 - 255, direction is
-                                     // 0 for backwards, 1 for forwards
+                                     // 0-1 for backwards, 1 for forwards
   void setSpeed(signed int speed);   // speed can be from -255 to 255 - negative
                                      // means backwards
   void stopMotor();

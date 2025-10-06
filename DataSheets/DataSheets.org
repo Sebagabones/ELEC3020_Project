@@ -45,7 +45,7 @@ N/A
 
 *** Colour Sensors:
 Model Number: TCS34725
-Quantity: 4 *(UPDATE THIS WHEN YOU KNOW)*
+Quantity: 4
 Purchased from: [[https://rapidroboticsaustralia.com/products/tcs34725-color-recognition-sensor-module][Rapid Robotics]]
 Cost (each): =$4.95=
 Other notes:
@@ -56,6 +56,8 @@ Uses ~I2C~ /not/ UART (yay, faster)
 #+begin_center
 Note that these are from what I can tell, basically the same, aside from one having a cover.
 [[https://www.makerguides.com/vl53l0x-distance-sensor-with-arduino/][This guide]] seems like it would be very helpful when setting them up
+
+Oooo, note that GPIO1 pin seems like it could be used for an interrupt pin -> asnyc here we go
 #+end_center
 
 **** VLX53L0X
@@ -67,7 +69,7 @@ Other notes:
 -> [[file:vl53l0x.pdf][Datashet]]
 -> [[https://github.com/adafruit/Adafruit_VL53L0X][Adafruit example code]]  for a different board, but same sensor, so may need adjusting, make sure you check before wiring in so you don't blow anything up
 -> [[https://github.com/pololu/vl53l0x-arduino][Pololu example code]] again, for a different board, [[https://www.makerguides.com/vl53l0x-distance-sensor-with-arduino/][this]] person says that it /may/ work better - "it offers more configuration options for the VL53L0X. For instance, you can switch between long or short range mode, and between slow or fast mode." Which might be useful for us?
-
+-> There is also the official API [[https://www.st.com/en/embedded-software/stsw-img005.html][here]]
 
 **** TOF200C VL53L0X
 Model Number: TOF200C VL53L0X
