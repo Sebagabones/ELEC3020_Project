@@ -1,0 +1,256 @@
+% Created 2025-10-06 Mon 21:09
+% Intended LaTeX compiler: lualatex
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{upquote}
+\usepackage{fvextra}
+\usepackage[latte,styleAll]{catppuccinpalette} \setlength{\parindent}{0pt}  \usepackage{hyperref} \usepackage{scrextend} \usepackage{fvextra} \usepackage{upquote} \usepackage{xcolor}  \hypersetup{colorlinks=false, hidelinks=true} \usepackage{circuitikz} \usepackage{rotating} \usepackage{geometry}  \newgeometry{vmargin={17mm}, hmargin={19mm,19mm}}   % set the margins
+\usepackage{sectsty} \sectionfont{\centering}  %To center heading
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={},
+ pdflang={English}}
+\begin{document}
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{../killdozer.png}
+\end{center}
+\section*{{\color{CtpPink} ELEC3020 Project Design Report}}
+\label{sec:org79c8bc1}
+\section*{{\color{CtpPink} Team-27 }}
+\label{sec:orge3676e9}
+
+\vspace{25mm}
+\renewcommand{\arraystretch}{5.5}
+\begin{tabular}{@{}p{3.5in}@{}}
+Mia O'Dea: \color{CtpPink}  \underline{\phantom{padddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddding}}  \\
+Sebastian Gazey: \color{CtpPink} \underline{\phantom{padddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddding}} \\
+Sophie Mattingly: \color{CtpPink} \underline{\phantom{paddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddding}} \\
+Carla Schultz: \color{CtpPink} \underline{\phantom{padddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddding}}
+\end{tabular}
+\subsection*{Hardware Circuit Diagram:}
+\label{sec:org775079b}
+\begin{turn}{90}
+\usetikzlibrary{shapes.geometric}
+\begin{tikzpicture}
+	% Paths, nodes and wires:
+	\node[shape=rectangle, rotate=-90, draw, line width=1pt, dash pattern={on 4pt off 2pt}, minimum width=2.465cm, minimum height=6.965cm] at (25.386, -0.25){};
+	\node[shape=ellipse, rotate=-90, draw, line width=1pt, minimum width=1.236cm, minimum height=1.215cm] at (27.558, -0.864){};
+	\node[shape=rectangle, draw, line width=1pt, dash pattern={on 4pt off 2pt}, minimum width=3.715cm, minimum height=6.715cm] at (18.125, 9.5){};
+	\node[shape=rectangle, draw, line width=1pt, dash pattern={on 4pt off 2pt}, minimum width=3.715cm, minimum height=7.715cm] at (8.125, 4.625){};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=3.465cm, minimum height=7.215cm] at (12.813, 5.25){};
+	\node[shape=rectangle, minimum width=1.465cm, minimum height=0.715cm] at (12.813, 8.375){} node[anchor=north, align=center, text width=1.077cm, inner sep=6pt] at (12.813, 8.75){LILYGO};
+	\node[shape=ellipse, draw, line width=1pt, minimum width=0.715cm, minimum height=0.465cm] at (11.813, 2){};
+	\node[shape=ellipse, draw, line width=1pt, minimum width=0.715cm, minimum height=0.465cm] at (13.812, 2){};
+	\draw (10.563, 8) -- (11.312, 8);
+	\draw (10.563, 7.5) -- (11.312, 7.5);
+	\path[draw={CtpMauve}] (10.563, 7) -- (11.312, 7);
+	\path[draw={CtpPeach}] (10.563, 6.5) -- (11.312, 6.5);
+	\path[draw={CtpPink}] (10.563, 5) -- (11.312, 5);
+	\path[draw={CtpBlue}] (10.563, 4.5) -- (11.312, 4.5);
+	\draw (10.563, 4) -- (11.312, 4);
+	\draw (10.563, 3.5) -- (11.312, 3.5);
+	\draw (10.563, 3) -- (11.312, 3);
+	\draw (10.563, 2.5) -- (11.312, 2.5);
+	\draw (14.313, 8) -- (15.062, 8);
+	\draw (14.313, 7.5) -- (15.062, 7.5);
+	\draw (14.313, 7) -- (15.062, 7);
+	\draw (14.313, 6.5) -- (15.062, 6.5);
+	\path[draw={CtpSky}] (14.313, 6) -- (15.062, 6);
+	\path[draw={CtpGreen}] (14.313, 5.5) -- (15.062, 5.5);
+	\path[draw={CtpLavender}] (14.313, 5) -- (15.062, 5);
+	\path[draw={CtpTeal}] (14.313, 4.5) -- (15.062, 4.5);
+	\draw (14.313, 4) -- (15.062, 4);
+	\draw (14.313, 3.5) -- (15.062, 3.5);
+	\path[draw={rgb,255:red,17;green,17;blue,27}] (14.313, 3) -- (15.75, 3);
+	\path[draw={CtpRed}] (14.313, 2.5) -| (16, 2.5);
+	\node[waves, xscale=-1.04, yscale=-1.04] at (7.298, 5.5){};
+	\path[draw={rgb,255:red,17;green,17;blue,27}] (10.75, 0.5) |- (10.25, 1.75) |- (8, 6.25);
+	\path[draw={CtpFlamingo}] (11.062, 5.5) -| (8.25, 5.5) |- (8, 5.25);
+	\path[draw={CtpYellow}] (10.875, 6) -| (8.25, 6) -- (8.25, 5.75) -- (8, 5.75);
+	\path[draw={CtpRed}] (8, 4.75) |- (9.75, 4.688);
+	\path[draw={CtpRed}] (10.25, 1.25) -- (10.25, 0.25) -| (16, 2.5);
+	\node[shape=rectangle, minimum width=2.715cm, minimum height=1.715cm] at (7.625, 7.625){} node[anchor=north west, align=left, text width=2.327cm, inner sep=6pt] at (6.25, 8.5){\Large Ultrasonic Sensors};
+	\node[shape=rectangle, minimum width=1.871cm, minimum height=0.465cm] at (13.703, 2.5){} node[anchor=center, align=center, text width=1.483cm, inner sep=6pt] at (13.703, 2.5){\small 5V};
+	\node[shape=rectangle, minimum width=1.715cm, minimum height=0.465cm] at (11.875, 5){} node[anchor=center, align=center, text width=1.327cm, inner sep=6pt] at (11.875, 5){\small PIN 21};
+	\node[shape=rectangle, minimum width=1.715cm, minimum height=0.465cm] at (11.875, 4.5){} node[anchor=center, align=center, text width=1.327cm, inner sep=6pt] at (11.875, 4.5){\small PIN 16};
+	\node[shape=rectangle, minimum width=1.715cm, minimum height=0.465cm] at (11.875, 4){} node[anchor=center, align=center, text width=1.327cm, inner sep=6pt] at (11.875, 4){\small NC};
+	\node[shape=rectangle, minimum width=1.715cm, minimum height=0.465cm] at (11.875, 3.5){} node[anchor=center, align=center, text width=1.327cm, inner sep=6pt] at (11.875, 3.5){\small GND};
+	\node[shape=rectangle, minimum width=1.715cm, minimum height=0.465cm] at (11.875, 3){} node[anchor=center, align=center, text width=1.327cm, inner sep=6pt] at (11.875, 3){\small GND};
+	\node[shape=rectangle, minimum width=1.715cm, minimum height=0.465cm] at (11.875, 2.5){} node[anchor=center, align=center, text width=1.327cm, inner sep=6pt] at (11.875, 2.5){\small 3V};
+	\node[shape=rectangle, minimum width=1.871cm, minimum height=0.465cm] at (13.703, 3){} node[anchor=center, align=center, text width=1.483cm, inner sep=6pt] at (13.703, 3){\small GND};
+	\node[shape=rectangle, minimum width=1.808cm, minimum height=0.465cm] at (11.922, 8){} node[anchor=center, align=center, text width=1.42cm, inner sep=6pt] at (11.922, 8){\small GND};
+	\node[shape=rectangle, minimum width=1.808cm, minimum height=0.465cm] at (11.922, 7.5){} node[anchor=center, align=center, text width=1.42cm, inner sep=6pt] at (11.922, 7.5){\small GND};
+	\node[shape=rectangle, minimum width=1.715cm, minimum height=0.465cm] at (11.875, 7){} node[anchor=center, align=center, text width=1.327cm, inner sep=6pt] at (11.875, 7){\small PIN 43};
+	\node[shape=rectangle, minimum width=1.715cm, minimum height=0.465cm] at (11.875, 6.5){} node[anchor=center, align=center, text width=1.327cm, inner sep=6pt] at (11.875, 6.5){\small PIN 44};
+	\node[shape=rectangle, minimum width=1.715cm, minimum height=0.465cm] at (11.875, 6){} node[anchor=center, align=center, text width=1.327cm, inner sep=6pt] at (11.875, 6){\small PIN 18};
+	\node[shape=rectangle, minimum width=1.715cm, minimum height=0.465cm] at (11.875, 5.5){} node[anchor=center, align=center, text width=1.327cm, inner sep=6pt] at (11.875, 5.5){\small PIN 17};
+	\node[shape=rectangle, minimum width=1.777cm, minimum height=0.465cm] at (13.75, 8){} node[anchor=center, align=center, text width=1.389cm, inner sep=6pt] at (13.75, 8){\small 3V};
+	\node[shape=rectangle, minimum width=1.777cm, minimum height=0.465cm] at (13.75, 7.5){} node[anchor=center, align=center, text width=1.389cm, inner sep=6pt] at (13.75, 7.5){\small PIN 1};
+	\node[shape=rectangle, minimum width=1.777cm, minimum height=0.465cm] at (13.75, 7){} node[anchor=center, align=center, text width=1.389cm, inner sep=6pt] at (13.75, 7){\small PIN 2};
+	\node[shape=rectangle, minimum width=1.777cm, minimum height=0.465cm] at (13.75, 6.5){} node[anchor=center, align=center, text width=1.389cm, inner sep=6pt] at (13.75, 6.5){\small PIN 3};
+	\node[shape=rectangle, minimum width=1.777cm, minimum height=0.465cm] at (13.75, 6){} node[anchor=center, align=center, text width=1.389cm, inner sep=6pt] at (13.75, 6){\small PIN 10};
+	\node[shape=rectangle, minimum width=1.777cm, minimum height=0.465cm] at (13.75, 5.5){} node[anchor=center, align=center, text width=1.389cm, inner sep=6pt] at (13.75, 5.5){\small PIN 11};
+	\node[shape=rectangle, minimum width=1.777cm, minimum height=0.465cm] at (13.75, 5){} node[anchor=center, align=center, text width=1.389cm, inner sep=6pt] at (13.75, 5){\small PIN 12};
+	\node[shape=rectangle, minimum width=1.777cm, minimum height=0.465cm] at (13.75, 4.5){} node[anchor=center, align=center, text width=1.389cm, inner sep=6pt] at (13.75, 4.5){\small PIN 13};
+	\node[shape=rectangle, minimum width=1.871cm, minimum height=0.465cm] at (13.703, 4){} node[anchor=center, align=center, text width=1.483cm, inner sep=6pt] at (13.703, 4){\small NC};
+	\node[shape=rectangle, minimum width=1.871cm, minimum height=0.465cm] at (13.703, 3.5){} node[anchor=center, align=center, text width=1.483cm, inner sep=6pt] at (13.703, 3.5){\small NC};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=5.965cm, minimum height=5.215cm] at (25.875, 8.375){};
+	\node[shape=rectangle, minimum width=4.715cm, minimum height=0.965cm] at (26, 9.25){} node[anchor=center, align=center, text width=4.327cm, inner sep=6pt] at (26, 9.25){\large Motor Driver Board};
+	\node[shape=rectangle, minimum width=3.465cm, minimum height=0.965cm] at (12.813, 9.375){} node[anchor=center, align=center, text width=3.077cm, inner sep=6pt] at (12.813, 9.375){TTGO};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=0.715cm, minimum height=0.715cm] at (23.75, 6.375){};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=0.715cm, minimum height=0.715cm] at (24.5, 6.375){};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=0.715cm, minimum height=0.715cm] at (25.5, 6.375){};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=0.715cm, minimum height=0.715cm] at (26.25, 6.375){};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=0.715cm, minimum height=0.715cm] at (27.25, 6.375){};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=0.715cm, minimum height=0.715cm] at (28, 6.375){};
+	\path[draw={CtpSky}] (23.5, 11.25) -| (23.5, 10.5);
+	\path[draw={CtpGreen}] (24.5, 11.25) -| (24.5, 10.5);
+	\path[draw={CtpRed}] (25.5, 11.25) -| (25.5, 10.5);
+	\path[draw={rgb,255:red,17;green,17;blue,27}] (26.5, 11.25) -| (26.5, 10.5);
+	\path[draw={CtpLavender}] (27.5, 11.25) -| (27.5, 10.5);
+	\path[draw={CtpTeal}] (28.25, 11.25) -| (28.25, 10.5);
+	\node[shape=rectangle, minimum width=0.965cm, minimum height=0.465cm] at (23.5, 10.25){} node[anchor=center, align=center, text width=0.577cm, inner sep=6pt] at (23.5, 10.25){\small M1A};
+	\node[shape=rectangle, minimum width=0.84cm, minimum height=0.465cm] at (27.5, 10.25){} node[anchor=center, align=center, text width=0.452cm, inner sep=6pt] at (27.5, 10.25){\small M1A};
+	\node[shape=rectangle, minimum width=0.84cm, minimum height=0.465cm] at (24.5, 10.25){} node[anchor=center, align=center, text width=0.452cm, inner sep=6pt] at (24.5, 10.25){\small M1B};
+	\node[shape=rectangle, minimum width=0.84cm, minimum height=0.465cm] at (28.25, 10.25){} node[anchor=center, align=center, text width=0.452cm, inner sep=6pt] at (28.25, 10.25){\small M2B};
+	\node[shape=rectangle, minimum width=0.84cm, minimum height=0.465cm] at (25.5, 10.25){} node[anchor=center, align=center, text width=0.452cm, inner sep=6pt] at (25.5, 10.25){\small 5VO};
+	\node[shape=rectangle, minimum width=0.84cm, minimum height=0.465cm] at (26.5, 10.25){} node[anchor=center, align=center, text width=0.452cm, inner sep=6pt] at (26.5, 10.25){\small GND};
+	\node[shape=rectangle, minimum width=1.215cm, minimum height=0.715cm] at (24.125, 7.125){} node[anchor=center, align=center, text width=0.827cm, inner sep=6pt] at (24.125, 7.125){M1};
+	\node[shape=rectangle, minimum width=1.215cm, minimum height=0.715cm] at (27.625, 7.125){} node[anchor=center, align=center, text width=0.827cm, inner sep=6pt] at (27.625, 7.125){M2};
+	\node[shape=rectangle, minimum width=0.715cm, minimum height=0.715cm] at (25.5, 7.125){} node[anchor=center, align=center, text width=0.327cm, inner sep=6pt] at (25.5, 7.125){\small VB+};
+	\node[shape=rectangle, minimum width=0.59cm, minimum height=0.715cm] at (26.312, 7.125){} node[anchor=center, align=center, text width=0.202cm, inner sep=6pt] at (26.312, 7.125){\small VB-};
+	\node[shape=circle, draw, line width=1pt, minimum width=0.715cm] at (23.75, 6.375){};
+	\node[shape=circle, draw, line width=1pt, minimum width=0.715cm] at (24.5, 6.375){};
+	\node[shape=circle, draw, line width=1pt, minimum width=0.715cm] at (25.5, 6.375){};
+	\node[shape=circle, draw, line width=1pt, minimum width=0.715cm] at (26.25, 6.375){};
+	\node[shape=circle, draw, line width=1pt, minimum width=0.715cm] at (27.25, 6.375){};
+	\node[shape=circle, draw, line width=1pt, minimum width=0.715cm] at (28, 6.375){};
+	\draw[line width=2.2pt] (23.75, 6.75) -- (23.75, 6) -- (23.75, 6.375) -- (23.375, 6.375) -- (24.125, 6.375);
+	\draw[line width=2.2pt] (24.5, 6.75) -- (24.5, 6) -- (24.5, 6.375) -- (24.125, 6.375) -- (24.875, 6.375);
+	\draw[line width=2.2pt] (25.5, 6.75) -- (25.5, 6) -- (25.5, 6.375) -- (25.125, 6.375) -- (25.875, 6.375);
+	\draw[line width=2.2pt] (26.25, 6.75) -- (26.25, 6) -- (26.25, 6.375) -- (25.875, 6.375) -- (26.625, 6.375);
+	\draw[line width=2.2pt] (27.25, 6.75) -- (27.25, 6) -- (27.25, 6.375) -- (26.875, 6.375) -- (27.625, 6.375);
+	\draw[line width=2.2pt] (28, 6.75) -- (28, 6) -- (28, 6.375) -- (27.625, 6.375) -- (28.375, 6.375);
+	\path[draw={CtpSky}] (15.062, 6) -| (20.25, 11.5) -| (23.5, 11.25);
+	\path[draw={CtpGreen}] (15.062, 5.5) -| (20.75, 5.75) -- (20.75, 12) -| (24.5, 11.25);
+	\path[draw={CtpRed}] (16, 3.5) -| (21.75, 12.5) -| (25.5, 11.25);
+	\path[draw={rgb,255:red,17;green,17;blue,27}] (15.75, 4) -| (21.25, 13) -| (26.5, 11.25);
+	\path[draw={CtpLavender}] (15.062, 5) -| (22.25, 13.5) -| (27.5, 11.25);
+	\path[draw={CtpTeal}] (15.062, 4.5) -| (22.75, 14) -| (28.25, 11.25);
+	\path[draw={CtpSky}, line width=2pt] (23.75, 6.375) -- (23.75, -0);
+	\path[draw={CtpGreen}, line width=2pt] (24.5, 6.375) -| (24.5, -0);
+	\path[draw={CtpLavender}, line width=2pt] (27.25, 6.375) -- (27.25, -0);
+	\path[draw={CtpTeal}, line width=2pt] (28, 6.375) -| (28, -0);
+	\draw (20.25, 1.75) to[battery, l={$11.1V$}, label distance=-0.02cm] (25.75, 1.75);
+	\path[draw={CtpRed}, line width=2pt] (25.5, 3) -| (20.25, 1.75);
+	\path[draw={rgb,255:red,17;green,17;blue,27}, line width=2pt] (25.75, 1.75) -- (25.75, 1.75) -| (26.25, 6.375);
+	\draw (16.5, 1.75) to[sdcdc] (19.25, 1.75);
+	\path[draw={CtpRed}] (19.25, 1.75) -- (20.25, 1.75);
+	\path[draw={CtpRed}] (16.5, 0.75) -| (13.115, 1.946);
+	\path[draw={rgb,255:red,17;green,17;blue,27}] (12.562, 2) |- (18.5, 0.5);
+	\node[shape=rectangle, draw, line width=1pt, dash pattern={on 4pt off 1pt on 1pt off 1pt}, minimum width=0.965cm, minimum height=0.465cm] at (12.813, 2){};
+	\node[shape=rectangle, minimum width=2.715cm, minimum height=0.465cm] at (17.875, 2.75){} node[anchor=center, align=center, text width=2.327cm, inner sep=6pt] at (17.875, 2.75){\small 5V Buck Convertor};
+	\node[shape=ellipse, rotate=-90, draw, line width=1pt, minimum width=1.184cm, minimum height=1.184cm] at (24.14, -0.89){};
+	\node[shape=rectangle, minimum width=0.818cm, minimum height=0.818cm] at (24.145, -0.895){} node[anchor=center, align=center, text width=0.43cm, inner sep=6pt] at (24.145, -0.895){\Large M1};
+	\path[draw={CtpGreen}, line width=2pt] (25, -1.03) |- (24.75, -1);
+	\path[draw={CtpGreen}, line width=2pt] (25, -1) |- (24.5, -0);
+	\path[draw={CtpSky}, line width=2pt] (23.28, -0.89) -| (23.53, -0.89);
+	\path[draw={CtpSky}, line width=2pt] (23.75, -0) -| (23.28, -0.89);
+	\node[shape=rectangle, minimum width=0.849cm, minimum height=0.864cm] at (27.558, -0.864){} node[anchor=center, align=center, text width=0.461cm, inner sep=6pt] at (27.558, -0.864){\Large M2};
+	\path[draw={CtpTeal}, line width=2pt] (28.183, -0.864) -- (28.47, -0.864);
+	\path[draw={CtpTeal}, line width=2pt] (28.47, -0.864) |- (28, -0);
+	\path[draw={CtpLavender}, line width=2pt] (26.933, -0.864) -- (26.75, -0.864);
+	\path[draw={CtpLavender}, line width=2pt] (27.25, -0) -| (26.75, -0.864);
+	\node[shape=rectangle, minimum width=1.965cm, minimum height=0.715cm] at (22.886, 0.625){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (22.886, 0.625){\Large Motors};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=0.715cm, minimum height=1.965cm] at (7.625, 5.5){};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=3.965cm, minimum height=1.965cm] at (13, 11.5){};
+	\node[shape=rectangle, minimum width=3.465cm, minimum height=0.465cm] at (13, 11.5){} node[anchor=center, align=center, text width=3.077cm, inner sep=6pt] at (13, 11.5){I2C Multiplexer};
+	\draw (11.25, 12.75) -| (11.25, 12.25);
+	\draw (11.75, 12.75) -- (11.75, 12.25) -| (11.75, 12.5);
+	\draw (12.25, 12.75) -| (12.25, 12.25);
+	\draw (12.75, 12.75) -- (12.75, 12.25) -| (12.75, 12.5);
+	\path[draw={rgb,255:red,145;green,65;blue,172}] (14.25, 12.75) -| (14.25, 12.25);
+	\path[draw={rgb,255:red,226;green,42;blue,195}] (14.75, 12.75) -- (14.75, 12.25) -| (14.75, 12.5);
+	\draw (11.25, 10.75) -| (11.25, 10.25);
+	\draw (11.75, 10.75) -- (11.75, 10.25) -| (11.75, 10.5);
+	\draw (12.25, 10.75) -| (12.25, 10.25);
+	\draw (12.75, 10.75) -- (12.75, 10.25) -| (12.75, 10.5);
+	\draw (13.25, 10.75) -| (13.25, 10.25);
+	\draw (13.75, 10.75) -- (13.75, 10.25) -| (13.75, 10.5);
+	\path[draw={rgb,255:red,145;green,65;blue,172}] (14.25, 10.75) -| (14.25, 10.25);
+	\path[draw={rgb,255:red,226;green,42;blue,195}] (14.75, 10.75) -- (14.75, 10.125) -| (14.75, 10.5);
+	\path[draw={rgb,255:red,17;green,17;blue,27}] (11.25, 12) |- (10.75, 12);
+	\path[draw={CtpRed}] (11.25, 11.75) -- (10.75, 11.75) -- (11, 11.75);
+	\path[draw={CtpPeach}] (11.25, 11.5) |- (10.75, 11.5);
+	\path[draw={CtpMauve}] (11.25, 11.25) -- (10.75, 11.25) -| (11, 11.25);
+	\path[draw={CtpPeach}] (10.75, 11.5) -| (9.75, 7) -| (9.75, 6.5) -| (10.563, 6.5);
+	\path[draw={CtpMauve}] (10.563, 7) -| (10.25, 11.25) -- (10.75, 11.25);
+	\path[draw={rgb,255:red,17;green,17;blue,27}] (15.75, 3) |- (15.25, 13.5) -| (10.75, 12);
+	\path[draw={CtpRed}] (10.75, 11.75) -- (10.25, 11.75) -- (10.25, 13.5) |- (16, 13.75) -- (16, 2.5);
+	\node[shape=circle, rotate=90, fill={rgb,255:red,243;green,204;blue,41}, draw={rgb,255:red,24;green,24;blue,37}, line width=0.6pt, minimum width=0.229cm] at (17.463, 10.912){};
+	\node[shape=rectangle, rotate=90, fill={rgb,255:red,255;green,252;blue,173}, draw={rgb,255:red,24;green,24;blue,37}, line width=0.6pt, minimum width=0.354cm, minimum height=0.229cm] at (17.463, 10.599){};
+	\node[shape=rectangle, rotate=90, fill={rgb,255:red,255;green,252;blue,173}, draw={rgb,255:red,24;green,24;blue,37}, line width=0.6pt, minimum width=0.354cm, minimum height=0.229cm] at (17.463, 11.224){};
+	\node[shape=rectangle, rotate=90, draw, line width=1pt, minimum width=1.465cm, minimum height=0.965cm] at (17.338, 10.912){};
+	\node[shape=circle, rotate=90, fill={rgb,255:red,243;green,204;blue,41}, draw={rgb,255:red,24;green,24;blue,37}, line width=0.6pt, minimum width=0.229cm] at (17.463, 9.037){};
+	\node[shape=rectangle, rotate=90, fill={rgb,255:red,255;green,252;blue,173}, draw={rgb,255:red,24;green,24;blue,37}, line width=0.6pt, minimum width=0.354cm, minimum height=0.229cm] at (17.463, 8.724){};
+	\node[shape=rectangle, rotate=90, fill={rgb,255:red,255;green,252;blue,173}, draw={rgb,255:red,24;green,24;blue,37}, line width=0.6pt, minimum width=0.354cm, minimum height=0.229cm] at (17.463, 9.349){};
+	\node[shape=rectangle, rotate=90, draw, line width=1pt, minimum width=1.465cm, minimum height=0.965cm] at (17.338, 9.037){};
+	\node[shape=circle, rotate=90, fill={rgb,255:red,243;green,204;blue,41}, draw={rgb,255:red,24;green,24;blue,37}, line width=0.6pt, minimum width=0.229cm] at (17.463, 7.162){};
+	\node[shape=rectangle, rotate=90, fill={rgb,255:red,255;green,252;blue,173}, draw={rgb,255:red,24;green,24;blue,37}, line width=0.6pt, minimum width=0.354cm, minimum height=0.229cm] at (17.463, 6.849){};
+	\node[shape=rectangle, rotate=90, fill={rgb,255:red,255;green,252;blue,173}, draw={rgb,255:red,24;green,24;blue,37}, line width=0.6pt, minimum width=0.354cm, minimum height=0.229cm] at (17.463, 7.474){};
+	\node[shape=rectangle, rotate=90, draw, line width=1pt, minimum width=1.465cm, minimum height=0.965cm] at (17.338, 7.162){};
+	\path[draw={CtpRed}] (17, 10.25) -- (16, 10.25);
+	\path[draw={rgb,255:red,17;green,17;blue,27}] (15.75, 6.75) -- (17, 6.75);
+	\path[draw={rgb,255:red,17;green,17;blue,27}] (15.75, 10.5) -- (17, 10.5);
+	\path[draw={CtpRed}] (17, 8.5) -- (16, 8.5);
+	\path[draw={rgb,255:red,17;green,17;blue,27}] (15.75, 8.75) -- (17, 8.75);
+	\path[draw={rgb,255:red,145;green,65;blue,172}] (13.25, 12.75) -- (13.25, 13.25) -- (16.75, 13.25);
+	\path[draw={rgb,255:red,226;green,42;blue,195}] (16.5, 13) |- (13.75, 13.125) -- (13.75, 12.25);
+	\path[draw={rgb,255:red,145;green,65;blue,172}] (14.25, 12.75) |- (15.25, 12.75) |- (17, 9.5);
+	\path[draw={rgb,255:red,145;green,65;blue,172}] (13.25, 12.75) -| (13.25, 12.25);
+	\path[draw={rgb,255:red,226;green,42;blue,195}] (13.75, 12.75) -- (13.75, 12.25) -| (13.75, 12.5);
+	\path[draw={rgb,255:red,226;green,42;blue,195}] (14.75, 12.75) -- (14.75, 13) -| (15.5, 9.25) -- (15.75, 9.25) -- (17, 9.25);
+	\path[draw={rgb,255:red,226;green,42;blue,195}] (14.75, 10.125) -| (15, 9.25);
+	\path[draw={rgb,255:red,145;green,65;blue,172}] (16.25, 7.5) -- (15.5, 7.5) -- (17, 7.5) -| (15.5, 9) -| (14.75, 10) -| (14.25, 10.25);
+	\node[shape=rectangle, minimum width=3.465cm, minimum height=0.715cm] at (18.5, 12.5){} node[anchor=west, align=left, text width=3.077cm, inner sep=6pt] at (16.75, 12.5){\Large RGB Sensors};
+	\node[waves, xscale=-1.04, yscale=-1.04] at (7.298, 2.5){};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=0.715cm, minimum height=1.965cm] at (7.625, 2.5){};
+	\path[draw={CtpYellow}] (10.563, 6) -- (11.312, 6);
+	\path[draw={CtpFlamingo}] (10.625, 5.5) -- (11.312, 5.5);
+	\path[draw={CtpPink}] (10.875, 5) -| (9, 5) -- (9, 2.75) -- (8.5, 2.75) |- (8, 2.75);
+	\path[draw={CtpBlue}] (11.312, 4.5) -- (9.562, 4.5) -| (9.437, 2.188) -| (8, 2.25);
+	\path[draw={rgb,255:red,17;green,17;blue,27}] (8, 3.25) -- (8.5, 3.25) -| (8.5, 6.25);
+	\path[draw={CtpRed}] (9.75, 4.688) -- (9.75, 1.75) -| (8, 1.5);
+	\path[draw={CtpRed}] (16.5, 1.75) -| (16.5, 0.75);
+	\path[draw={rgb,255:red,17;green,17;blue,27}] (25.75, 1.75) -| (25.75, 1.25);
+	\path[draw={CtpRed}, line width=2pt] (25.5, 6.375) -- (25.5, 4.25) -| (25.5, 3);
+	\path[draw={rgb,255:red,226;green,42;blue,195}] (16.5, 13.125) -- (16.5, 11);
+	\path[draw={rgb,255:red,226;green,42;blue,195}] (16.5, 11) -- (17, 11);
+	\path[draw={rgb,255:red,145;green,65;blue,172}] (16.75, 13.25) -- (16.75, 11.25) -- (17, 11.25);
+	\path[draw={CtpRed}] (17, 6.5) -- (16, 6.5);
+	\path[draw={rgb,255:red,226;green,42;blue,195}] (15, 9.25) -| (15.25, 7.25);
+	\path[draw={rgb,255:red,226;green,42;blue,195}] (15.25, 7.25) -- (17, 7.25);
+	\path[draw={rgb,255:red,17;green,17;blue,27}] (25.75, 1.25) -- (18.5, 1.25) -- (18.5, 0.5);
+	\path[draw={rgb,255:red,17;green,17;blue,27}] (10.75, 0.5) -- (12.562, 0.5);
+	\path[draw={CtpRed}] (9.75, 1.75) |- (10.25, 1.5) -| (10.25, 1.25);
+	\node[shape=rectangle, minimum width=2.215cm, minimum height=2.465cm] at (18.963, 10.912){} node[anchor=north west, align=left, text width=1.827cm, inner sep=6pt] at (17.838, 12.162){SCL:\\- Pink \\SDA:\\- Purple};
+\end{tikzpicture}
+\end{turn}
+\subsection*{Team Member Reports:}
+\label{sec:org043978b}
+\end{document}
