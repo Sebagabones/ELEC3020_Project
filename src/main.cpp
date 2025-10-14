@@ -17,22 +17,53 @@
 #include <TFT_eSPI.h>
 #include <cstdlib>
 
+// TODO:
+#define turnDirection                                                          \
+  1 // update this to turn depending on which button was pressed
+
+/* TODO
+   - RGB sensors connect to task that checks them
+   - ToF sensors logic/connection
+   - Driving logic (partly done)
+   - Drive outside of bounds logic
+   - cycle back to the start of the program  (probably want to check that a
+   robot is directly in front of us and within like, 5 cm and that we have both
+   front sensors touching the edge, and if it is, start program again after
+   turning around
+   - logic for if we cannot find anyone after a few full turns then think of
+   something else to do
+   - reactions for if about to be pushed out
+   - Testing
+
+ */
+
+///////////////////////////////////////////////
+// Pins
 #define ULTRA1 18
 #define ULTRA2 17
+
+#define TOF_INTERUPT_PIN 3
 
 #define MOTOR1_PIN_A 10
 #define MOTOR1_PIN_B 11
 #define MOTOR2_PIN_A 12
 #define MOTOR2_PIN_B 13
+///////////////////////////////////////////////
+
+///////////////////////////////////////////////
+// Directions
 #define FORWARDS 1
 #define BACKWARDS 0
 #define LEFT 0
 #define RIGHT 1
-#define TOF_I2C_NUMBER 2;
-#define FRONT_RIGHT_TCS_I2C_NUMBER 3;
-#define TCAADDR 0x70
+///////////////////////////////////////////////
 
 ///////////////////////////////////////////////
+// TCS
+#define TOF_I2C_NUMBER 2
+#define FRONT_RIGHT_TCS_I2C_NUMBER 3
+#define TCAADDR 0x70
+
 // TCA Helper function
 void tcaselect(uint8_t i) {
   if (i > 7)
@@ -44,11 +75,10 @@ void tcaselect(uint8_t i) {
 }
 ///////////////////////////////////////////////
 
-// #define turn90Counter 1000
 ///////////////////////////////////////////////
 // I2C stuff:
-// #define WIRE1_I2C_PIN_SDA 18
-// #define WIRE1_I2C_PIN_SCL 17
+#define WIRE1_I2C_PIN_SDA 18
+#define WIRE1_I2C_PIN_SCL 17
 ///////////////////////////////////////////////
 
 // #define CHANNEL0 0
@@ -94,6 +124,24 @@ Adafruit_TCS34725 tcs_FR;
 //   }
 // } // This is janky af, find a better way
 ///////////////////////////////////////////////
+struct ultraDistances {
+  double left;
+  double right;
+};
+
+ultraDistances getDistancesAverage(int numOfAvg = 5) {
+  // get an average reading from both sensors
+  double distanceR = 0;
+  double distanceL = 0;
+  for (int i = 0; i < numOfAvg; i++) {
+    distanceR += GetDistance(Ultra1Pin);
+    distanceL += GetDistance(Ultra2Pin);
+  }
+  ultraDistances ultraDistanceValues;
+  ultraDistanceValues.left = distanceL / numOfAvg;
+  ultraDistanceValues.right = distanceR / numOfAvg;
+  return (ultraDistanceValues);
+}
 
 /**
  * @brief Turns the robot
@@ -105,129 +153,107 @@ Adafruit_TCS34725 tcs_FR;
  * once we have done testing we can convert this to the number of degrees to
  * turn
  * @param direction The direction to turn - `0` is left, `1` is right
+ * @param speed The speed to turn at - defaults to 255
  */
-void turn(int timeToTurnFor, int direction) {
+void turn(int timeToTurnFor, int direction, int speed = 255) {
   unsigned long initalMillis = millis();
   if (direction) { // Turn right
     unsigned long currentMillis = millis();
     while (currentMillis - initalMillis < timeToTurnFor) {
-      rightMotor.setSpeedDir(255, BACKWARDS);
+      rightMotor.setSpeedDir(speed, BACKWARDS);
       // rightMotor.setSpeedDir(255, 1);
-      leftMotor.setSpeedDir(255, FORWARDS);
+      leftMotor.setSpeedDir(speed, FORWARDS);
       currentMillis = millis();
-      vTaskDelay(1);
+      vTaskDelay(2);
     }
   } else { // Turn left
     unsigned long currentMillis = millis();
     while (currentMillis - initalMillis < timeToTurnFor) {
-      rightMotor.setSpeedDir(255, FORWARDS);
+      rightMotor.setSpeedDir(speed, FORWARDS);
       // rightMotor.setSpeedDir(255, 1);
-      leftMotor.setSpeedDir(255, BACKWARDS);
+      leftMotor.setSpeedDir(speed, BACKWARDS);
       currentMillis = millis();
-      vTaskDelay(1);
+      vTaskDelay(2);
+    }
+  }
+}
+
+bool searchFunction() {
+  ultraDistances distances = getDistancesAverage(5);
+  while (distances.right > 160 || distances.left > 160) {
+    turn(50, turnDirection, 125);
+    vTaskDelay(5); // 10 ms delay, yields to other tasks
+  }
+  return (true);
+}
+/**
+ * @brief Returns the difference in values between the reading of the left
+ * ultrasonic sensors and the right ultrasonic sensors
+ *
+ *
+ * @return signed int, `distance.left - distance.right`
+ */
+signed int getDirection() {
+  ultraDistances distances = getDistancesAverage(5);
+  return (distances.left - distances.right)
+}
+
+/**
+ * @brief Drive forwards, with possible bias
+ *
+ * @param speed speed to drive forwards at
+ * @param turnBias This is the bias at which to turn - basically difference in
+ * speed between motors. negative biases towards the right, positive biases
+ * towards the left, defaults to zero, keep between -163 <= x <= 163
+ */
+void driveForwards(int speed = 255, signed int turnBias = 0) {
+  if (turnBias) {
+    speedL = speed
+  }
+  unsigned long initalMillis = millis();
+  if (direction) { // Turn right
+    unsigned long currentMillis = millis();
+    while (currentMillis - initalMillis < timeToTurnFor) {
+      rightMotor.setSpeedDir(speed, BACKWARDS);
+      // rightMotor.setSpeedDir(255, 1);
+      leftMotor.setSpeedDir(speed, FORWARDS);
+      currentMillis = millis();
+      vTaskDelay(2);
+    }
+  } else { // Turn left
+    unsigned long currentMillis = millis();
+    while (currentMillis - initalMillis < timeToTurnFor) {
+      rightMotor.setSpeedDir(speed, FORWARDS);
+      // rightMotor.setSpeedDir(255, 1);
+      leftMotor.setSpeedDir(speed, BACKWARDS);
+      currentMillis = millis();
+      vTaskDelay(2);
     }
   }
 }
 /**
  * @brief Effectively the main looping function
  * @details This is the "main" task - pretty much it is `loop()` - important
- * tasks like if we detect the edge of the circle will interuppt this task with
- * a higher priority.
+ * tasks like if we detect the edge of the circle will interuppt this task
+ * with a higher priority.
  *
  * see below for other tasks
  * @param pvParameters parameters for the task, see `setup()`
  */
 void Core0_MainTask(void *pvParameters) {
+  static bool searching = true, robotFound = false;
   while (1) {
     // static int state = 0, L_old = 1, R_old = 1, L, R;
-    tft.setTextColor(TFT_CATPPUCCIN_MAUVE, TFT_CATPPUCCIN_BASE, true);
-    // if (getButtonPressedL()) {
-    double distanceR = GetDistance(Ultra1Pin);
-    double distanceL = GetDistance(Ultra2Pin);
-    // vTaskDelay(10); // 10 ms delay, yields to other tasks
 
-    tft.drawString(String(distanceR) + "cm R", 110, 100);
-    tft.drawString(String(distanceL) + "cm L", 110, 130);
-    // vTaskDelay(10); // 10 ms delay, yields to other tasks
-
-    double distance = min(distanceL, distanceR);
-    int distanceToF = -1;
-    // if (tof1->isInitalised) {
-    // int distanceToF = tof1->readSensor();
-    // Serial.println("distance to ToF is: " + String(distanceToF));
-    // }
-    // tft.drawString("About " + String(distance) + "cm away", 00, 00);
-    // tft.drawString("ToF says " + String(distanceToF) + "cm away", 00,
-    // 10);
-
-    if (distance) {
-      if (distance < 35) {
-        tft.drawString("STOOOOOP   ", 00, 00);
-        if (distanceL >
-            distanceR + 1) { // turn left, this does bias torwards turning to
-                             // the left, probs a good idea to fix someday
-          turn(200, 0);
-
-        } else { // turn right
-          turn(200, 1);
-        }
-        // // tft.drawString("Turning left   ", 00, 10);
-        // // leftTurn();
-        // // tft.drawString("Turned left   ", 00, 10);
-        // Then turn
-      } else {
-        tft.drawString("GOOOOOOOOO  ", 00, 00);
-        signed int speed = map(distance, 10, 100, 30, 255);
-        tft.drawString("                ", 00, 10);
-
-        if (speed > 50) { // Send it
-          rightMotor.setSpeedDir(255, FORWARDS);
-          leftMotor.setSpeedDir(255, FORWARDS);
-        } else {
-          rightMotor.setSpeedDir(abs(speed), !signbit(speed));
-          leftMotor.setSpeedDir(abs(speed), !signbit(speed));
-        }
-      }
+    searching = searchFunction();
+    signed int direction = getDirection();
+    if (direction == 0) {
+      // object is straight ahead
+      //
+    } else if (direction > 0) { // object is to the left
+    } else if (direction < 0) { // object is to the right
     }
-    // else {
-    //   rightMotor.setSpeedDir(0, 0);
-    //   leftMotor.setSpeedDir(0, 0);
-    // }
-    ///////////////////////////////////////////////
-    // ColourSensor
-    // uint16_t c, colorTemp, lux;
-    // float r, g, b;
-    // // tcs_FR.getRawData(&r, &g, &b, &c);
-    // tcs_FR.getRGB(&r, &g, &b);
-    // int red = (int)r;
-    // int green = (int)g;
-    // int blue = (int)b;
-    //
-    // colorTemp = tcs_FR.calculateColorTemperature(r, g, b);
-    // lux = tcs_FR.calculateLux(r, g, b);
-    // char hexColour[8];
-    // std::snprintf(hexColour, sizeof hexColour, "#%02x%02x%02x", red,
-    // green, blue);
-    //
-    // // int hexVal = (int)get_hex(red, green, blue);
-    //
-    // Serial.print("#");
-    // Serial.print(String(hexColour));
-    // Serial.println("");
-    // Serial.print("R: ");
-    // Serial.print(r, DEC);
-    // Serial.print(" ");
-    // Serial.print("G: ");
-    // Serial.print(g, DEC);
-    // Serial.print(" ");
-    // Serial.print("B: ");
-    // Serial.print(b, DEC);
-    // Serial.print(" ");
-    // Serial.print("C: ");
-    // Serial.print(c, DEC);
-    // Serial.print(" ");
-    // Serial.println("");
-    ///////////////////////////////////////////////
+
     vTaskDelay(10); // 10 ms delay, yields to other tasks
   }
 }
@@ -363,3 +389,92 @@ void setup() {
  * TBH it may not need to be here, idk
  */
 void loop() {}
+// old main
+// tft.setTextColor(TFT_CATPPUCCIN_MAUVE, TFT_CATPPUCCIN_BASE, true);
+// // if (getButtonPressedL()) {
+// double distanceR = GetDistance(Ultra1Pin);
+// double distanceL = GetDistance(Ultra2Pin);
+// // vTaskDelay(10); // 10 ms delay, yields to other tasks
+//
+// tft.drawString(String(distanceR) + "cm R", 110, 100);
+// tft.drawString(String(distanceL) + "cm L", 110, 130);
+// // vTaskDelay(10); // 10 ms delay, yields to other tasks
+//
+// double distance = min(distanceL, distanceR);
+// int distanceToF = -1;
+// // if (tof1->isInitalised) {
+// // int distanceToF = tof1->readSensor();
+// // Serial.println("distance to ToF is: " + String(distanceToF));
+// // }
+// // tft.drawString("About " + String(distance) + "cm away", 00, 00);
+// // tft.drawString("ToF says " + String(distanceToF) + "cm away", 00,
+// // 10);
+//
+// if (distance) {
+//   if (distance < 35) {
+//     tft.drawString("STOOOOOP   ", 00, 00);
+//     if (distanceL >
+//         distanceR + 1) { // turn left, this does bias torwards turning to
+//                          // the left, probs a good idea to fix someday
+//       turn(200, 0);
+//
+//     } else { // turn right
+//       turn(200, 1);
+//     }
+//     // // tft.drawString("Turning left   ", 00, 10);
+//     // // leftTurn();
+//     // // tft.drawString("Turned left   ", 00, 10);
+//     // Then turn
+//   } else {
+//     tft.drawString("GOOOOOOOOO  ", 00, 00);
+//     signed int speed = map(distance, 10, 100, 30, 255);
+//     tft.drawString("                ", 00, 10);
+//
+//     if (speed > 50) { // Send it
+//       rightMotor.setSpeedDir(255, FORWARDS);
+//       leftMotor.setSpeedDir(255, FORWARDS);
+//     } else {
+//       rightMotor.setSpeedDir(abs(speed), !signbit(speed));
+//       leftMotor.setSpeedDir(abs(speed), !signbit(speed));
+//     }
+//   }
+// }
+// // else {
+// //   rightMotor.setSpeedDir(0, 0);
+// //   leftMotor.setSpeedDir(0, 0);
+// // }
+// ///////////////////////////////////////////////
+// // ColourSensor
+// // uint16_t c, colorTemp, lux;
+// // float r, g, b;
+// // // tcs_FR.getRawData(&r, &g, &b, &c);
+// // tcs_FR.getRGB(&r, &g, &b);
+// // int red = (int)r;
+// // int green = (int)g;
+// // int blue = (int)b;
+// //
+// // colorTemp = tcs_FR.calculateColorTemperature(r, g, b);
+// // lux = tcs_FR.calculateLux(r, g, b);
+// // char hexColour[8];
+// // std::snprintf(hexColour, sizeof hexColour, "#%02x%02x%02x", red,
+// // green, blue);
+// //
+// // // int hexVal = (int)get_hex(red, green, blue);
+// //
+// // Serial.print("#");
+// // Serial.print(String(hexColour));
+// // Serial.println("");
+// // Serial.print("R: ");
+// // Serial.print(r, DEC);
+// // Serial.print(" ");
+// // Serial.print("G: ");
+// // Serial.print(g, DEC);
+// // Serial.print(" ");
+// // Serial.print("B: ");
+// // Serial.print(b, DEC);
+// // Serial.print(" ");
+// // Serial.print("C: ");
+// // Serial.print(c, DEC);
+// // Serial.print(" ");
+// // Serial.println("");
+// ///////////////////////////////////////////////
