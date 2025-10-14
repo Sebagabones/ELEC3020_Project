@@ -33,6 +33,7 @@
    - logic for if we cannot find anyone after a few full turns then think of
    something else to do
    - reactions for if about to be pushed out
+   - LEDs
    - Testing
 
  */
