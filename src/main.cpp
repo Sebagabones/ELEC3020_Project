@@ -40,6 +40,9 @@
 
 ///////////////////////////////////////////////
 // Pins
+#define PIN_POWER_ON 15 // LCD and battery Power Enable
+#define PIN_LCD_BL 38   // BackLight enable pin (see Dimming.txt)
+
 #define ULTRA1 18
 #define ULTRA2 17
 
@@ -99,6 +102,7 @@ void tcaselect(uint8_t i) {
 /// Tasks
 TaskHandle_t mainTaskHandle = nullptr;
 TaskHandle_t interruptHandlerHandle = nullptr;
+volatile bool restartTask = false;
 ///////////////////////////////////////////////
 
 TFT_eSPI tft = TFT_eSPI(170, 320); // Init screen size
@@ -194,44 +198,38 @@ bool searchFunction() {
  *
  * @return signed int, `distance.left - distance.right`
  */
-signed int getDirection() {
-  ultraDistances distances = getDistancesAverage(5);
-  return (distances.left - distances.right)
+signed int getDirection(int avg = 5) {
+  ultraDistances distances = getDistancesAverage(avg);
+  return (distances.left - distances.right);
 }
 
 /**
  * @brief Drive forwards, with possible bias
  *
+ * @param timeToTurnFor same as in `turn()`
  * @param speed speed to drive forwards at
  * @param turnBias This is the bias at which to turn - basically difference in
  * speed between motors. negative biases towards the right, positive biases
  * towards the left, defaults to zero, keep between -163 <= x <= 163
  */
-void driveForwards(int speed = 255, signed int turnBias = 0) {
+void driveForwards(int timeToTurnFor, int speed = 255,
+                   signed int turnBias = 0) {
+  int speedL = speed;
+  int speedR = speed;
   if (turnBias) {
-    speedL = speed
+    speedR = speed + (turnBias / 2);
+    speedL = speed - (turnBias / 2); // errr, hopefully that works lmao
   }
   unsigned long initalMillis = millis();
-  if (direction) { // Turn right
-    unsigned long currentMillis = millis();
-    while (currentMillis - initalMillis < timeToTurnFor) {
-      rightMotor.setSpeedDir(speed, BACKWARDS);
-      // rightMotor.setSpeedDir(255, 1);
-      leftMotor.setSpeedDir(speed, FORWARDS);
-      currentMillis = millis();
-      vTaskDelay(2);
-    }
-  } else { // Turn left
-    unsigned long currentMillis = millis();
-    while (currentMillis - initalMillis < timeToTurnFor) {
-      rightMotor.setSpeedDir(speed, FORWARDS);
-      // rightMotor.setSpeedDir(255, 1);
-      leftMotor.setSpeedDir(speed, BACKWARDS);
-      currentMillis = millis();
-      vTaskDelay(2);
-    }
+  unsigned long currentMillis = millis();
+  while (currentMillis - initalMillis < timeToTurnFor) {
+    rightMotor.setSpeedDir(speedR, FORWARDS);
+    leftMotor.setSpeedDir(speedL, FORWARDS);
+    currentMillis = millis();
+    vTaskDelay(2);
   }
 }
+
 /**
  * @brief Effectively the main looping function
  * @details This is the "main" task - pretty much it is `loop()` - important
@@ -243,20 +241,18 @@ void driveForwards(int speed = 255, signed int turnBias = 0) {
  */
 void Core0_MainTask(void *pvParameters) {
   static bool searching = true, robotFound = false;
-  while (1) {
-    // static int state = 0, L_old = 1, R_old = 1, L, R;
-
-    searching = searchFunction();
+  // static int state = 0, L_old = 1, R_old = 1, L, R;
+  searching = searchFunction();
+  while (!restartTask) {
     signed int direction = getDirection();
-    if (direction == 0) {
-      // object is straight ahead
-      //
-    } else if (direction > 0) { // object is to the left
-    } else if (direction < 0) { // object is to the right
+    if (abs(direction) > 5) {
+      driveForwards(10, 200, direction);
+    } else {
+      driveForwards(10, 255);
     }
-
     vTaskDelay(10); // 10 ms delay, yields to other tasks
   }
+  vTaskDelay(10); // 10 ms delay, yields to other tasks
 }
 
 /**
@@ -268,25 +264,25 @@ void Core0_MainTask(void *pvParameters) {
  * @param pvParameters parameters for the task, see `setup()`
  */
 void Core0_FrontCircleInterruptHandler(void *pvParameters) {
-  for (;;) {
-    // Sleep until Core1 triggers it
-    ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+  // here we will want to make it turn, until both are in the circle.
+  // Sleep until Core1 triggers it
+  ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
 
-    // Serial.printf("Core0: *** INTERRUPT HANDLER RUNNING ***\n");
+  // Serial.printf("Core0: *** INTERRUPT HANDLER RUNNING ***\n");
 
-    // vTaskDelay(10); // 10 ms delay, yields to other tasks
-    unsigned long initalMillis = millis();
-    unsigned long currentMillis = millis();
-    while (currentMillis - initalMillis <
-           500) { // probably want to have a better way of doing this
-      // DRIVEEEE
-      rightMotor.setSpeedDir(255, !signbit(-1));
-      leftMotor.setSpeedDir(255, !signbit(-1));
-      currentMillis = millis();
-      vTaskDelay(1);
-    }
-    Serial.printf("Core0: Interrupt handler done, resuming work\n");
+  // vTaskDelay(10); // 10 ms delay, yields to other tasks
+  unsigned long initalMillis = millis();
+  unsigned long currentMillis = millis();
+  while (currentMillis - initalMillis <
+         500) { // probably want to have a better way of doing this
+    // DRIVEEEE
+    rightMotor.setSpeedDir(255, !signbit(-1));
+    leftMotor.setSpeedDir(255, !signbit(-1));
+    currentMillis = millis();
+    vTaskDelay(1);
   }
+  Serial.printf("Core0: Interrupt handler done, resuming work\n");
+  restartTask = true;
 }
 
 /**
@@ -330,6 +326,12 @@ void Core1_CircleDetectionFront(void *pvParameters) {
  *
  */
 void setup() {
+  pinMode(PIN_POWER_ON, OUTPUT); // triggers the LCD backlight
+  pinMode(PIN_LCD_BL, OUTPUT);   // BackLight enable pin
+
+  digitalWrite(PIN_POWER_ON, HIGH);
+  digitalWrite(PIN_LCD_BL, HIGH);
+
   Serial.begin(115200);
   analogSetPinAttenuation(
       Ultra1Pin, ADC_2_5db); // Locks our max range for ultrasonic sensors
