@@ -8,6 +8,9 @@
     in {
       devShells.x86_64-linux.default = pkgs.mkShell rec {
         nativeBuildInputs = with pkgs; [
+          doxygen
+          doxygen-awesome-css
+
           (python312.withPackages (ps:
             with ps; [
               pip

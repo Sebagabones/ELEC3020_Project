@@ -1,0 +1,17 @@
+DEVDOVER
+
+We also built devdozer, based off of number 5 from short circuit (include photo of dev dozer and number 5), which allowed us to test both hardware and software before committing to the actual robot
+
+
+
+how it works
+
+sensors
+ - ultrasonic
+ - tof
+ - RGB
+
+Drive stratergy
+ - Tracks
+ - blade
+   - the ramp redirects the force upwards
