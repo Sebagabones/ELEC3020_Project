@@ -37,7 +37,7 @@
    - Testing
 
  */
-
+TFT_eSPI tft = TFT_eSPI(170, 320); // Init screen size
 ///////////////////////////////////////////////
 // Pins
 #define PIN_POWER_ON 15 // LCD and battery Power Enable
@@ -60,15 +60,20 @@
 #define BACKWARDS 0
 #define LEFT 0
 #define RIGHT 1
+
+#define TIME_TO_TURN_AT_EDGE 50
+#define TIME_TO_TURN_90_DEGREE 500
 ///////////////////////////////////////////////
 
 ///////////////////////////////////////////////
-// TCS
+// TCS (I2C multiplexer)
 #define TOF_I2C_NUMBER 2
 #define FRONT_RIGHT_TCS_I2C_NUMBER 3
+#define FRONT_LEFT_TCS_I2C_NUMBER 4
+
 #define TCAADDR 0x70
 
-// TCA Helper function
+//// TCA Helper function
 void tcaselect(uint8_t i) {
   if (i > 7)
     return;
@@ -101,11 +106,12 @@ void tcaselect(uint8_t i) {
 ///////////////////////////////////////////////
 /// Tasks
 TaskHandle_t mainTaskHandle = nullptr;
-TaskHandle_t interruptHandlerHandle = nullptr;
+TaskHandle_t interruptHandlerHandleFR = nullptr;
+TaskHandle_t interruptHandlerHandleFL = nullptr;
+TaskHandle_t interruptHandlerHandleBoth = nullptr;
+
 volatile bool restartTask = false;
 ///////////////////////////////////////////////
-
-TFT_eSPI tft = TFT_eSPI(170, 320); // Init screen size
 
 ///////////////////////////////////////////////
 // I2C stuff:
@@ -114,14 +120,22 @@ TwoWire WireOne = TwoWire(1);
 ///////////////////////////////////////////////
 
 // UltraSonic sonic1 = UltraSonic(TRIGGER_PIN_1, ECHO_PIN_1, MAX_DISTANCE);
+
+///////////////////////////////////////////////
+// Prephials
+//// Motors
 Motor1 rightMotor = Motor1(MOTOR1_PIN_A, MOTOR1_PIN_B);
 Motor2 leftMotor = Motor2(MOTOR2_PIN_A, MOTOR2_PIN_B);
-int Ultra1Pin = ULTRA1; // select the input pin
-int Ultra2Pin = ULTRA2; // select the input pin
-                        //
-ToFSensor *tof1;
+//// Sensors
+int Ultra1Pin = ULTRA1; // select the input pin for the first ultrasonic sensor
+int Ultra2Pin = ULTRA2; // select the input pin for the second ultrasonic sensor
 
-Adafruit_TCS34725 tcs_FR;
+ToFSensor *tof1;          // Time of Flight Sensors
+Adafruit_TCS34725 tcs_FR; // Front Right RGB Sensor
+Adafruit_TCS34725 tcs_FL; // Front Left RGB Sensor
+                          //
+///////////////////////////////////////////////
+
 // void leftTurn() {
 //   for (int i = 0; i < turn90Counter; i++) {
 //     rightMotor.setSpeedDir(255, 1);
@@ -240,78 +254,140 @@ void driveForwards(int timeToTurnFor, int speed = 255,
  * @param pvParameters parameters for the task, see `setup()`
  */
 void Core0_MainTask(void *pvParameters) {
-  static bool searching = true, robotFound = false;
-  // static int state = 0, L_old = 1, R_old = 1, L, R;
-  searching = searchFunction();
-  while (!restartTask) {
-    signed int direction = getDirection();
-    if (abs(direction) > 5) {
-      driveForwards(10, 200, direction);
-    } else {
-      driveForwards(10, 255);
+  for (;;) {
+    static bool searching = true, robotFound = false;
+    // static int state = 0, L_old = 1, R_old = 1, L, R;
+    tft.setTextColor(TFT_CATPPUCCIN_RED);
+    tft.setTextSize(2);
+    tft.drawString("Searching ", 85, 160);
+
+    searching = searchFunction();
+    tft.setTextColor(TFT_CATPPUCCIN_GREEN);
+    tft.drawString("Found     ", 85, 160);
+
+    while (!restartTask) {
+      signed int direction = getDirection();
+      if (abs(direction) > 5) {
+        driveForwards(10, 200, direction);
+      } else {
+        driveForwards(10, 255);
+      }
+      vTaskDelay(10); // 10 ms delay, yields to other tasks
     }
     vTaskDelay(10); // 10 ms delay, yields to other tasks
   }
-  vTaskDelay(10); // 10 ms delay, yields to other tasks
 }
 
 /**
  *@brief Makes sure the robot doesn't drive out of the circle going forwards
+ *when right rgb sensor detects black
  *
  *@details Higher priority task on the main core (core 0) - gets called by
  *`Core1_CircleDetectionFront()` and takes over from `Core0_MainTask()`
  *
  * @param pvParameters parameters for the task, see `setup()`
  */
-void Core0_FrontCircleInterruptHandler(void *pvParameters) {
+void Core0_FrontRightCircleInterruptHandler(void *pvParameters) {
   // here we will want to make it turn, until both are in the circle.
   // Sleep until Core1 triggers it
-  ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+  for (;;) {
+    ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+    tft.drawString("PANIK @ FR     ", 85, 160);
 
-  // Serial.printf("Core0: *** INTERRUPT HANDLER RUNNING ***\n");
+    turn(TIME_TO_TURN_AT_EDGE, LEFT);
 
-  // vTaskDelay(10); // 10 ms delay, yields to other tasks
-  unsigned long initalMillis = millis();
-  unsigned long currentMillis = millis();
-  while (currentMillis - initalMillis <
-         500) { // probably want to have a better way of doing this
-    // DRIVEEEE
-    rightMotor.setSpeedDir(255, !signbit(-1));
-    leftMotor.setSpeedDir(255, !signbit(-1));
-    currentMillis = millis();
     vTaskDelay(1);
   }
-  Serial.printf("Core0: Interrupt handler done, resuming work\n");
+  restartTask = true;
+}
+
+/**
+ *@brief Makes sure the robot doesn't drive out of the circle going forwards
+ *when left rgb sensor detects black
+ *
+ *@details Higher priority task on the main core (core 0) - gets called by
+ *`Core1_CircleDetectionFront()` and takes over from `Core0_MainTask()`
+ *
+ * @param pvParameters parameters for the task, see `setup()`
+ */
+void Core0_FrontLeftCircleInterruptHandler(void *pvParameters) {
+  // here we will want to make it turn, until both are in the circle.
+  // Sleep until Core1 triggers it
+  for (;;) {
+    ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+    tft.drawString("PANIK @ FL     ", 85, 160);
+
+    turn(TIME_TO_TURN_AT_EDGE, RIGHT);
+
+    vTaskDelay(1);
+  }
+  restartTask = true;
+}
+
+/**
+ *@brief Makes sure the robot doesn't drive out of the circle going forwards
+ *when both rgb sensors on the front detect black
+ *
+ *@details Higher priority task on the main core (core 0) - gets called by
+ *`Core1_CircleDetectionFront()` and takes over from `Core0_MainTask()`
+ *
+ * @param pvParameters parameters for the task, see `setup()`
+ */
+void Core0_FrontBothCircleInterruptHandler(void *pvParameters) {
+  // here we will want to make it turn, until both are in the circle.
+  // Sleep until Core1 triggers it
+  for (;;) {
+    ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+    tft.drawString("PANIK @ BOTH   ", 85, 160);
+
+    turn(TIME_TO_TURN_90_DEGREE, LEFT);
+
+    vTaskDelay(1);
+  }
   restartTask = true;
 }
 
 /**
  * Runs on Core 1 (the *non*-main core), constantly checks to see if we are
  * at the edge of the circle, if we are, panik (and call
- * `Core0_FrontCircleInterruptHandler()` to interupt `Core0_MainTask()`
+ * `Core0_FrontRightCircleInterruptHandler()`/`Core0_FrontLeftCircleInterruptHandler()`
+ * to interupt `Core0_MainTask()`
  *
  * @param pvParameters parameters for the task, see `setup()`
  */
 void Core1_CircleDetectionFront(void *pvParameters) {
   int lastCallTime = millis(); // just for testing, remove
   for (;;) {
-    ///////////////////////////////////////////////
-    /// Replace this section with the RGB detection parts
-    Serial.printf("Core1: doing work\n");
-    int timeSinceLast = millis() - lastCallTime;
-    ///////////////////////////////////////////////
+    float rFR, gFR, bFR, rFL, gFL, bFL;
+    float totalFR, totalFL;
+    tcaselect(FRONT_RIGHT_TCS_I2C_NUMBER);
+    tcs_FR.getRGB(&rFR, &gFR, &bFR);
+    tcaselect(FRONT_LEFT_TCS_I2C_NUMBER);
+    tcs_FL.getRGB(&rFL, &gFL, &bFL);
+    totalFR = rFR + bFR + gFR;
+    totalFL = rFL + bFL + gFL;
 
-    if (timeSinceLast > 5000) { // likewise, replace
-      Serial.println("Core1: Condition met, triggering interrupt on Core0!");
+    if (totalFR < 350 && totalFL < 350) { // both are probably not white
       BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-      xTaskNotifyFromISR(interruptHandlerHandle, 0, eNoAction,
+      xTaskNotifyFromISR(interruptHandlerHandleBoth, 0, eNoAction,
                          &xHigherPriorityTaskWoken);
       if (xHigherPriorityTaskWoken)
         portYIELD_FROM_ISR();
-      lastCallTime = millis(); // can be removed
+    } else if (totalFR < 350) {
+      BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+      xTaskNotifyFromISR(interruptHandlerHandleFR, 0, eNoAction,
+                         &xHigherPriorityTaskWoken);
+      if (xHigherPriorityTaskWoken)
+        portYIELD_FROM_ISR();
+    } else if (totalFL < 350) {
+      BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+      xTaskNotifyFromISR(interruptHandlerHandleFL, 0, eNoAction,
+                         &xHigherPriorityTaskWoken);
+      if (xHigherPriorityTaskWoken)
+        portYIELD_FROM_ISR();
     }
     vTaskDelay(
-        10); // May want to keep this but change the timing, dont want to
+        20); // May want to keep this but change the timing, dont want to
              // call the task multiple times on the same "occurance" of
              // the edge of the circle, but also don't want to miss it -
              // we will may want to see if there is a way to share
@@ -341,45 +417,49 @@ void setup() {
       Ultra2Pin, ADC_2_5db); // Locks our max range for ultrasonic sensors
                              // to ~163cm - i think this is enough
   Serial.println("Starting setup...");
-  // wireSetup(WireOne, WIRE1_I2C_PIN_A, WIRE1_I2C_PIN_B, 400000);
-  // Serial.println("WireOne initialized");
-
-  // need to but using as example
 
   setupButtonPresses();
-  // setupHCSR();
 
-  tft.init();                          // Display init
-  Serial.println("TFT initialized");   //
+  tft.init(); // Display init
+
+  tft.setRotation(90);
   tft.fillScreen(TFT_CATPPUCCIN_BASE); // Clear screen
-  Serial.println("Screen filled");
 
   ///////////////////////////////////////////////
   // I2C stuff:
   WireOne.begin(WIRE1_I2C_PIN_SDA, WIRE1_I2C_PIN_SCL, 400000);
-  // Wire.begin(43, 44); // SDA (21), SCL (22) on ESP32, 400 kHz rate
+
   //
   // I2Cscan(&WireOne);
   ///////////////////////////////////////////////
-  tcaselect(TOF_I2C_NUMBER);
-  tof1 = new ToFSensor(&WireOne, TOF_INTERUPT_PIN, 200000,
-                       0); // Set for high accuracy at cost of speed
-  // colourSensor = ColourSensor(0x12,
-  // TCS34725_INTEGRATIONTIME_50MS,
-  //                             TCS34725_GAIN_1X);
+  // tcaselect(TOF_I2C_NUMBER);
+  // tof1 = new ToFSensor(&WireOne, TOF_INTERUPT_PIN, 200000,
+  // 0); // Set for high accuracy at cost of speed
   tcaselect(FRONT_RIGHT_TCS_I2C_NUMBER);
   tcs_FR =
       ColourSensor(&WireOne, TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_1X);
-
+  tcaselect(FRONT_LEFT_TCS_I2C_NUMBER);
+  tcs_FL =
+      ColourSensor(&WireOne, TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_1X);
   tft.fillScreen(TFT_CATPPUCCIN_BASE); // Clear screen
 
   // Core 0 main work (low priority)
   xTaskCreatePinnedToCore(Core0_MainTask, "MainTask", 4096, nullptr, 2,
                           &mainTaskHandle, 0);
 
-  // Core 0 interrupt handler (high priority)
-  xTaskCreatePinnedToCore(Core0_FrontCircleInterruptHandler, "InterruptHandler",
-                          4096, nullptr, 5, &interruptHandlerHandle, 0);
+  // Core 0 Front Right interrupt handler
+  xTaskCreatePinnedToCore(Core0_FrontRightCircleInterruptHandler,
+                          "InterruptHandlerFR", 4096, nullptr, 4,
+                          &interruptHandlerHandleFR, 0);
+
+  // Core 0 Front Left intterupt handler
+  xTaskCreatePinnedToCore(Core0_FrontLeftCircleInterruptHandler,
+                          "InterruptHandlerFL", 4096, nullptr, 4,
+                          &interruptHandlerHandleFL, 0);
+
+  xTaskCreatePinnedToCore(Core0_FrontBothCircleInterruptHandler,
+                          "InterruptHandlerBoth", 4096, nullptr, 5,
+                          &interruptHandlerHandleBoth, 0);
 
   // Core 1 monitor (medium priority)
   xTaskCreatePinnedToCore(Core1_CircleDetectionFront, "MonitorTask", 4096,
@@ -392,92 +472,3 @@ void setup() {
  * TBH it may not need to be here, idk
  */
 void loop() {}
-// old main
-// tft.setTextColor(TFT_CATPPUCCIN_MAUVE, TFT_CATPPUCCIN_BASE, true);
-// // if (getButtonPressedL()) {
-// double distanceR = GetDistance(Ultra1Pin);
-// double distanceL = GetDistance(Ultra2Pin);
-// // vTaskDelay(10); // 10 ms delay, yields to other tasks
-//
-// tft.drawString(String(distanceR) + "cm R", 110, 100);
-// tft.drawString(String(distanceL) + "cm L", 110, 130);
-// // vTaskDelay(10); // 10 ms delay, yields to other tasks
-//
-// double distance = min(distanceL, distanceR);
-// int distanceToF = -1;
-// // if (tof1->isInitalised) {
-// // int distanceToF = tof1->readSensor();
-// // Serial.println("distance to ToF is: " + String(distanceToF));
-// // }
-// // tft.drawString("About " + String(distance) + "cm away", 00, 00);
-// // tft.drawString("ToF says " + String(distanceToF) + "cm away", 00,
-// // 10);
-//
-// if (distance) {
-//   if (distance < 35) {
-//     tft.drawString("STOOOOOP   ", 00, 00);
-//     if (distanceL >
-//         distanceR + 1) { // turn left, this does bias torwards turning to
-//                          // the left, probs a good idea to fix someday
-//       turn(200, 0);
-//
-//     } else { // turn right
-//       turn(200, 1);
-//     }
-//     // // tft.drawString("Turning left   ", 00, 10);
-//     // // leftTurn();
-//     // // tft.drawString("Turned left   ", 00, 10);
-//     // Then turn
-//   } else {
-//     tft.drawString("GOOOOOOOOO  ", 00, 00);
-//     signed int speed = map(distance, 10, 100, 30, 255);
-//     tft.drawString("                ", 00, 10);
-//
-//     if (speed > 50) { // Send it
-//       rightMotor.setSpeedDir(255, FORWARDS);
-//       leftMotor.setSpeedDir(255, FORWARDS);
-//     } else {
-//       rightMotor.setSpeedDir(abs(speed), !signbit(speed));
-//       leftMotor.setSpeedDir(abs(speed), !signbit(speed));
-//     }
-//   }
-// }
-// // else {
-// //   rightMotor.setSpeedDir(0, 0);
-// //   leftMotor.setSpeedDir(0, 0);
-// // }
-// ///////////////////////////////////////////////
-// // ColourSensor
-// // uint16_t c, colorTemp, lux;
-// // float r, g, b;
-// // // tcs_FR.getRawData(&r, &g, &b, &c);
-// // tcs_FR.getRGB(&r, &g, &b);
-// // int red = (int)r;
-// // int green = (int)g;
-// // int blue = (int)b;
-// //
-// // colorTemp = tcs_FR.calculateColorTemperature(r, g, b);
-// // lux = tcs_FR.calculateLux(r, g, b);
-// // char hexColour[8];
-// // std::snprintf(hexColour, sizeof hexColour, "#%02x%02x%02x", red,
-// // green, blue);
-// //
-// // // int hexVal = (int)get_hex(red, green, blue);
-// //
-// // Serial.print("#");
-// // Serial.print(String(hexColour));
-// // Serial.println("");
-// // Serial.print("R: ");
-// // Serial.print(r, DEC);
-// // Serial.print(" ");
-// // Serial.print("G: ");
-// // Serial.print(g, DEC);
-// // Serial.print(" ");
-// // Serial.print("B: ");
-// // Serial.print(b, DEC);
-// // Serial.print(" ");
-// // Serial.print("C: ");
-// // Serial.print(c, DEC);
-// // Serial.print(" ");
-// // Serial.println("");
-// ///////////////////////////////////////////////
