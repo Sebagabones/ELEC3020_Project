@@ -7,7 +7,7 @@
 #include "distance.hpp"
 #include "getHex.hpp"
 #include "i2cBusWire.hpp"
-#include "interupts.cpp"
+
 #include <Adafruit_TCS34725.h>
 #include <AsyncDelay.h>
 #include <DFRobot_URM09.h>
@@ -66,29 +66,18 @@ TFT_eSPI tft = TFT_eSPI(170, 320); // Init screen size
 ///////////////////////////////////////////////
 
 ///////////////////////////////////////////////
+// I2C stuff:
+#define WIRE1_I2C_PIN_SDA 43
+#define WIRE1_I2C_PIN_SCL 44
+///////////////////////////////////////////////
+
+///////////////////////////////////////////////
 // TCS (I2C multiplexer)
 #define TOF_I2C_NUMBER 2
 #define FRONT_RIGHT_TCS_I2C_NUMBER 3
 #define FRONT_LEFT_TCS_I2C_NUMBER 4
 
 #define TCAADDR 0x70
-
-//// TCA Helper function
-void tcaselect(uint8_t i) {
-  if (i > 7)
-    return;
-
-  Wire.beginTransmission(TCAADDR);
-  Wire.write(1 << i);
-  Wire.endTransmission();
-}
-///////////////////////////////////////////////
-
-///////////////////////////////////////////////
-// I2C stuff:
-#define WIRE1_I2C_PIN_SDA 18
-#define WIRE1_I2C_PIN_SCL 17
-///////////////////////////////////////////////
 
 // #define CHANNEL0 0
 // #define CHANNEL1 1
@@ -119,6 +108,18 @@ TwoWire WireOne = TwoWire(1);
 // TwoWire WireTwo = TwoWire(1);
 ///////////////////////////////////////////////
 
+//// TCA Helper function
+void tcaselect(uint8_t i) {
+  if (i > 7)
+    return; //
+  // if (xSemaphoreTake(i2cMutex, portMAX_DELAY) == pdTRUE) {
+  WireOne.beginTransmission(TCAADDR);
+  WireOne.write(1 << i);
+  WireOne.endTransmission();
+  // xSemaphoreGive(i2cMutex);
+  // }
+}
+///////////////////////////////////////////////
 // UltraSonic sonic1 = UltraSonic(TRIGGER_PIN_1, ECHO_PIN_1, MAX_DISTANCE);
 
 ///////////////////////////////////////////////
@@ -149,16 +150,21 @@ struct ultraDistances {
 };
 
 ultraDistances getDistancesAverage(int numOfAvg = 5) {
+
   // get an average reading from both sensors
   double distanceR = 0;
   double distanceL = 0;
   for (int i = 0; i < numOfAvg; i++) {
     distanceR += GetDistance(Ultra1Pin);
     distanceL += GetDistance(Ultra2Pin);
+    Serial.printf("L %i\n", distanceL);
+    Serial.printf("R %i\n", distanceR);
   }
   ultraDistances ultraDistanceValues;
   ultraDistanceValues.left = distanceL / numOfAvg;
   ultraDistanceValues.right = distanceR / numOfAvg;
+  Serial.printf("\n");
+
   return (ultraDistanceValues);
 }
 
@@ -360,10 +366,14 @@ void Core1_CircleDetectionFront(void *pvParameters) {
   for (;;) {
     float rFR, gFR, bFR, rFL, gFL, bFL;
     float totalFR, totalFL;
+    // if (xSemaphoreTake(i2cMutex, portMAX_DELAY) == pdTRUE) {
+
     tcaselect(FRONT_RIGHT_TCS_I2C_NUMBER);
     tcs_FR.getRGB(&rFR, &gFR, &bFR);
     tcaselect(FRONT_LEFT_TCS_I2C_NUMBER);
     tcs_FL.getRGB(&rFL, &gFL, &bFL);
+    //   xSemaphoreGive(i2cMutex);
+    // }
     totalFR = rFR + bFR + gFR;
     totalFL = rFL + bFL + gFL;
 
@@ -429,6 +439,7 @@ void setup() {
   // I2C stuff:
   WireOne.begin(WIRE1_I2C_PIN_SDA, WIRE1_I2C_PIN_SCL, 400000);
 
+  // if (xSemaphoreTake(i2cMutex, 1000 / portTICK_PERIOD_MS) == pdTRUE) {
   //
   // I2Cscan(&WireOne);
   ///////////////////////////////////////////////
@@ -441,6 +452,9 @@ void setup() {
   tcaselect(FRONT_LEFT_TCS_I2C_NUMBER);
   tcs_FL =
       ColourSensor(&WireOne, TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_1X);
+  // xSemaphoreGive(i2cMutex);
+  Serial.println("Semaphore done...");
+  // }
   tft.fillScreen(TFT_CATPPUCCIN_BASE); // Clear screen
 
   // Core 0 main work (low priority)

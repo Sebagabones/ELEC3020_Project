@@ -43,7 +43,7 @@ int ToFSensor::readSensor() {
     Serial.println("tof timeout");
     sensor.init();
   }
-  Serial.println(distance);
+  // Serial.println(distance);
 
   return (distance);
 }

@@ -8,7 +8,7 @@ float GetDistance(int SensorPin) {
    * @return distance (in cm)
    */
   float millivolts = analogReadMilliVolts(SensorPin);
-  Serial.println(String(millivolts));
+  // Serial.println(String(millivolts));
 
   float distance = millivolts * 520 / 4095.0;
   return (distance);
