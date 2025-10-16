@@ -19,29 +19,14 @@
 
 // TODO:
 #define turnDirection                                                          \
-  1 // update this to turn depending on which button was pressed
+  1 // update this to turn on a different direction depending on which button
+    // was pressed
 
-/* TODO
-   - RGB sensors connect to task that checks them
-   - ToF sensors logic/connection
-   - Driving logic (partly done)
-   - Drive outside of bounds logic
-   - cycle back to the start of the program  (probably want to check that a
-   robot is directly in front of us and within like, 5 cm and that we have both
-   front sensors touching the edge, and if it is, start program again after
-   turning around
-   - logic for if we cannot find anyone after a few full turns then think of
-   something else to do
-   - reactions for if about to be pushed out
-   - LEDs
-   - Testing
-
- */
 TFT_eSPI tft = TFT_eSPI(170, 320); // Init screen size
 ///////////////////////////////////////////////
 // Pins
 #define PIN_POWER_ON 15 // LCD and battery Power Enable
-#define PIN_LCD_BL 38   // BackLight enable pin (see Dimming.txt)
+#define PIN_LCD_BL 38
 
 #define ULTRA1 18
 #define ULTRA2 17
@@ -78,19 +63,7 @@ TFT_eSPI tft = TFT_eSPI(170, 320); // Init screen size
 #define FRONT_LEFT_TCS_I2C_NUMBER 4
 
 #define TCAADDR 0x70
-
-// #define CHANNEL0 0
-// #define CHANNEL1 1
-// #define TOTAL_TIME_PERIOD 20
-
-// #define PWM_RESOLUTION 10
-// #define INITIAL_FREQ 50
-// Define TX and RX pins for UART (change if needed)
-// #define TXD1 18
-// #define RXD1 17
-// AsyncDelay async_delay;
-
-// Use Serial1 for UART communication
+///////////////////////////////////////////////
 
 ///////////////////////////////////////////////
 /// Tasks
@@ -105,22 +78,23 @@ volatile bool restartTask = false;
 ///////////////////////////////////////////////
 // I2C stuff:
 TwoWire WireOne = TwoWire(1);
-// TwoWire WireTwo = TwoWire(1);
 ///////////////////////////////////////////////
 
 //// TCA Helper function
+/**
+ * @brief Simple function to select which device we are communicating with on
+ * the I2C multiplexer
+ *
+ * @param i device number (1-8)
+ */
 void tcaselect(uint8_t i) {
   if (i > 7)
-    return; //
-  // if (xSemaphoreTake(i2cMutex, portMAX_DELAY) == pdTRUE) {
+    return;
   WireOne.beginTransmission(TCAADDR);
   WireOne.write(1 << i);
   WireOne.endTransmission();
-  // xSemaphoreGive(i2cMutex);
-  // }
 }
 ///////////////////////////////////////////////
-// UltraSonic sonic1 = UltraSonic(TRIGGER_PIN_1, ECHO_PIN_1, MAX_DISTANCE);
 
 ///////////////////////////////////////////////
 // Prephials
@@ -134,16 +108,7 @@ int Ultra2Pin = ULTRA2; // select the input pin for the second ultrasonic sensor
 ToFSensor *tof1;          // Time of Flight Sensors
 Adafruit_TCS34725 tcs_FR; // Front Right RGB Sensor
 Adafruit_TCS34725 tcs_FL; // Front Left RGB Sensor
-                          //
-///////////////////////////////////////////////
 
-// void leftTurn() {
-//   for (int i = 0; i < turn90Counter; i++) {
-//     rightMotor.setSpeedDir(255, 1);
-//     leftMotor.setSpeedDir(255, 0);
-//   }
-// } // This is janky af, find a better way
-///////////////////////////////////////////////
 struct ultraDistances {
   double left;
   double right;
@@ -157,8 +122,6 @@ ultraDistances getDistancesAverage(int numOfAvg = 5) {
   for (int i = 0; i < numOfAvg; i++) {
     distanceR += GetDistance(Ultra1Pin);
     distanceL += GetDistance(Ultra2Pin);
-    Serial.printf("L %i\n", distanceL);
-    Serial.printf("R %i\n", distanceR);
   }
   ultraDistances ultraDistanceValues;
   ultraDistanceValues.left = distanceL / numOfAvg;
@@ -186,7 +149,6 @@ void turn(int timeToTurnFor, int direction, int speed = 255) {
     unsigned long currentMillis = millis();
     while (currentMillis - initalMillis < timeToTurnFor) {
       rightMotor.setSpeedDir(speed, BACKWARDS);
-      // rightMotor.setSpeedDir(255, 1);
       leftMotor.setSpeedDir(speed, FORWARDS);
       currentMillis = millis();
       vTaskDelay(2);
@@ -195,7 +157,6 @@ void turn(int timeToTurnFor, int direction, int speed = 255) {
     unsigned long currentMillis = millis();
     while (currentMillis - initalMillis < timeToTurnFor) {
       rightMotor.setSpeedDir(speed, FORWARDS);
-      // rightMotor.setSpeedDir(255, 1);
       leftMotor.setSpeedDir(speed, BACKWARDS);
       currentMillis = millis();
       vTaskDelay(2);
@@ -271,16 +232,18 @@ void Core0_MainTask(void *pvParameters) {
     tft.setTextColor(TFT_CATPPUCCIN_GREEN);
     tft.drawString("Found     ", 85, 160);
 
-    while (!restartTask) {
+    while (
+        !restartTask) { // Restart task lets us "restart" the main loop (which
+                        // isn't actually a main loop, instead the MainTask)
       signed int direction = getDirection();
       if (abs(direction) > 5) {
         driveForwards(10, 200, direction);
       } else {
         driveForwards(10, 255);
       }
-      vTaskDelay(10); // 10 ms delay, yields to other tasks
+      vTaskDelay(10);
     }
-    vTaskDelay(10); // 10 ms delay, yields to other tasks
+    vTaskDelay(10);
   }
 }
 
@@ -396,15 +359,7 @@ void Core1_CircleDetectionFront(void *pvParameters) {
       if (xHigherPriorityTaskWoken)
         portYIELD_FROM_ISR();
     }
-    vTaskDelay(
-        20); // May want to keep this but change the timing, dont want to
-             // call the task multiple times on the same "occurance" of
-             // the edge of the circle, but also don't want to miss it -
-             // we will may want to see if there is a way to share
-             // the i2c connection between cores, and set it so that we
-             // can check if we are out of the edge yet - alternatively, if
-             // we have this set to occur at a resonable rate, this could be
-             // the way we tell if we are out of the circle yet, dunno
+    vTaskDelay(20);
   }
 }
 /**
@@ -433,28 +388,23 @@ void setup() {
   tft.init(); // Display init
 
   tft.setRotation(90);
-  tft.fillScreen(TFT_CATPPUCCIN_BASE); // Clear screen
+  tft.fillScreen(TFT_CATPPUCCIN_BASE);
 
-  ///////////////////////////////////////////////
-  // I2C stuff:
   WireOne.begin(WIRE1_I2C_PIN_SDA, WIRE1_I2C_PIN_SCL, 400000);
 
-  // if (xSemaphoreTake(i2cMutex, 1000 / portTICK_PERIOD_MS) == pdTRUE) {
-  //
-  // I2Cscan(&WireOne);
-  ///////////////////////////////////////////////
-  // tcaselect(TOF_I2C_NUMBER);
-  // tof1 = new ToFSensor(&WireOne, TOF_INTERUPT_PIN, 200000,
-  // 0); // Set for high accuracy at cost of speed
+  tcaselect(TOF_I2C_NUMBER);
+  tof1 = new ToFSensor(
+      &WireOne, TOF_INTERUPT_PIN, 200000,
+      0); // Set for high accuracy at cost of speed - we ran out of time to
+          // implement this, idea was to use as a backup to ultrasonic sensors
+
   tcaselect(FRONT_RIGHT_TCS_I2C_NUMBER);
   tcs_FR =
       ColourSensor(&WireOne, TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_1X);
   tcaselect(FRONT_LEFT_TCS_I2C_NUMBER);
   tcs_FL =
       ColourSensor(&WireOne, TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_1X);
-  // xSemaphoreGive(i2cMutex);
   Serial.println("Semaphore done...");
-  // }
   tft.fillScreen(TFT_CATPPUCCIN_BASE); // Clear screen
 
   // Core 0 main work (low priority)
@@ -483,6 +433,6 @@ void setup() {
 /**
  * Needs to be here, but I think for the most part we will be using tasks?
  *
- * TBH it may not need to be here, idk
+ * TBH it may not need to be here, /shrug
  */
 void loop() {}
