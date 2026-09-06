@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['tcaaddr_0',['TCAADDR',['../main_8cpp.html#a5ae0a607449a24cde6acba0e7ad0918b',1,'main.cpp']]],
+  ['tcaselect_1',['tcaselect',['../main_8cpp.html#aa8d3539c1351069c65956d2dad78bb6c',1,'main.cpp']]],
+  ['tcs34725_2ecpp_2',['TCS34725.cpp',['../TCS34725_8cpp.html',1,'']]],
+  ['tcs34725_2ehpp_3',['TCS34725.hpp',['../TCS34725_8hpp.html',1,'']]],
+  ['tcs34725_5faddress_4',['TCS34725_ADDRESS',['../TCS34725_8hpp.html#a7820ab2667efabd476bda3a28ff7cbe9',1,'TCS34725.hpp']]],
+  ['tcs_5ffl_5',['tcs_FL',['../main_8cpp.html#a374ea58724edcdb900d21584ccbddb80',1,'main.cpp']]],
+  ['tcs_5ffr_6',['tcs_FR',['../main_8cpp.html#ae52dcf3da162cf0df5e079aff9d33db1',1,'main.cpp']]],
+  ['tft_7',['tft',['../main_8cpp.html#ac5d2dc3534f30f704fd7529ad0f89ff1',1,'main.cpp']]],
+  ['time_5fto_5fturn_5f90_5fdegree_8',['TIME_TO_TURN_90_DEGREE',['../main_8cpp.html#a7bcc9f7e63571d1908865aa4d37a2e85',1,'main.cpp']]],
+  ['time_5fto_5fturn_5fat_5fedge_9',['TIME_TO_TURN_AT_EDGE',['../main_8cpp.html#a99fda8bc40d465036c2d69f6b377bafa',1,'main.cpp']]],
+  ['tof1_10',['tof1',['../main_8cpp.html#a75a55d4535f4fb126b03a56188169609',1,'main.cpp']]],
+  ['tof_5fi2c_5fnumber_11',['TOF_I2C_NUMBER',['../main_8cpp.html#ac64aac5b20588c6a14a89a6c4d4a9129',1,'main.cpp']]],
+  ['tof_5finterupt_5fpin_12',['TOF_INTERUPT_PIN',['../main_8cpp.html#ac519573689703b308acfa8bf50824979',1,'main.cpp']]],
+  ['tofsensor_13',['ToFSensor',['../classToFSensor.html',1,'ToFSensor'],['../classToFSensor.html#a900654ae65d16c4d6e25eb1fbba9819a',1,'ToFSensor::ToFSensor()']]],
+  ['togglebuttonpressedl_14',['toggleButtonPressedL',['../debouncing_8hpp.html#a647530dd51d6dc9c53a6963701c8004a',1,'debouncing.hpp']]],
+  ['togglebuttonpressedr_15',['toggleButtonPressedR',['../debouncing_8hpp.html#acd5f4cad0716e8e3f3b570fab280ace4',1,'debouncing.hpp']]],
+  ['turn_16',['turn',['../main_8cpp.html#aedf6834bd814409888ac3c328d8d5692',1,'main.cpp']]],
+  ['turndirection_17',['turnDirection',['../main_8cpp.html#a7a16b72eb2bb0dc2fca10805cb62776e',1,'main.cpp']]],
+  ['txbuf_18',['txbuf',['../classURM09.html#a83f5dc452e241dcf3ec58bc58043862c',1,'URM09']]]
+];

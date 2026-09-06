@@ -1,4 +1,4 @@
-% Created 2025-10-06 Mon 21:09
+% Created 2025-10-16 Thu 21:19
 % Intended LaTeX compiler: lualatex
 \documentclass[11pt]{article}
 \usepackage{amsmath}
@@ -13,7 +13,7 @@
 \usepackage{booktabs}
 \usepackage{upquote}
 \usepackage{fvextra}
-\usepackage[latte,styleAll]{catppuccinpalette} \setlength{\parindent}{0pt}  \usepackage{hyperref} \usepackage{scrextend} \usepackage{fvextra} \usepackage{upquote} \usepackage{xcolor}  \hypersetup{colorlinks=false, hidelinks=true} \usepackage{circuitikz} \usepackage{rotating} \usepackage{geometry}  \newgeometry{vmargin={17mm}, hmargin={19mm,19mm}}   % set the margins
+\usepackage[latte,styleAll]{catppuccinpalette} \setlength{\parindent}{0pt}  \usepackage{hyperref} \usepackage{scrextend} \usepackage{fvextra} \usepackage{upquote} \usepackage{xcolor}  \hypersetup{colorlinks=false, hidelinks=true} \usepackage{circuitikz} \usepackage{rotating}  \usepackage{tabularx, colortbl} \usepackage{geometry}  \newgeometry{vmargin={22mm}, hmargin={22mm,22mm}}
 \usepackage{sectsty} \sectionfont{\centering}  %To center heading
 \date{\today}
 \title{}
@@ -24,26 +24,292 @@
  pdfsubject={},
  pdfcreator={},
  pdflang={English}}
+
+% Setup for code blocks [1/2]
+
+\usepackage{fvextra}
+
+\fvset{%
+  commandchars=\\\{\},
+  highlightcolor=white!95!black!80!blue,
+  breaklines=true,
+  breaksymbol=\color{white!60!black}\tiny\ensuremath{\hookrightarrow}}
+
+% Make line numbers smaller and grey.
+\renewcommand\theFancyVerbLine{\footnotesize\color{black!40!white}\arabic{FancyVerbLine}}
+
+\usepackage{xcolor}
+
+% In case engrave-faces-latex-gen-preamble has not been run.
+\providecolor{EfD}{HTML}{f7f7f7}
+\providecolor{EFD}{HTML}{28292e}
+
+% Define a Code environment to prettily wrap the fontified code.
+\usepackage[breakable,xparse]{tcolorbox}
+\DeclareTColorBox[]{Code}{o}%
+{colback=EfD!98!EFD, colframe=EfD!95!EFD,
+  fontupper=\footnotesize\setlength{\fboxsep}{0pt},
+  colupper=EFD,
+  IfNoValueTF={#1}%
+  {boxsep=2pt, arc=2.5pt, outer arc=2.5pt,
+    boxrule=0.5pt, left=2pt}%
+  {boxsep=2.5pt, arc=0pt, outer arc=0pt,
+    boxrule=0pt, leftrule=1.5pt, left=0.5pt},
+  right=2pt, top=1pt, bottom=0.5pt,
+  breakable}
+
+% Support listings with captions
+\usepackage{float}
+\floatstyle{plain}
+\newfloat{listing}{htbp}{lst}
+\newcommand{\listingsname}{Listing}
+\floatname{listing}{\listingsname}
+\newcommand{\listoflistingsname}{List of Listings}
+\providecommand{\listoflistings}{\listof{listing}{\listoflistingsname}}
+
+
+% Setup for code blocks [2/2]: syntax highlighting colors
+
+\newcommand\efstrut{\vrule height 2.1ex depth 0.8ex width 0pt}
+\definecolor{EFD}{HTML}{4c4f69}
+\definecolor{EfD}{HTML}{eff1f5}
+\newcommand{\EFD}[1]{\textcolor{EFD}{#1}} % default
+\newcommand{\EFvp}[1]{#1} % variable-pitch
+\definecolor{EFh}{HTML}{bcc0cc}
+\newcommand{\EFh}[1]{\textcolor{EFh}{#1}} % shadow
+\definecolor{EFsc}{HTML}{40a02b}
+\newcommand{\EFsc}[1]{\textcolor{EFsc}{\textbf{#1}}} % success
+\definecolor{EFw}{HTML}{fe640b}
+\newcommand{\EFw}[1]{\textcolor{EFw}{\textbf{#1}}} % warning
+\definecolor{EFe}{HTML}{d20f39}
+\newcommand{\EFe}[1]{\textcolor{EFe}{\textbf{#1}}} % error
+\definecolor{EFl}{HTML}{1e66f5}
+\newcommand{\EFl}[1]{\textcolor{EFl}{\textbf{#1}}} % link
+\definecolor{EFlv}{HTML}{8839ef}
+\newcommand{\EFlv}[1]{\textcolor{EFlv}{#1}} % link-visited
+\definecolor{EFhi}{HTML}{414868}
+\definecolor{Efhi}{HTML}{e6e9ef}
+\newcommand{\EFhi}[1]{\colorbox{Efhi}{\efstrut{}\textcolor{EFhi}{#1}}} % highlight
+\definecolor{EFc}{HTML}{bcc0cc}
+\newcommand{\EFc}[1]{\textcolor{EFc}{#1}} % font-lock-comment-face
+\definecolor{EFcd}{HTML}{bcc0cc}
+\newcommand{\EFcd}[1]{\textcolor{EFcd}{#1}} % font-lock-comment-delimiter-face
+\definecolor{EFs}{HTML}{40a02b}
+\newcommand{\EFs}[1]{\textcolor{EFs}{#1}} % font-lock-string-face
+\definecolor{EFd}{HTML}{acb0be}
+\newcommand{\EFd}[1]{\textcolor{EFd}{#1}} % font-lock-doc-face
+\definecolor{EFm}{HTML}{fe640b}
+\newcommand{\EFm}[1]{\textcolor{EFm}{#1}} % font-lock-doc-markup-face
+\definecolor{EFk}{HTML}{8839ef}
+\newcommand{\EFk}[1]{\textcolor{EFk}{#1}} % font-lock-keyword-face
+\definecolor{EFb}{HTML}{179299}
+\newcommand{\EFb}[1]{\textcolor{EFb}{#1}} % font-lock-builtin-face
+\definecolor{EFf}{HTML}{1e66f5}
+\newcommand{\EFf}[1]{\textcolor{EFf}{#1}} % font-lock-function-name-face
+\definecolor{EFv}{HTML}{d20f39}
+\newcommand{\EFv}[1]{\textcolor{EFv}{#1}} % font-lock-variable-name-face
+\definecolor{EFt}{HTML}{df8e1d}
+\newcommand{\EFt}[1]{\textcolor{EFt}{#1}} % font-lock-type-face
+\definecolor{EFo}{HTML}{fe640b}
+\newcommand{\EFo}[1]{\textcolor{EFo}{#1}} % font-lock-constant-face
+\definecolor{EFwr}{HTML}{d20f39}
+\newcommand{\EFwr}[1]{\textcolor{EFwr}{\textbf{#1}}} % font-lock-warning-face
+\definecolor{EFnc}{HTML}{40a02b}
+\newcommand{\EFnc}[1]{\textcolor{EFnc}{\textbf{#1}}} % font-lock-negation-char-face
+\definecolor{EFpp}{HTML}{1e66f5}
+\newcommand{\EFpp}[1]{\textcolor{EFpp}{\textbf{#1}}} % font-lock-preprocessor-face
+\definecolor{EFrc}{HTML}{8839ef}
+\newcommand{\EFrc}[1]{\textcolor{EFrc}{\textbf{#1}}} % font-lock-regexp-grouping-construct
+\definecolor{EFrb}{HTML}{df8e1d}
+\newcommand{\EFrb}[1]{\textcolor{EFrb}{\textbf{#1}}} % font-lock-regexp-grouping-backslash
+\definecolor{Efob}{HTML}{e6e9ef}
+\newcommand{\EFob}[1]{\colorbox{Efob}{\efstrut{}#1}} % org-block
+\definecolor{EFobb}{HTML}{bcc0cc}
+\definecolor{Efobb}{HTML}{e6e9ef}
+\newcommand{\EFobb}[1]{\colorbox{Efobb}{\efstrut{}\textcolor{EFobb}{#1}}} % org-block-begin-line
+\definecolor{EFobe}{HTML}{bcc0cc}
+\definecolor{Efobe}{HTML}{e6e9ef}
+\newcommand{\EFobe}[1]{\colorbox{Efobe}{\efstrut{}\textcolor{EFobe}{#1}}} % org-block-end-line
+\definecolor{EFOa}{HTML}{7aa2f7}
+\newcommand{\EFOa}[1]{\textcolor{EFOa}{\textbf{#1}}} % outline-1
+\definecolor{EFOb}{HTML}{bb9af7}
+\newcommand{\EFOb}[1]{\textcolor{EFOb}{\textbf{#1}}} % outline-2
+\definecolor{EFOc}{HTML}{9aa5ce}
+\newcommand{\EFOc}[1]{\textcolor{EFOc}{\textbf{#1}}} % outline-3
+\definecolor{EFOd}{HTML}{9bb9f9}
+\newcommand{\EFOd}[1]{\textcolor{EFOd}{\textbf{#1}}} % outline-4
+\definecolor{EFOe}{HTML}{cbb3f9}
+\newcommand{\EFOe}[1]{\textcolor{EFOe}{\textbf{#1}}} % outline-5
+\definecolor{EFOf}{HTML}{bcd0fb}
+\newcommand{\EFOf}[1]{\textcolor{EFOf}{\textbf{#1}}} % outline-6
+\definecolor{EFOg}{HTML}{ddccfb}
+\newcommand{\EFOg}[1]{\textcolor{EFOg}{\textbf{#1}}} % outline-7
+\definecolor{EFOh}{HTML}{e4ecfd}
+\newcommand{\EFOh}[1]{\textcolor{EFOh}{\textbf{#1}}} % outline-8
+\newcommand{\EFhn}[1]{#1} % highlight-numbers-number
+\newcommand{\EFhq}[1]{#1} % highlight-quoted-quote
+\newcommand{\EFhs}[1]{#1} % highlight-quoted-symbol
+\definecolor{EFrda}{HTML}{8839ef}
+\newcommand{\EFrda}[1]{\textcolor{EFrda}{#1}} % rainbow-delimiters-depth-1-face
+\definecolor{EFrdb}{HTML}{1e66f5}
+\newcommand{\EFrdb}[1]{\textcolor{EFrdb}{#1}} % rainbow-delimiters-depth-2-face
+\definecolor{EFrdc}{HTML}{179299}
+\newcommand{\EFrdc}[1]{\textcolor{EFrdc}{#1}} % rainbow-delimiters-depth-3-face
+\definecolor{EFrdd}{HTML}{40a02b}
+\newcommand{\EFrdd}[1]{\textcolor{EFrdd}{#1}} % rainbow-delimiters-depth-4-face
+\definecolor{EFrde}{HTML}{df8e1d}
+\newcommand{\EFrde}[1]{\textcolor{EFrde}{#1}} % rainbow-delimiters-depth-5-face
+\definecolor{EFrdf}{HTML}{fe640b}
+\newcommand{\EFrdf}[1]{\textcolor{EFrdf}{#1}} % rainbow-delimiters-depth-6-face
+\definecolor{EFrdg}{HTML}{d20f39}
+\newcommand{\EFrdg}[1]{\textcolor{EFrdg}{#1}} % rainbow-delimiters-depth-7-face
+\definecolor{EFrdh}{HTML}{bcc0cc}
+\newcommand{\EFrdh}[1]{\textcolor{EFrdh}{#1}} % rainbow-delimiters-depth-8-face
+\newcommand{\EFrdi}[1]{#1} % rainbow-delimiters-depth-9-face
+\definecolor{EFany}{HTML}{df8e1d}
+\definecolor{Efany}{HTML}{df8e1d}
+\newcommand{\EFany}[1]{\colorbox{Efany}{\efstrut{}\textcolor{EFany}{#1}}} % ansi-color-yellow
+\definecolor{EFanr}{HTML}{d20f39}
+\definecolor{Efanr}{HTML}{d20f39}
+\newcommand{\EFanr}[1]{\colorbox{Efanr}{\efstrut{}\textcolor{EFanr}{#1}}} % ansi-color-red
+\definecolor{EFanb}{HTML}{ccd0da}
+\newcommand{\EFanb}[1]{\textcolor{EFanb}{#1}} % ansi-color-black
+\definecolor{EFang}{HTML}{40a02b}
+\definecolor{Efang}{HTML}{40a02b}
+\newcommand{\EFang}[1]{\colorbox{Efang}{\efstrut{}\textcolor{EFang}{#1}}} % ansi-color-green
+\definecolor{EFanB}{HTML}{1e66f5}
+\definecolor{EfanB}{HTML}{1e66f5}
+\newcommand{\EFanB}[1]{\colorbox{EfanB}{\efstrut{}\textcolor{EFanB}{#1}}} % ansi-color-blue
+\definecolor{EFanc}{HTML}{179299}
+\definecolor{Efanc}{HTML}{179299}
+\newcommand{\EFanc}[1]{\colorbox{Efanc}{\efstrut{}\textcolor{EFanc}{#1}}} % ansi-color-cyan
+\definecolor{Efanw}{HTML}{7287fd}
+\newcommand{\EFanw}[1]{\colorbox{Efanw}{\efstrut{}#1}} % ansi-color-white
+\definecolor{EFanm}{HTML}{8839ef}
+\definecolor{Efanm}{HTML}{8839ef}
+\newcommand{\EFanm}[1]{\colorbox{Efanm}{\efstrut{}\textcolor{EFanm}{#1}}} % ansi-color-magenta
+\definecolor{EFANy}{HTML}{e4bb7e}
+\definecolor{EfANy}{HTML}{e4bb7e}
+\newcommand{\EFANy}[1]{\colorbox{EfANy}{\efstrut{}\textcolor{EFANy}{#1}}} % ansi-color-bright-yellow
+\definecolor{EFANr}{HTML}{f88a9e}
+\definecolor{EfANr}{HTML}{f88a9e}
+\newcommand{\EFANr}[1]{\colorbox{EfANr}{\efstrut{}\textcolor{EFANr}{#1}}} % ansi-color-bright-red
+\definecolor{EFANb}{HTML}{a0aad2}
+\definecolor{EfANb}{HTML}{a0aad2}
+\newcommand{\EFANb}[1]{\colorbox{EfANb}{\efstrut{}\textcolor{EFANb}{#1}}} % ansi-color-bright-black
+\definecolor{EFANg}{HTML}{88dfd1}
+\definecolor{EfANg}{HTML}{88dfd1}
+\newcommand{\EFANg}[1]{\colorbox{EfANg}{\efstrut{}\textcolor{EFANg}{#1}}} % ansi-color-bright-green
+\definecolor{EFANB}{HTML}{8daff8}
+\definecolor{EfANB}{HTML}{8daff8}
+\newcommand{\EFANB}[1]{\colorbox{EfANB}{\efstrut{}\textcolor{EFANB}{#1}}} % ansi-color-bright-blue
+\definecolor{EFANc}{HTML}{bff9f9}
+\definecolor{EfANc}{HTML}{bff9f9}
+\newcommand{\EFANc}[1]{\colorbox{EfANc}{\efstrut{}\textcolor{EFANc}{#1}}} % ansi-color-bright-cyan
+\definecolor{EFANw}{HTML}{c0caf5}
+\definecolor{EfANw}{HTML}{c0caf5}
+\newcommand{\EFANw}[1]{\colorbox{EfANw}{\efstrut{}\textcolor{EFANw}{#1}}} % ansi-color-bright-white
+\definecolor{EFANm}{HTML}{c5a9f8}
+\definecolor{EfANm}{HTML}{c5a9f8}
+\newcommand{\EFANm}[1]{\colorbox{EfANm}{\efstrut{}\textcolor{EFANm}{#1}}} % ansi-color-bright-magenta
 \begin{document}
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{../killdozer.png}
 \end{center}
 \section*{{\color{CtpPink} ELEC3020 Project Design Report}}
-\label{sec:org79c8bc1}
+\label{sec:org3be1770}
 \section*{{\color{CtpPink} Team-27 }}
-\label{sec:orge3676e9}
+\label{sec:org9984cba}
 
 \vspace{25mm}
-\renewcommand{\arraystretch}{5.5}
-\begin{tabular}{@{}p{3.5in}@{}}
-Mia O'Dea: \color{CtpPink}  \underline{\phantom{padddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddding}}  \\
-Sebastian Gazey: \color{CtpPink} \underline{\phantom{padddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddding}} \\
-Sophie Mattingly: \color{CtpPink} \underline{\phantom{paddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddding}} \\
-Carla Schultz: \color{CtpPink} \underline{\phantom{padddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddding}}
-\end{tabular}
-\subsection*{Hardware Circuit Diagram:}
-\label{sec:org775079b}
+\textbf{Signed by:}\\
+\vspace{5mm}
+
+Mia O'Dea \\
+Sebastian Gazey\\
+Sophie Mattingly\\
+Carla Schultz\\
+
+\clearpage
+\subsection*{\textbf{Introduction}}
+\label{sec:orgdced49a}
+The objective of the project is to create a SumoBot using the ESP32 TTGO microcontroller.
+The robot is designed to detect, engage, and push other robot opponents outside a circular ring, while remaining within the white boundary line.
+The project enforces practical implementation of the concepts learnt in the Embedded Systems (ELEC3020) unit.\\
+
+This report documents the complete design, development, and implementation of the custom built SumoBot “KillDozer”.
+\subsection*{Team Contributions}
+\label{sec:org9810dfb}
+The parts that each team member worked on is below:
+\begin{table}[htbp]
+\caption{Team Member Contributions}
+\centering
+\begin{tabularx}{\textwidth}{|X|X|}
+\toprule
+\textbf{Team Member (Student Number)} & \textbf{Contributions}\\
+\midrule
+Sebastian Gazey (23417131) & Design Decisions\\
+ & Project Design Report\\
+ & Software (both strategy and writing the code)\\
+ & Chassis/Parts Design\\
+ & Electronics (purchasing, research, design, assembly/soldering)\\
+ & Assembly\\
+ & 3D printing\\
+ & Testing\\
+ & Bill of Materials\\
+\midrule
+Mia O'Dea (23729581) & Design Decisions\\
+ & Chassis/Parts Design\\
+ & Project Design Report\\
+ & Electronics (soldering, design)\\
+ & Assembly\\
+ & 3D printing\\
+ & Testing\\
+ & Bill of Materials\\
+\midrule
+Carla Schultz (23854485) & Bill of Materials\\
+ & User Manual\\
+ & Marketing Document\\
+ & Project Design Report\\
+\midrule
+Sophie Mattingly (23771898) & Bill of Materials\\
+ & User Manual\\
+ & Marketing Document\\
+ & Project Design Report\\
+\bottomrule
+\end{tabularx}
+\end{table}
+\subsection*{Design Choices}
+\label{sec:orge2fd762}
+There were a few key principles that KillDozer was built around, these being maintaining traction, detection (of opponents and the competition area), and flipping/pushing the opponent.
+\subsubsection*{Traction}
+\label{sec:orga294891}
+A large surface area was crucial to maintaining traction, and as such, KillDozer uses two tracks as the driving system. These had the added benefit of increasing the agility of KillDozer, as differential steering could be used, allowing it to turn on the spot - this system also had the added benefit of reducing the complexity of the steering system (as a separate servo to control a steering axle was not needed).\\
+
+To increase traction even more, KillDozer was going to have Dycem\textsuperscript{tm} attached to the tracks (however, the team ran out of time to implement this).
+\subsubsection*{Detection}
+\label{sec:org8c9292a}
+KillDozer uses two URM09 ultrasonic sensors as the main way to detect opponents. These were chosen due to having a wider field of view than HC-SR04's.\\
+
+There are also RGB colour sensors at the front two corners, to detect if the robot is about to drive out of the circle.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=4in]{/home/bones/Storage/Uniwork/.gitJankness/ELEC3020_Project/RGBSensors.JPG}
+\caption{RGB sensors underneath the blade}
+\end{figure}
+\subsubsection*{Pushing/Flipping}
+\label{sec:org8201b35}
+For this KillDozer has a bulldozer like blade - this has gone through numerous iterations to save weight, the final version:
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=4in]{/home/bones/Storage/Uniwork/.gitJankness/ELEC3020_Project/bladenew.jpg}
+\caption{Bulldozer blade, with URM09 sensors}
+\end{figure}
+\subsection*{Hardware:}
+\label{sec:org0d57bb2}
+\subsubsection*{Circuit Diagram:}
+\label{sec:orgde6fa4e}
 \begin{turn}{90}
 \usetikzlibrary{shapes.geometric}
 \begin{tikzpicture}
@@ -251,6 +517,121 @@ Carla Schultz: \color{CtpPink} \underline{\phantom{paddddddddddddddddddddddddddd
 	\node[shape=rectangle, minimum width=2.215cm, minimum height=2.465cm] at (18.963, 10.912){} node[anchor=north west, align=left, text width=1.827cm, inner sep=6pt] at (17.838, 12.162){SCL:\\- Pink \\SDA:\\- Purple};
 \end{tikzpicture}
 \end{turn}
-\subsection*{Team Member Reports:}
-\label{sec:org043978b}
+\subsubsection*{Chassis:}
+\label{sec:orge4d5d80}
+
+3D-printed with PLA, as we thought it would help us stay underweight, and allowed us to designed complex parts that would be difficult to machine. PLA also is cheap, which was useful for us.\\
+
+The chassis went through multiple iterations, mostly due to our initial robot melting in Week 12 (turns out, don't leave your AliExpress LiPo's in your robot while you charge them). Hence, our marketing does look a little different to our final robot. In the last week, we repurposed the robot we built for testing software on, and modified the chassis from that to fit the blade.\\
+
+This weighed too much, and trying to remove excess material to lighten the robot resulted in it literally tearing itself apart at 23:00 on Wednesday night in Week 12.
+\subsubsection*{Sensors:}
+\label{sec:orgf00d3c8}
+\begin{table}[htbp]
+\caption{Reasoning beheind sensor choices for KillDozer}
+\centering
+\begin{tabularx}{\textwidth}{|X|X|}
+\toprule
+Component & Reason\\
+\midrule
+URM-09 Ultrasonic sensors & Chosen as it provides a wider cone of "view" than a regular HC-SR04, meaning KillDozer needed less ultrasonic sensors.\\
+ & Ultrasonic sensors were chosen over ToF sensors or infrared sensors due to being less impacted by external light sources.\\
+\midrule
+RGB Sensors & Found to provide better responses than regular line sensors, and were more reliable\\
+ & Did require an I2C multiplexer due to the addresses being non-changeable\\
+\midrule
+ToF Sensor & While we found these to be less reliable than ultrasonic sensors, once we set it inside of the blade (so it had a cover from overhead lighting), we found it was accurate enough to determine if there was a robot inside of the bulldozer blade, however this did not end up being successfully implemented in the code/strategy due to running out of time.\\
+ & \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\clearpage
+\subsection*{Software:}
+\label{sec:org9512139}
+\subsubsection*{Software Design Diagram}
+\label{sec:org1430c2b}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.9\linewidth]{../callgraph.png}
+\caption{Software Call Graph}
+\end{figure}
+\subsubsection*{Strategy}
+\label{sec:org07caea3}
+KillDozer uses both of the TTGO's cores, with one (core 1) checking the RGB sensors if the robot is nearing the edge of the circle, and the other (core 0) doing everything else. Core 1 will interrupt the first core's task(s), prioritising moving the robot to safety/telling the robot where to move to next.\\
+
+The main core has a simple program loop - when it starts, it first calls the \texttt{searchFunction()}, which makes the robot turn until it detects an object closer than 1.6 meters away.
+Once this happens, the function returns, and then the main function loops over a set of instructions that tells the robot to drive forwards (if one sensor is closer to the opponent than the other, then it drives forwards with a slight bias towards that direction). This continues until the RGB sensors detect the edge, at which point Core 1 interrupts this task (and sets a flag to break the while loop).\\
+
+The interrupt handler running on Core 0 then handles the movements for the robot to take - if only one sensor is detecting the edge of the circle, the robot turns towards that sensor, until both sensors are touching (this is all done by Core 1 interrupts, using the sensor, so only one core is interfacing with the I2C bus). Turning so both are detecting the edge of the circle is done so that the opponent is definitely pushed out of the circle. Once both sensors are at the edge, the robot turns around 90 degrees, and restarts it's main looping task on Core 0, searching for another opponent.\\
+
+We ran out of time to implement the ToF sensor, but this would have been used to detect if the opponent was inside of the bulldozer blade.\\
+
+
+Using both cores meant that the robot could react immediately to a detection of going outside of the circle, whereas if we were using a single core, we could still use the task based approach to allow for interrupts, but we would not always be able to be checking the sensors, meaning that the robot could possibly go outside of the circle before it could react.
+\begin{listing}[htbp]
+\begin{Code}
+\begin{Verbatim}
+\color{EFD}\EFt{void} \EFf{Core1\_CircleDetectionFront}\EFrda{(}\EFt{void} *\EFv{pvParameters}\EFrda{)} \EFrda{\{}
+  \EFk{for} \EFrdb{(};;\EFrdb{)} \EFrdb{\{}
+    \EFt{float} \EFv{rFR}, \EFv{gFR}, \EFv{bFR}, \EFv{rFL}, \EFv{gFL}, \EFv{bFL};
+    \EFt{float} \EFv{totalFR}, \EFv{totalFL};
+    tcaselect\EFrdc{(}FRONT\_RIGHT\_TCS\_I2C\_NUMBER\EFrdc{)};
+    tcs\_FR.getRGB\EFrdc{(}\&rFR, \&gFR, \&bFR\EFrdc{)};
+    tcaselect\EFrdc{(}FRONT\_LEFT\_TCS\_I2C\_NUMBER\EFrdc{)};
+    tcs\_FL.getRGB\EFrdc{(}\&rFL, \&gFL, \&bFL\EFrdc{)};
+    totalFR = rFR + bFR + gFR;
+    totalFL = rFL + bFL + gFL;
+
+    \EFk{if} \EFrdc{(}totalFR < 350 \&\& totalFL < 350\EFrdc{)} \EFrdc{\{} \EFcd{//} \EFc{both are probably not white}
+      \EFt{BaseType\_t} \EFv{xHigherPriorityTaskWoken} = pdFALSE;
+      xTaskNotifyFromISR\EFrdd{(}interruptHandlerHandleBoth, 0, eNoAction,
+                         \&xHigherPriorityTaskWoken\EFrdd{)};
+      \EFk{if} \EFrdd{(}xHigherPriorityTaskWoken\EFrdd{)}
+        portYIELD\_FROM\_ISR\EFrdd{(}\EFrdd{)};
+    \EFrdc{\}} \EFk{else} \EFk{if} \EFrdc{(}totalFR < 350\EFrdc{)} \EFrdc{\{}
+      \EFt{BaseType\_t} \EFv{xHigherPriorityTaskWoken} = pdFALSE;
+      xTaskNotifyFromISR\EFrdd{(}interruptHandlerHandleFR, 0, eNoAction,
+                         \&xHigherPriorityTaskWoken\EFrdd{)};
+      \EFk{if} \EFrdd{(}xHigherPriorityTaskWoken\EFrdd{)}
+        portYIELD\_FROM\_ISR\EFrdd{(}\EFrdd{)};
+    \EFrdc{\}} \EFk{else} \EFk{if} \EFrdc{(}totalFL < 350\EFrdc{)} \EFrdc{\{}
+      \EFt{BaseType\_t} \EFv{xHigherPriorityTaskWoken} = pdFALSE;
+      xTaskNotifyFromISR\EFrdd{(}interruptHandlerHandleFL, 0, eNoAction,
+                         \&xHigherPriorityTaskWoken\EFrdd{)};
+      \EFk{if} \EFrdd{(}xHigherPriorityTaskWoken\EFrdd{)}
+        portYIELD\_FROM\_ISR\EFrdd{(}\EFrdd{)};
+    \EFrdc{\}}
+    vTaskDelay\EFrdc{(}20\EFrdc{)};
+  \EFrdb{\}}
+\EFrda{\}}
+
+\end{Verbatim}
+\end{Code}
+\caption{The task running on Core 1, which handles the edge detection sensors/logic}
+\end{listing}
+\clearpage
+\subsection*{Bill Of Materials}
+\label{sec:org6fe6ef0}
+\begin{table}[htbp]
+\caption{Reasoning beheind sensor choices for KillDozer}
+\centering
+    \begin{tabularx}{\textwidth}{|X|X|X|X|X|X|}
+    \hline
+        \rowcolor{CtpOverlay1}
+ \textbf{Model Number} & \textbf{Part Name} & \textbf{Supplier} & \textbf{Quantity} & \textbf{Price per part (\$)} & \textbf{Cost (\$AUD)} \\ \hline
+        MDD3A  & DUAL CHANNEL Motor Driver Board & Cytron & 1 & 8.5 & 8.5 \\ \hline
+        ZGY370 & Worm Gear Motor & Aliexpress  & 2 & 4.49 & 8.98 \\ \hline
+        TCS34725 & RGB Colour Sensor  & Aliexpress  & 2 & 2.4 & 4.8 \\ \hline
+        TCA9548A & I2C Multiplexer Board  & Aliexpress  & 1 & 2.14 & 2.14 \\ \hline
+        T100/T400  & Caterpillar Chain Track Pedrail Wheel  & Aliexpress  & 2 & 1.55 & 3.1 \\ \hline
+        URM09  & Ultrasonic distance sensor  & DFROBOT & 2 & 7.9 & 15.8 \\ \hline
+        VLX530 & Time of Flight (ToF) Laser Ranging Sensor & Aliexpress  & 1 & 1.55 & 1.55 \\ \hline
+        PCB & Prototype PCB Board 9x15cm Single-Sided  & Aliexpress  & 1 & 0.31 & 0.31 \\ \hline
+        OPY FLEX1K01 & Filament  & Aliexpress  & 1 & 3.9 & 3.9 \\ \hline
+        M3 & Stainless Steel Cap Head bolts (10pcs) & Maker Store  & 1 & 0.252 & 0.252 \\ \hline
+        IBUW & Dupont Jumper Wire Kit 40-pin 20cm & Aliexpress  & 1 & 0.517 & 0.517 \\ \hline
+        \rowcolor{CtpOverlay1} FINAL PRICE & ~ & ~ & ~ & ~ & 49.8 \\ \hline
+    \end{tabularx}
+\end{table}
 \end{document}

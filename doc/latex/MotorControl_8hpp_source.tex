@@ -1,0 +1,42 @@
+\doxysection{Motor\+Control.\+hpp}
+\hypertarget{MotorControl_8hpp_source}{}\label{MotorControl_8hpp_source}\index{src/MotorControl/MotorControl.hpp@{src/MotorControl/MotorControl.hpp}}
+\mbox{\hyperlink{MotorControl_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ MOTORWRAPPER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ MOTORWRAPPER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <CytronMotorDriver.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classMotor1_af160c941a26e5e42340778123d45f214}{Motor1}}\ \{}
+\DoxyCodeLine{00007\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00008\ \ \ \mbox{\hyperlink{classMotor1_af160c941a26e5e42340778123d45f214}{Motor1}}(\textcolor{keywordtype}{int}\ pinA,\ \textcolor{keywordtype}{int}\ pinB);}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00011\ \ \ \mbox{\hyperlink{classMotor1_aa743a229fe1027605da289d437e2e89b}{setSpeedDir}}(\textcolor{keywordtype}{int}\ speed,}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{signed}\ \textcolor{keywordtype}{int}\ direction);\ \textcolor{comment}{//\ Speed\ can\ be\ from\ 0\ -\/\ 255,\ direction\ is}}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0\ for\ backwards,\ 1\ for\ forwards}}
+\DoxyCodeLine{00014\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMotor1_a9465a632213cfdc98e22a7bc886e8a28}{setSpeed}}(\textcolor{keywordtype}{signed}\ \textcolor{keywordtype}{int}\ speed);\ \ \ \textcolor{comment}{//\ speed\ can\ be\ from\ -\/255\ to\ 255\ -\/\ negative}}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ means\ backwards}}
+\DoxyCodeLine{00016\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMotor1_abd9ece75f940d18ccc022f3f58b8b1b8}{stopMotor}}();}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00019\ \ \ CytronMD\ motor1;}
+\DoxyCodeLine{00020\ \};}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classMotor2_a91cf94fb09db771667c9654fbf79035c}{Motor2}}\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \mbox{\hyperlink{classMotor2_a91cf94fb09db771667c9654fbf79035c}{Motor2}}(\textcolor{keywordtype}{int}\ pinA,\ \textcolor{keywordtype}{int}\ pinB);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00026\ \ \ \mbox{\hyperlink{classMotor2_ab737f7b807578359f6c51bef183ad5ed}{setSpeedDir}}(\textcolor{keywordtype}{int}\ speed,}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{signed}\ \textcolor{keywordtype}{int}\ direction);\ \textcolor{comment}{//\ Speed\ can\ be\ from\ 0\ -\/\ 255,\ direction\ is}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0-\/1\ for\ backwards,\ 1\ for\ forwards}}
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMotor2_ac55f281d60f94efd23519d92bd76287a}{setSpeed}}(\textcolor{keywordtype}{signed}\ \textcolor{keywordtype}{int}\ speed);\ \ \ \textcolor{comment}{//\ speed\ can\ be\ from\ -\/255\ to\ 255\ -\/\ negative}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ means\ backwards}}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classMotor2_a46e6f3557fdedbc736540fa412d3f1ad}{stopMotor}}();}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00034\ \ \ CytronMD\ motor2;}
+\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,19 @@
+\doxysection{TCS34725.\+hpp}
+\hypertarget{TCS34725_8hpp_source}{}\label{TCS34725_8hpp_source}\index{src/Sensors/TCS34725.hpp@{src/Sensors/TCS34725.hpp}}
+\mbox{\hyperlink{TCS34725_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ COLOUR\_SENSOR\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ COLOUR\_SENSOR\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <Adafruit\_TCS34725.h>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ TCS34725\_ADDRESS\ (0x29)\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ Adafruit\_TCS34725\ \mbox{\hyperlink{TCS34725_8hpp_a98ff0fc7d054ec414995400a6dd40095}{ColourSensor}}(TwoWire\ *wire,\ \textcolor{keywordtype}{int}\ integrationTime,}
+\DoxyCodeLine{00007\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tcs34725Gain\_t\ gain)\ \{}
+\DoxyCodeLine{00008\ \ \ Adafruit\_TCS34725\ tcs\ =\ Adafruit\_TCS34725(integrationTime,\ gain);}
+\DoxyCodeLine{00009\ \ \ \textcolor{keywordtype}{bool}\ began\ =\ tcs.begin(\mbox{\hyperlink{TCS34725_8hpp_a7820ab2667efabd476bda3a28ff7cbe9}{TCS34725\_ADDRESS}},\ wire);}
+\DoxyCodeLine{00010\ \ \ \textcolor{keywordflow}{return}\ (tcs);}
+\DoxyCodeLine{00011\ \}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,22 @@
+// Catppuccin Mocha Graphviz Theme
+// https://catppuccin.com/palette
+
+graph [
+    bgcolor="#1e1e2e",  // base
+    fontcolor="#cdd6f4", // text
+    color="#585b70",     // border
+]
+
+node [
+    style=filled,
+    fillcolor="#313244", // surface0
+    color="#f5c2e7",     // mauve outline
+    fontcolor="#cdd6f4",
+    shape=box,
+    penwidth=1.5,
+]
+
+edge [
+    color="#89b4fa",     // sapphire links
+    fontcolor="#b4befe",
+]

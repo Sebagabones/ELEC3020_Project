@@ -1,0 +1,74 @@
+\doxysection{debouncing.\+hpp}
+\hypertarget{debouncing_8hpp_source}{}\label{debouncing_8hpp_source}\index{src/debouncing.hpp@{src/debouncing.hpp}}
+\mbox{\hyperlink{debouncing_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#define\ BUTTON\_L\ 0}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ BUTTON\_R\ 14}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}WiFi.h"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Globals\ -\/\ these\ must\ be\ set\ back\ to\ false\ after\ handling\ a\ button\ press}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{debouncing_8hpp_ad66b2f9258baf4a574a7ecda02faee87}{buttonPressedL}}\ =\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ Flag\ to\ indicate\ button\ press}}
+\DoxyCodeLine{00008\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{debouncing_8hpp_a049190b1ed2e8c2075e0abaa660e3186}{buttonPressedR}}\ =\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ Flag\ to\ indicate\ button\ press}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{debouncing_8hpp_a7d466b68c5e24096e6bcd063f3ab8736}{debounceDelay}}\ =\ 50;\ \textcolor{comment}{//\ Debounce\ delay\ time\ (in\ milliseconds)}}
+\DoxyCodeLine{00011\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{debouncing_8hpp_a10ce68ec0a8977c76887786f6c07821f}{lastPressTimeL}}\ =\ 0;}
+\DoxyCodeLine{00012\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{debouncing_8hpp_af1edc09c80f2b7085b4152aed45a7dc3}{lastPressTimeR}}\ =\ 0;}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{debouncing_8hpp_a80f5470651e0275d03144012c9bc27f4}{getButtonPressedL}}()\ \{\ \textcolor{keywordflow}{return}\ (\mbox{\hyperlink{debouncing_8hpp_ad66b2f9258baf4a574a7ecda02faee87}{buttonPressedL}});\ \}}
+\DoxyCodeLine{00015\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{debouncing_8hpp_af220b67f6d2c13eb6cc211cac134fa5f}{getButtonPressedR}}()\ \{\ \textcolor{keywordflow}{return}\ (\mbox{\hyperlink{debouncing_8hpp_a049190b1ed2e8c2075e0abaa660e3186}{buttonPressedR}});\ \}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{debouncing_8hpp_a18bc788c7c3dec08a8f070d5ef8bb62b}{resetButtonL}}()\ \{}
+\DoxyCodeLine{00018\ \ \ \textcolor{comment}{//\ Updates\ if\ the\ left\ button\ has\ been\ pressed\ down\ -\/\ call\ after\ the\ action}}
+\DoxyCodeLine{00019\ \ \ \textcolor{comment}{//\ that\ should\ have\ been\ run\ after\ left\ button\ press\ to\ "{}reset"{}\ it}}
+\DoxyCodeLine{00020\ \ \ \mbox{\hyperlink{debouncing_8hpp_ad66b2f9258baf4a574a7ecda02faee87}{buttonPressedL}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00021\ \}}
+\DoxyCodeLine{00022\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{debouncing_8hpp_ae9c33edcd0caaa254f307c49b91f6ef7}{resetButtonR}}()\ \{}
+\DoxyCodeLine{00023\ \ \ \textcolor{comment}{//\ Updates\ if\ the\ right\ button\ has\ been\ pressed\ down\ -\/\ call\ after\ the\ action}}
+\DoxyCodeLine{00024\ \ \ \textcolor{comment}{//\ that\ should\ have\ been\ run\ after\ right\ button\ press\ to\ "{}reset"{}\ it}}
+\DoxyCodeLine{00025\ \ \ \mbox{\hyperlink{debouncing_8hpp_a049190b1ed2e8c2075e0abaa660e3186}{buttonPressedR}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00026\ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{debouncing_8hpp_a647530dd51d6dc9c53a6963701c8004a}{toggleButtonPressedL}}()\ \{}
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{debouncing_8hpp_ad66b2f9258baf4a574a7ecda02faee87}{buttonPressedL}})\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{debouncing_8hpp_ad66b2f9258baf4a574a7ecda02faee87}{buttonPressedL}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00031\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{debouncing_8hpp_ad66b2f9258baf4a574a7ecda02faee87}{buttonPressedL}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00033\ \ \ \}}
+\DoxyCodeLine{00034\ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{debouncing_8hpp_acd5f4cad0716e8e3f3b570fab280ace4}{toggleButtonPressedR}}()\ \{}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{debouncing_8hpp_a049190b1ed2e8c2075e0abaa660e3186}{buttonPressedR}})\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{debouncing_8hpp_a049190b1ed2e8c2075e0abaa660e3186}{buttonPressedR}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00040\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{debouncing_8hpp_a049190b1ed2e8c2075e0abaa660e3186}{buttonPressedR}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00042\ \ \ \}}
+\DoxyCodeLine{00043\ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keywordtype}{void}\ IRAM\_ATTR\ \mbox{\hyperlink{debouncing_8hpp_ad7a6fecdb22f28a0fef2fc6383f51af8}{handleButtonPressL}}()\ \{}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ currentTime\ =\ millis();}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordflow}{if}\ (currentTime\ -\/\ \mbox{\hyperlink{debouncing_8hpp_a10ce68ec0a8977c76887786f6c07821f}{lastPressTimeL}}\ >\ \mbox{\hyperlink{debouncing_8hpp_a7d466b68c5e24096e6bcd063f3ab8736}{debounceDelay}})\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{debouncing_8hpp_a10ce68ec0a8977c76887786f6c07821f}{lastPressTimeL}}\ =\ currentTime;}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{debouncing_8hpp_ad66b2f9258baf4a574a7ecda02faee87}{buttonPressedL}}\ =\ \textcolor{keyword}{true};\ \textcolor{comment}{//\ Set\ the\ flag\ when\ button\ is\ pressed}}
+\DoxyCodeLine{00050\ \ \ \}}
+\DoxyCodeLine{00051\ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keywordtype}{void}\ IRAM\_ATTR\ \mbox{\hyperlink{debouncing_8hpp_a0b954346d510af3d92bf238e2f35522f}{handleButtonPressR}}()\ \{}
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ currentTime\ =\ millis();}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordflow}{if}\ (currentTime\ -\/\ \mbox{\hyperlink{debouncing_8hpp_af1edc09c80f2b7085b4152aed45a7dc3}{lastPressTimeR}}\ >\ \mbox{\hyperlink{debouncing_8hpp_a7d466b68c5e24096e6bcd063f3ab8736}{debounceDelay}})\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{debouncing_8hpp_af1edc09c80f2b7085b4152aed45a7dc3}{lastPressTimeR}}\ =\ currentTime;}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{debouncing_8hpp_a049190b1ed2e8c2075e0abaa660e3186}{buttonPressedR}}\ =\ \textcolor{keyword}{true};\ \textcolor{comment}{//\ Set\ the\ flag\ when\ button\ is\ pressed}}
+\DoxyCodeLine{00058\ \ \ \}}
+\DoxyCodeLine{00059\ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{debouncing_8hpp_ab89a447edc763e8d556f21bb6f5f995c}{setupButtonPresses}}()\ \{}
+\DoxyCodeLine{00062\ \ \ pinMode(\mbox{\hyperlink{debouncing_8hpp_a8129b8a94bc4253a26d2263a046c7053}{BUTTON\_L}},\ INPUT\_PULLUP);}
+\DoxyCodeLine{00063\ \ \ pinMode(\mbox{\hyperlink{debouncing_8hpp_ab3c80df399c1411404ac1cf88c4910c8}{BUTTON\_R}},\ INPUT\_PULLUP);}
+\DoxyCodeLine{00064\ \ \ attachInterrupt(digitalPinToInterrupt(\mbox{\hyperlink{debouncing_8hpp_a8129b8a94bc4253a26d2263a046c7053}{BUTTON\_L}}),\ \mbox{\hyperlink{debouncing_8hpp_ad7a6fecdb22f28a0fef2fc6383f51af8}{handleButtonPressL}},}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FALLING);\ \textcolor{comment}{//\ Set\ up\ interrupt\ on\ button\ press\ (rising\ edge)}}
+\DoxyCodeLine{00066\ \ \ attachInterrupt(digitalPinToInterrupt(\mbox{\hyperlink{debouncing_8hpp_ab3c80df399c1411404ac1cf88c4910c8}{BUTTON\_R}}),\ \mbox{\hyperlink{debouncing_8hpp_a0b954346d510af3d92bf238e2f35522f}{handleButtonPressR}},}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FALLING);\ \textcolor{comment}{//\ Set\ up\ interrupt\ on\ button\ press\ (rising\ edge)}}
+\DoxyCodeLine{00068\ \}}
+
+\end{DoxyCode}

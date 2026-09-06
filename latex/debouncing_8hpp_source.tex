@@ -1,0 +1,74 @@
+\doxysection{debouncing.\+hpp}
+\hypertarget{debouncing_8hpp_source}{}\label{debouncing_8hpp_source}\index{src/debouncing.hpp@{src/debouncing.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#define\ BUTTON\_L\ 0}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ BUTTON\_R\ 14}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}WiFi.h"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Globals\ -\/\ these\ must\ be\ set\ back\ to\ false\ after\ handling\ a\ button\ press}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{bool}\ buttonPressedL\ =\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ Flag\ to\ indicate\ button\ press}}
+\DoxyCodeLine{00008\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{bool}\ buttonPressedR\ =\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ Flag\ to\ indicate\ button\ press}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ debounceDelay\ =\ 50;\ \textcolor{comment}{//\ Debounce\ delay\ time\ (in\ milliseconds)}}
+\DoxyCodeLine{00011\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ lastPressTimeL\ =\ 0;}
+\DoxyCodeLine{00012\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ lastPressTimeR\ =\ 0;}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keywordtype}{bool}\ getButtonPressedL()\ \{\ \textcolor{keywordflow}{return}\ (buttonPressedL);\ \}}
+\DoxyCodeLine{00015\ \textcolor{keywordtype}{bool}\ getButtonPressedR()\ \{\ \textcolor{keywordflow}{return}\ (buttonPressedR);\ \}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keywordtype}{void}\ resetButtonL()\ \{}
+\DoxyCodeLine{00018\ \ \ \textcolor{comment}{//\ Updates\ if\ the\ left\ button\ has\ been\ pressed\ down\ -\/\ call\ after\ the\ action}}
+\DoxyCodeLine{00019\ \ \ \textcolor{comment}{//\ that\ should\ have\ been\ run\ after\ left\ button\ press\ to\ "{}reset"{}\ it}}
+\DoxyCodeLine{00020\ \ \ buttonPressedL\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00021\ \}}
+\DoxyCodeLine{00022\ \textcolor{keywordtype}{void}\ resetButtonR()\ \{}
+\DoxyCodeLine{00023\ \ \ \textcolor{comment}{//\ Updates\ if\ the\ right\ button\ has\ been\ pressed\ down\ -\/\ call\ after\ the\ action}}
+\DoxyCodeLine{00024\ \ \ \textcolor{comment}{//\ that\ should\ have\ been\ run\ after\ right\ button\ press\ to\ "{}reset"{}\ it}}
+\DoxyCodeLine{00025\ \ \ buttonPressedR\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00026\ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keywordtype}{void}\ toggleButtonPressedL()\ \{}
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordflow}{if}\ (buttonPressedL)\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ buttonPressedL\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00031\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ buttonPressedL\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00033\ \ \ \}}
+\DoxyCodeLine{00034\ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{void}\ toggleButtonPressedR()\ \{}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordflow}{if}\ (buttonPressedR)\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ buttonPressedR\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00040\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ buttonPressedR\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00042\ \ \ \}}
+\DoxyCodeLine{00043\ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keywordtype}{void}\ IRAM\_ATTR\ handleButtonPressL()\ \{}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ currentTime\ =\ millis();}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordflow}{if}\ (currentTime\ -\/\ lastPressTimeL\ >\ debounceDelay)\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ lastPressTimeL\ =\ currentTime;}
+\DoxyCodeLine{00049\ \ \ \ \ buttonPressedL\ =\ \textcolor{keyword}{true};\ \textcolor{comment}{//\ Set\ the\ flag\ when\ button\ is\ pressed}}
+\DoxyCodeLine{00050\ \ \ \}}
+\DoxyCodeLine{00051\ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keywordtype}{void}\ IRAM\_ATTR\ handleButtonPressR()\ \{}
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ currentTime\ =\ millis();}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordflow}{if}\ (currentTime\ -\/\ lastPressTimeR\ >\ debounceDelay)\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ lastPressTimeR\ =\ currentTime;}
+\DoxyCodeLine{00057\ \ \ \ \ buttonPressedR\ =\ \textcolor{keyword}{true};\ \textcolor{comment}{//\ Set\ the\ flag\ when\ button\ is\ pressed}}
+\DoxyCodeLine{00058\ \ \ \}}
+\DoxyCodeLine{00059\ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keywordtype}{void}\ setupButtonPresses()\ \{}
+\DoxyCodeLine{00062\ \ \ pinMode(BUTTON\_L,\ INPUT\_PULLUP);}
+\DoxyCodeLine{00063\ \ \ pinMode(BUTTON\_R,\ INPUT\_PULLUP);}
+\DoxyCodeLine{00064\ \ \ attachInterrupt(digitalPinToInterrupt(BUTTON\_L),\ handleButtonPressL,}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FALLING);\ \textcolor{comment}{//\ Set\ up\ interrupt\ on\ button\ press\ (rising\ edge)}}
+\DoxyCodeLine{00066\ \ \ attachInterrupt(digitalPinToInterrupt(BUTTON\_R),\ handleButtonPressR,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FALLING);\ \textcolor{comment}{//\ Set\ up\ interrupt\ on\ button\ press\ (rising\ edge)}}
+\DoxyCodeLine{00068\ \}}
+
+\end{DoxyCode}

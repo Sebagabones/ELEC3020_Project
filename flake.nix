@@ -24,7 +24,9 @@
               pygments-markdown-lexer
             ]))
           platformio
+          pdftk
           git
+          graphviz
           libffi
           pkg-config
           libusb-compat-0_1

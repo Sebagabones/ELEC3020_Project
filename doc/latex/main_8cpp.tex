@@ -1,0 +1,697 @@
+\doxysection{src/main.cpp File Reference}
+\hypertarget{main_8cpp}{}\label{main_8cpp}\index{src/main.cpp@{src/main.cpp}}
+{\ttfamily \#include "{}Motor\+Control/\+Motor\+Control.\+hpp"{}}\newline
+{\ttfamily \#include "{}Sensors/\+HC-\/\+SR04.\+hpp"{}}\newline
+{\ttfamily \#include "{}Sensors/\+TCS34725.\+hpp"{}}\newline
+{\ttfamily \#include "{}Sensors/\+VLX53\+L0.\+hpp"{}}\newline
+{\ttfamily \#include "{}Wi\+Fi.\+h"{}}\newline
+{\ttfamily \#include "{}debouncing.\+hpp"{}}\newline
+{\ttfamily \#include "{}distance.\+hpp"{}}\newline
+{\ttfamily \#include "{}get\+Hex.\+hpp"{}}\newline
+{\ttfamily \#include "{}i2c\+Bus\+Wire.\+hpp"{}}\newline
+{\ttfamily \#include $<$Adafruit\+\_\+\+TCS34725.\+h$>$}\newline
+{\ttfamily \#include $<$Async\+Delay.\+h$>$}\newline
+{\ttfamily \#include $<$DFRobot\+\_\+\+URM09.\+h$>$}\newline
+{\ttfamily \#include $<$Mocha\+\_\+\+TFT\+\_\+e\+SPI.\+h$>$}\newline
+{\ttfamily \#include $<$Wire.\+h$>$}\newline
+{\ttfamily \#include $<$TFT\+\_\+e\+SPI.\+h$>$}\newline
+{\ttfamily \#include $<$cstdlib$>$}\newline
+Include dependency graph for main.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structultraDistances}{ultra\+Distances}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a7a16b72eb2bb0dc2fca10805cb62776e}{turn\+Direction}}~1
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a460b4feb5a8446158ae34682a86adb92}{PIN\+\_\+\+POWER\+\_\+\+ON}}~15
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a003b63760ab42341e431d30aab57e679}{PIN\+\_\+\+LCD\+\_\+\+BL}}~38
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a12e3b92b62813d7a4fb8df1084df6e9f}{ULTRA1}}~18
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a2ff16d790a72042c05ece6ae8f08923c}{ULTRA2}}~17
+\item 
+\#define \mbox{\hyperlink{main_8cpp_ac519573689703b308acfa8bf50824979}{TOF\+\_\+\+INTERUPT\+\_\+\+PIN}}~3
+\item 
+\#define \mbox{\hyperlink{main_8cpp_aa08b42a1db977f711c3675e6d04b4e4e}{MOTOR1\+\_\+\+PIN\+\_\+A}}~10
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a82cc20b249d2a0b91e2c2b247023ed6f}{MOTOR1\+\_\+\+PIN\+\_\+B}}~11
+\item 
+\#define \mbox{\hyperlink{main_8cpp_abcf6be9880e6fb4706410fd5e7eb5fd5}{MOTOR2\+\_\+\+PIN\+\_\+A}}~12
+\item 
+\#define \mbox{\hyperlink{main_8cpp_aca32da7fd30335f1f66388953349ad1c}{MOTOR2\+\_\+\+PIN\+\_\+B}}~13
+\item 
+\#define \mbox{\hyperlink{main_8cpp_af8bd8217f4676f967cd1d9712042baf6}{FORWARDS}}~1
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a4440df5c11c855cc62ab734a1a7dee71}{BACKWARDS}}~0
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a437ef08681e7210d6678427030446a54}{LEFT}}~0
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a80fb826a684cf3f0d306b22aa100ddac}{RIGHT}}~1
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a99fda8bc40d465036c2d69f6b377bafa}{TIME\+\_\+\+TO\+\_\+\+TURN\+\_\+\+AT\+\_\+\+EDGE}}~50
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a7bcc9f7e63571d1908865aa4d37a2e85}{TIME\+\_\+\+TO\+\_\+\+TURN\+\_\+90\+\_\+\+DEGREE}}~500
+\item 
+\#define \mbox{\hyperlink{main_8cpp_ac583e2616ce2d35786bea082bca65114}{WIRE1\+\_\+\+I2\+C\+\_\+\+PIN\+\_\+\+SDA}}~43
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a51d9b5c278e1c09a6f14f2d071595f0f}{WIRE1\+\_\+\+I2\+C\+\_\+\+PIN\+\_\+\+SCL}}~44
+\item 
+\#define \mbox{\hyperlink{main_8cpp_ac64aac5b20588c6a14a89a6c4d4a9129}{TOF\+\_\+\+I2\+C\+\_\+\+NUMBER}}~2
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a9d353a03bae4886d0d247c1ff4734927}{FRONT\+\_\+\+RIGHT\+\_\+\+TCS\+\_\+\+I2\+C\+\_\+\+NUMBER}}~3
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a0b415af674a6f6427f084b03bdc69ed0}{FRONT\+\_\+\+LEFT\+\_\+\+TCS\+\_\+\+I2\+C\+\_\+\+NUMBER}}~4
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a5ae0a607449a24cde6acba0e7ad0918b}{TCAADDR}}~0x70
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{main_8cpp_aa8d3539c1351069c65956d2dad78bb6c}{tcaselect}} (uint8\+\_\+t i)
+\begin{DoxyCompactList}\small\item\em Simple function to select which device we are communicating with on the I2C multiplexer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structultraDistances}{ultra\+Distances}} \mbox{\hyperlink{main_8cpp_a1e3a225f52463d08f8fdade52ecff97a}{get\+Distances\+Average}} (int num\+Of\+Avg=5)
+\item 
+void \mbox{\hyperlink{main_8cpp_aedf6834bd814409888ac3c328d8d5692}{turn}} (int time\+To\+Turn\+For, int direction, int speed=255)
+\begin{DoxyCompactList}\small\item\em \sout{Turns} \texorpdfstring{$<$}{<} the robot \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{main_8cpp_ab7b86d33bf3c9d8569027730f9c28078}{search\+Function}} ()
+\item 
+signed int \mbox{\hyperlink{main_8cpp_a95ae1f5fc3a19341a2cb5bc0167fd8d4}{get\+Direction}} (int avg=5)
+\begin{DoxyCompactList}\small\item\em Returns the difference in values between the reading of the left ultrasonic sensors and the right ultrasonic sensors. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_afbf1cac3cbf9a434bfabcc3023659470}{drive\+Forwards}} (int time\+To\+Turn\+For, int speed=255, signed int turn\+Bias=0)
+\begin{DoxyCompactList}\small\item\em Drive forwards, with possible bias. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a3b39a4bd9469a9c59e18e2aa61784d5c}{Core0\+\_\+\+Main\+Task}} (void \texorpdfstring{$\ast$}{*}pv\+Parameters)
+\begin{DoxyCompactList}\small\item\em Effectively the main looping function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a2e3a01a126a856a6581427f775bdf688}{Core0\+\_\+\+Front\+Right\+Circle\+Interrupt\+Handler}} (void \texorpdfstring{$\ast$}{*}pv\+Parameters)
+\begin{DoxyCompactList}\small\item\em Makes sure the robot doesn\textquotesingle{}t drive out of the circle going forwards when right rgb sensor detects black. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a98a762711d22c9c7d36bcd571df24eef}{Core0\+\_\+\+Front\+Left\+Circle\+Interrupt\+Handler}} (void \texorpdfstring{$\ast$}{*}pv\+Parameters)
+\begin{DoxyCompactList}\small\item\em Makes sure the robot doesn\textquotesingle{}t drive out of the circle going forwards when left rgb sensor detects black. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_aefff7a9aa932ddda357a478dfb612786}{Core0\+\_\+\+Front\+Both\+Circle\+Interrupt\+Handler}} (void \texorpdfstring{$\ast$}{*}pv\+Parameters)
+\begin{DoxyCompactList}\small\item\em Makes sure the robot doesn\textquotesingle{}t drive out of the circle going forwards when both rgb sensors on the front detect black. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a6e943a19cd7a30cd19cdb1d03c51da7e}{Core1\+\_\+\+Circle\+Detection\+Front}} (void \texorpdfstring{$\ast$}{*}pv\+Parameters)
+\item 
+void \mbox{\hyperlink{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}{setup}} ()
+\item 
+void \mbox{\hyperlink{main_8cpp_afe461d27b9c48d5921c00d521181f12f}{loop}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+TFT\+\_\+e\+SPI \mbox{\hyperlink{main_8cpp_ac5d2dc3534f30f704fd7529ad0f89ff1}{tft}} = TFT\+\_\+e\+SPI(170, 320)
+\item 
+Task\+Handle\+\_\+t \mbox{\hyperlink{main_8cpp_a8d3505bed85d709e59142f8dd028431f}{main\+Task\+Handle}} = nullptr
+\begin{DoxyCompactList}\small\item\em Tasks. \end{DoxyCompactList}\item 
+Task\+Handle\+\_\+t \mbox{\hyperlink{main_8cpp_a831caf42b22a3cc21f955c43d1d309f0}{interrupt\+Handler\+Handle\+FR}} = nullptr
+\item 
+Task\+Handle\+\_\+t \mbox{\hyperlink{main_8cpp_aa9b7041fb230a0b04099e04559652b4e}{interrupt\+Handler\+Handle\+FL}} = nullptr
+\item 
+Task\+Handle\+\_\+t \mbox{\hyperlink{main_8cpp_a569ba06df8eb50c76911a4e9f038675b}{interrupt\+Handler\+Handle\+Both}} = nullptr
+\item 
+volatile bool \mbox{\hyperlink{main_8cpp_a16564fe46b984d748dd16582ac6ae304}{restart\+Task}} = false
+\item 
+Two\+Wire \mbox{\hyperlink{main_8cpp_a14bace61cf834be6c64f446a7be71bf3}{Wire\+One}} = Two\+Wire(1)
+\item 
+\mbox{\hyperlink{classMotor1}{Motor1}} \mbox{\hyperlink{main_8cpp_aad71ea8fd5cba9b4972d957b07d2fc48}{right\+Motor}} = \mbox{\hyperlink{classMotor1}{Motor1}}(\mbox{\hyperlink{main_8cpp_aa08b42a1db977f711c3675e6d04b4e4e}{MOTOR1\+\_\+\+PIN\+\_\+A}}, \mbox{\hyperlink{main_8cpp_a82cc20b249d2a0b91e2c2b247023ed6f}{MOTOR1\+\_\+\+PIN\+\_\+B}})
+\item 
+\mbox{\hyperlink{classMotor2}{Motor2}} \mbox{\hyperlink{main_8cpp_aa29b61d79eefb0cda5d8bf013bfd1416}{left\+Motor}} = \mbox{\hyperlink{classMotor2}{Motor2}}(\mbox{\hyperlink{main_8cpp_abcf6be9880e6fb4706410fd5e7eb5fd5}{MOTOR2\+\_\+\+PIN\+\_\+A}}, \mbox{\hyperlink{main_8cpp_aca32da7fd30335f1f66388953349ad1c}{MOTOR2\+\_\+\+PIN\+\_\+B}})
+\item 
+int \mbox{\hyperlink{main_8cpp_a71b9343ebbce8c28a81d88cffa8d252d}{Ultra1\+Pin}} = \mbox{\hyperlink{main_8cpp_a12e3b92b62813d7a4fb8df1084df6e9f}{ULTRA1}}
+\item 
+int \mbox{\hyperlink{main_8cpp_a338d831d97c4211f0e53c3ac7a523ec8}{Ultra2\+Pin}} = \mbox{\hyperlink{main_8cpp_a2ff16d790a72042c05ece6ae8f08923c}{ULTRA2}}
+\item 
+\mbox{\hyperlink{classToFSensor}{To\+FSensor}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{main_8cpp_a75a55d4535f4fb126b03a56188169609}{tof1}}
+\item 
+Adafruit\+\_\+\+TCS34725 \mbox{\hyperlink{main_8cpp_ae52dcf3da162cf0df5e079aff9d33db1}{tcs\+\_\+\+FR}}
+\item 
+Adafruit\+\_\+\+TCS34725 \mbox{\hyperlink{main_8cpp_a374ea58724edcdb900d21584ccbddb80}{tcs\+\_\+\+FL}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{main_8cpp_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{main_8cpp_a4440df5c11c855cc62ab734a1a7dee71}\index{main.cpp@{main.cpp}!BACKWARDS@{BACKWARDS}}
+\index{BACKWARDS@{BACKWARDS}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{BACKWARDS}{BACKWARDS}}
+{\footnotesize\ttfamily \label{main_8cpp_a4440df5c11c855cc62ab734a1a7dee71} 
+\#define BACKWARDS~0}
+
+\Hypertarget{main_8cpp_af8bd8217f4676f967cd1d9712042baf6}\index{main.cpp@{main.cpp}!FORWARDS@{FORWARDS}}
+\index{FORWARDS@{FORWARDS}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{FORWARDS}{FORWARDS}}
+{\footnotesize\ttfamily \label{main_8cpp_af8bd8217f4676f967cd1d9712042baf6} 
+\#define FORWARDS~1}
+
+\Hypertarget{main_8cpp_a0b415af674a6f6427f084b03bdc69ed0}\index{main.cpp@{main.cpp}!FRONT\_LEFT\_TCS\_I2C\_NUMBER@{FRONT\_LEFT\_TCS\_I2C\_NUMBER}}
+\index{FRONT\_LEFT\_TCS\_I2C\_NUMBER@{FRONT\_LEFT\_TCS\_I2C\_NUMBER}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{FRONT\_LEFT\_TCS\_I2C\_NUMBER}{FRONT\_LEFT\_TCS\_I2C\_NUMBER}}
+{\footnotesize\ttfamily \label{main_8cpp_a0b415af674a6f6427f084b03bdc69ed0} 
+\#define FRONT\+\_\+\+LEFT\+\_\+\+TCS\+\_\+\+I2\+C\+\_\+\+NUMBER~4}
+
+\Hypertarget{main_8cpp_a9d353a03bae4886d0d247c1ff4734927}\index{main.cpp@{main.cpp}!FRONT\_RIGHT\_TCS\_I2C\_NUMBER@{FRONT\_RIGHT\_TCS\_I2C\_NUMBER}}
+\index{FRONT\_RIGHT\_TCS\_I2C\_NUMBER@{FRONT\_RIGHT\_TCS\_I2C\_NUMBER}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{FRONT\_RIGHT\_TCS\_I2C\_NUMBER}{FRONT\_RIGHT\_TCS\_I2C\_NUMBER}}
+{\footnotesize\ttfamily \label{main_8cpp_a9d353a03bae4886d0d247c1ff4734927} 
+\#define FRONT\+\_\+\+RIGHT\+\_\+\+TCS\+\_\+\+I2\+C\+\_\+\+NUMBER~3}
+
+\Hypertarget{main_8cpp_a437ef08681e7210d6678427030446a54}\index{main.cpp@{main.cpp}!LEFT@{LEFT}}
+\index{LEFT@{LEFT}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{LEFT}{LEFT}}
+{\footnotesize\ttfamily \label{main_8cpp_a437ef08681e7210d6678427030446a54} 
+\#define LEFT~0}
+
+\Hypertarget{main_8cpp_aa08b42a1db977f711c3675e6d04b4e4e}\index{main.cpp@{main.cpp}!MOTOR1\_PIN\_A@{MOTOR1\_PIN\_A}}
+\index{MOTOR1\_PIN\_A@{MOTOR1\_PIN\_A}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{MOTOR1\_PIN\_A}{MOTOR1\_PIN\_A}}
+{\footnotesize\ttfamily \label{main_8cpp_aa08b42a1db977f711c3675e6d04b4e4e} 
+\#define MOTOR1\+\_\+\+PIN\+\_\+A~10}
+
+\Hypertarget{main_8cpp_a82cc20b249d2a0b91e2c2b247023ed6f}\index{main.cpp@{main.cpp}!MOTOR1\_PIN\_B@{MOTOR1\_PIN\_B}}
+\index{MOTOR1\_PIN\_B@{MOTOR1\_PIN\_B}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{MOTOR1\_PIN\_B}{MOTOR1\_PIN\_B}}
+{\footnotesize\ttfamily \label{main_8cpp_a82cc20b249d2a0b91e2c2b247023ed6f} 
+\#define MOTOR1\+\_\+\+PIN\+\_\+B~11}
+
+\Hypertarget{main_8cpp_abcf6be9880e6fb4706410fd5e7eb5fd5}\index{main.cpp@{main.cpp}!MOTOR2\_PIN\_A@{MOTOR2\_PIN\_A}}
+\index{MOTOR2\_PIN\_A@{MOTOR2\_PIN\_A}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{MOTOR2\_PIN\_A}{MOTOR2\_PIN\_A}}
+{\footnotesize\ttfamily \label{main_8cpp_abcf6be9880e6fb4706410fd5e7eb5fd5} 
+\#define MOTOR2\+\_\+\+PIN\+\_\+A~12}
+
+\Hypertarget{main_8cpp_aca32da7fd30335f1f66388953349ad1c}\index{main.cpp@{main.cpp}!MOTOR2\_PIN\_B@{MOTOR2\_PIN\_B}}
+\index{MOTOR2\_PIN\_B@{MOTOR2\_PIN\_B}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{MOTOR2\_PIN\_B}{MOTOR2\_PIN\_B}}
+{\footnotesize\ttfamily \label{main_8cpp_aca32da7fd30335f1f66388953349ad1c} 
+\#define MOTOR2\+\_\+\+PIN\+\_\+B~13}
+
+\Hypertarget{main_8cpp_a003b63760ab42341e431d30aab57e679}\index{main.cpp@{main.cpp}!PIN\_LCD\_BL@{PIN\_LCD\_BL}}
+\index{PIN\_LCD\_BL@{PIN\_LCD\_BL}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{PIN\_LCD\_BL}{PIN\_LCD\_BL}}
+{\footnotesize\ttfamily \label{main_8cpp_a003b63760ab42341e431d30aab57e679} 
+\#define PIN\+\_\+\+LCD\+\_\+\+BL~38}
+
+\Hypertarget{main_8cpp_a460b4feb5a8446158ae34682a86adb92}\index{main.cpp@{main.cpp}!PIN\_POWER\_ON@{PIN\_POWER\_ON}}
+\index{PIN\_POWER\_ON@{PIN\_POWER\_ON}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{PIN\_POWER\_ON}{PIN\_POWER\_ON}}
+{\footnotesize\ttfamily \label{main_8cpp_a460b4feb5a8446158ae34682a86adb92} 
+\#define PIN\+\_\+\+POWER\+\_\+\+ON~15}
+
+\Hypertarget{main_8cpp_a80fb826a684cf3f0d306b22aa100ddac}\index{main.cpp@{main.cpp}!RIGHT@{RIGHT}}
+\index{RIGHT@{RIGHT}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{RIGHT}{RIGHT}}
+{\footnotesize\ttfamily \label{main_8cpp_a80fb826a684cf3f0d306b22aa100ddac} 
+\#define RIGHT~1}
+
+\Hypertarget{main_8cpp_a5ae0a607449a24cde6acba0e7ad0918b}\index{main.cpp@{main.cpp}!TCAADDR@{TCAADDR}}
+\index{TCAADDR@{TCAADDR}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{TCAADDR}{TCAADDR}}
+{\footnotesize\ttfamily \label{main_8cpp_a5ae0a607449a24cde6acba0e7ad0918b} 
+\#define TCAADDR~0x70}
+
+\Hypertarget{main_8cpp_a7bcc9f7e63571d1908865aa4d37a2e85}\index{main.cpp@{main.cpp}!TIME\_TO\_TURN\_90\_DEGREE@{TIME\_TO\_TURN\_90\_DEGREE}}
+\index{TIME\_TO\_TURN\_90\_DEGREE@{TIME\_TO\_TURN\_90\_DEGREE}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{TIME\_TO\_TURN\_90\_DEGREE}{TIME\_TO\_TURN\_90\_DEGREE}}
+{\footnotesize\ttfamily \label{main_8cpp_a7bcc9f7e63571d1908865aa4d37a2e85} 
+\#define TIME\+\_\+\+TO\+\_\+\+TURN\+\_\+90\+\_\+\+DEGREE~500}
+
+\Hypertarget{main_8cpp_a99fda8bc40d465036c2d69f6b377bafa}\index{main.cpp@{main.cpp}!TIME\_TO\_TURN\_AT\_EDGE@{TIME\_TO\_TURN\_AT\_EDGE}}
+\index{TIME\_TO\_TURN\_AT\_EDGE@{TIME\_TO\_TURN\_AT\_EDGE}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{TIME\_TO\_TURN\_AT\_EDGE}{TIME\_TO\_TURN\_AT\_EDGE}}
+{\footnotesize\ttfamily \label{main_8cpp_a99fda8bc40d465036c2d69f6b377bafa} 
+\#define TIME\+\_\+\+TO\+\_\+\+TURN\+\_\+\+AT\+\_\+\+EDGE~50}
+
+\Hypertarget{main_8cpp_ac64aac5b20588c6a14a89a6c4d4a9129}\index{main.cpp@{main.cpp}!TOF\_I2C\_NUMBER@{TOF\_I2C\_NUMBER}}
+\index{TOF\_I2C\_NUMBER@{TOF\_I2C\_NUMBER}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{TOF\_I2C\_NUMBER}{TOF\_I2C\_NUMBER}}
+{\footnotesize\ttfamily \label{main_8cpp_ac64aac5b20588c6a14a89a6c4d4a9129} 
+\#define TOF\+\_\+\+I2\+C\+\_\+\+NUMBER~2}
+
+\Hypertarget{main_8cpp_ac519573689703b308acfa8bf50824979}\index{main.cpp@{main.cpp}!TOF\_INTERUPT\_PIN@{TOF\_INTERUPT\_PIN}}
+\index{TOF\_INTERUPT\_PIN@{TOF\_INTERUPT\_PIN}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{TOF\_INTERUPT\_PIN}{TOF\_INTERUPT\_PIN}}
+{\footnotesize\ttfamily \label{main_8cpp_ac519573689703b308acfa8bf50824979} 
+\#define TOF\+\_\+\+INTERUPT\+\_\+\+PIN~3}
+
+\Hypertarget{main_8cpp_a7a16b72eb2bb0dc2fca10805cb62776e}\index{main.cpp@{main.cpp}!turnDirection@{turnDirection}}
+\index{turnDirection@{turnDirection}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{turnDirection}{turnDirection}}
+{\footnotesize\ttfamily \label{main_8cpp_a7a16b72eb2bb0dc2fca10805cb62776e} 
+\#define turn\+Direction~1}
+
+\Hypertarget{main_8cpp_a12e3b92b62813d7a4fb8df1084df6e9f}\index{main.cpp@{main.cpp}!ULTRA1@{ULTRA1}}
+\index{ULTRA1@{ULTRA1}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{ULTRA1}{ULTRA1}}
+{\footnotesize\ttfamily \label{main_8cpp_a12e3b92b62813d7a4fb8df1084df6e9f} 
+\#define ULTRA1~18}
+
+\Hypertarget{main_8cpp_a2ff16d790a72042c05ece6ae8f08923c}\index{main.cpp@{main.cpp}!ULTRA2@{ULTRA2}}
+\index{ULTRA2@{ULTRA2}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{ULTRA2}{ULTRA2}}
+{\footnotesize\ttfamily \label{main_8cpp_a2ff16d790a72042c05ece6ae8f08923c} 
+\#define ULTRA2~17}
+
+\Hypertarget{main_8cpp_a51d9b5c278e1c09a6f14f2d071595f0f}\index{main.cpp@{main.cpp}!WIRE1\_I2C\_PIN\_SCL@{WIRE1\_I2C\_PIN\_SCL}}
+\index{WIRE1\_I2C\_PIN\_SCL@{WIRE1\_I2C\_PIN\_SCL}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{WIRE1\_I2C\_PIN\_SCL}{WIRE1\_I2C\_PIN\_SCL}}
+{\footnotesize\ttfamily \label{main_8cpp_a51d9b5c278e1c09a6f14f2d071595f0f} 
+\#define WIRE1\+\_\+\+I2\+C\+\_\+\+PIN\+\_\+\+SCL~44}
+
+\Hypertarget{main_8cpp_ac583e2616ce2d35786bea082bca65114}\index{main.cpp@{main.cpp}!WIRE1\_I2C\_PIN\_SDA@{WIRE1\_I2C\_PIN\_SDA}}
+\index{WIRE1\_I2C\_PIN\_SDA@{WIRE1\_I2C\_PIN\_SDA}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{WIRE1\_I2C\_PIN\_SDA}{WIRE1\_I2C\_PIN\_SDA}}
+{\footnotesize\ttfamily \label{main_8cpp_ac583e2616ce2d35786bea082bca65114} 
+\#define WIRE1\+\_\+\+I2\+C\+\_\+\+PIN\+\_\+\+SDA~43}
+
+
+
+\label{doc-func-members}
+\Hypertarget{main_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8cpp_aefff7a9aa932ddda357a478dfb612786}\index{main.cpp@{main.cpp}!Core0\_FrontBothCircleInterruptHandler@{Core0\_FrontBothCircleInterruptHandler}}
+\index{Core0\_FrontBothCircleInterruptHandler@{Core0\_FrontBothCircleInterruptHandler}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{Core0\_FrontBothCircleInterruptHandler()}{Core0\_FrontBothCircleInterruptHandler()}}
+{\footnotesize\ttfamily \label{main_8cpp_aefff7a9aa932ddda357a478dfb612786} 
+void Core0\+\_\+\+Front\+Both\+Circle\+Interrupt\+Handler (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Parameters}{}\end{DoxyParamCaption})}
+
+
+
+Makes sure the robot doesn\textquotesingle{}t drive out of the circle going forwards when both rgb sensors on the front detect black. 
+
+Higher priority task on the main core (core 0) -\/ gets called by {\ttfamily \doxylink{main_8cpp_a6e943a19cd7a30cd19cdb1d03c51da7e}{Core1\+\_\+\+Circle\+Detection\+Front()}} and takes over from {\ttfamily \doxylink{main_8cpp_a3b39a4bd9469a9c59e18e2aa61784d5c}{Core0\+\_\+\+Main\+Task()}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & parameters for the task, see {\ttfamily \doxylink{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}{setup()}} \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{main_8cpp_aefff7a9aa932ddda357a478dfb612786_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{main_8cpp_aefff7a9aa932ddda357a478dfb612786_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{main_8cpp_a98a762711d22c9c7d36bcd571df24eef}\index{main.cpp@{main.cpp}!Core0\_FrontLeftCircleInterruptHandler@{Core0\_FrontLeftCircleInterruptHandler}}
+\index{Core0\_FrontLeftCircleInterruptHandler@{Core0\_FrontLeftCircleInterruptHandler}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{Core0\_FrontLeftCircleInterruptHandler()}{Core0\_FrontLeftCircleInterruptHandler()}}
+{\footnotesize\ttfamily \label{main_8cpp_a98a762711d22c9c7d36bcd571df24eef} 
+void Core0\+\_\+\+Front\+Left\+Circle\+Interrupt\+Handler (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Parameters}{}\end{DoxyParamCaption})}
+
+
+
+Makes sure the robot doesn\textquotesingle{}t drive out of the circle going forwards when left rgb sensor detects black. 
+
+Higher priority task on the main core (core 0) -\/ gets called by {\ttfamily \doxylink{main_8cpp_a6e943a19cd7a30cd19cdb1d03c51da7e}{Core1\+\_\+\+Circle\+Detection\+Front()}} and takes over from {\ttfamily \doxylink{main_8cpp_a3b39a4bd9469a9c59e18e2aa61784d5c}{Core0\+\_\+\+Main\+Task()}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & parameters for the task, see {\ttfamily \doxylink{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}{setup()}} \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{main_8cpp_a98a762711d22c9c7d36bcd571df24eef_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=321pt]{main_8cpp_a98a762711d22c9c7d36bcd571df24eef_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{main_8cpp_a2e3a01a126a856a6581427f775bdf688}\index{main.cpp@{main.cpp}!Core0\_FrontRightCircleInterruptHandler@{Core0\_FrontRightCircleInterruptHandler}}
+\index{Core0\_FrontRightCircleInterruptHandler@{Core0\_FrontRightCircleInterruptHandler}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{Core0\_FrontRightCircleInterruptHandler()}{Core0\_FrontRightCircleInterruptHandler()}}
+{\footnotesize\ttfamily \label{main_8cpp_a2e3a01a126a856a6581427f775bdf688} 
+void Core0\+\_\+\+Front\+Right\+Circle\+Interrupt\+Handler (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Parameters}{}\end{DoxyParamCaption})}
+
+
+
+Makes sure the robot doesn\textquotesingle{}t drive out of the circle going forwards when right rgb sensor detects black. 
+
+Higher priority task on the main core (core 0) -\/ gets called by {\ttfamily \doxylink{main_8cpp_a6e943a19cd7a30cd19cdb1d03c51da7e}{Core1\+\_\+\+Circle\+Detection\+Front()}} and takes over from {\ttfamily \doxylink{main_8cpp_a3b39a4bd9469a9c59e18e2aa61784d5c}{Core0\+\_\+\+Main\+Task()}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & parameters for the task, see {\ttfamily \doxylink{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}{setup()}} \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=321pt]{main_8cpp_a2e3a01a126a856a6581427f775bdf688_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=329pt]{main_8cpp_a2e3a01a126a856a6581427f775bdf688_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{main_8cpp_a3b39a4bd9469a9c59e18e2aa61784d5c}\index{main.cpp@{main.cpp}!Core0\_MainTask@{Core0\_MainTask}}
+\index{Core0\_MainTask@{Core0\_MainTask}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{Core0\_MainTask()}{Core0\_MainTask()}}
+{\footnotesize\ttfamily \label{main_8cpp_a3b39a4bd9469a9c59e18e2aa61784d5c} 
+void Core0\+\_\+\+Main\+Task (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Parameters}{}\end{DoxyParamCaption})}
+
+
+
+Effectively the main looping function. 
+
+This is the "{}main"{} task -\/ pretty much it is {\ttfamily \doxylink{main_8cpp_afe461d27b9c48d5921c00d521181f12f}{loop()}} -\/ important tasks like if we detect the edge of the circle will interuppt this task with a higher priority.
+
+see below for other tasks 
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & parameters for the task, see {\ttfamily \doxylink{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}{setup()}} \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8cpp_a3b39a4bd9469a9c59e18e2aa61784d5c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=255pt]{main_8cpp_a3b39a4bd9469a9c59e18e2aa61784d5c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{main_8cpp_a6e943a19cd7a30cd19cdb1d03c51da7e}\index{main.cpp@{main.cpp}!Core1\_CircleDetectionFront@{Core1\_CircleDetectionFront}}
+\index{Core1\_CircleDetectionFront@{Core1\_CircleDetectionFront}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{Core1\_CircleDetectionFront()}{Core1\_CircleDetectionFront()}}
+{\footnotesize\ttfamily \label{main_8cpp_a6e943a19cd7a30cd19cdb1d03c51da7e} 
+void Core1\+\_\+\+Circle\+Detection\+Front (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Parameters}{}\end{DoxyParamCaption})}
+
+Runs on Core 1 (the {\itshape non}-\/main core), constantly checks to see if we are at the edge of the circle, if we are, panik (and call {\ttfamily \doxylink{main_8cpp_a2e3a01a126a856a6581427f775bdf688}{Core0\+\_\+\+Front\+Right\+Circle\+Interrupt\+Handler()}}/{\ttfamily \doxylink{main_8cpp_a98a762711d22c9c7d36bcd571df24eef}{Core0\+\_\+\+Front\+Left\+Circle\+Interrupt\+Handler()}} to interupt {\ttfamily \doxylink{main_8cpp_a3b39a4bd9469a9c59e18e2aa61784d5c}{Core0\+\_\+\+Main\+Task()}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & parameters for the task, see {\ttfamily \doxylink{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}{setup()}} \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{main_8cpp_a6e943a19cd7a30cd19cdb1d03c51da7e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=309pt]{main_8cpp_a6e943a19cd7a30cd19cdb1d03c51da7e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{main_8cpp_afbf1cac3cbf9a434bfabcc3023659470}\index{main.cpp@{main.cpp}!driveForwards@{driveForwards}}
+\index{driveForwards@{driveForwards}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{driveForwards()}{driveForwards()}}
+{\footnotesize\ttfamily \label{main_8cpp_afbf1cac3cbf9a434bfabcc3023659470} 
+void drive\+Forwards (\begin{DoxyParamCaption}\item[{int}]{time\+To\+Turn\+For}{, }\item[{int}]{speed}{ = {\ttfamily 255}, }\item[{signed int}]{turn\+Bias}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+
+
+Drive forwards, with possible bias. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em time\+To\+Turn\+For} & same as in {\ttfamily \doxylink{main_8cpp_aedf6834bd814409888ac3c328d8d5692}{turn()}} \\
+\hline
+{\em speed} & speed to drive forwards at \\
+\hline
+{\em turn\+Bias} & This is the bias at which to turn -\/ basically difference in speed between motors. negative biases towards the right, positive biases towards the left, defaults to zero, keep between -\/163 \texorpdfstring{$<$}{<}= x \texorpdfstring{$<$}{<}= 163 \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8cpp_afbf1cac3cbf9a434bfabcc3023659470_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{main_8cpp_a95ae1f5fc3a19341a2cb5bc0167fd8d4}\index{main.cpp@{main.cpp}!getDirection@{getDirection}}
+\index{getDirection@{getDirection}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{getDirection()}{getDirection()}}
+{\footnotesize\ttfamily \label{main_8cpp_a95ae1f5fc3a19341a2cb5bc0167fd8d4} 
+signed int get\+Direction (\begin{DoxyParamCaption}\item[{int}]{avg}{ = {\ttfamily 5}}\end{DoxyParamCaption})}
+
+
+
+Returns the difference in values between the reading of the left ultrasonic sensors and the right ultrasonic sensors. 
+
+\begin{DoxyReturn}{Returns}
+signed int, {\ttfamily distance.\+left -\/ distance.\+right} 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8cpp_a95ae1f5fc3a19341a2cb5bc0167fd8d4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8cpp_a95ae1f5fc3a19341a2cb5bc0167fd8d4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{main_8cpp_a1e3a225f52463d08f8fdade52ecff97a}\index{main.cpp@{main.cpp}!getDistancesAverage@{getDistancesAverage}}
+\index{getDistancesAverage@{getDistancesAverage}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{getDistancesAverage()}{getDistancesAverage()}}
+{\footnotesize\ttfamily \label{main_8cpp_a1e3a225f52463d08f8fdade52ecff97a} 
+\mbox{\hyperlink{structultraDistances}{ultra\+Distances}} get\+Distances\+Average (\begin{DoxyParamCaption}\item[{int}]{num\+Of\+Avg}{ = {\ttfamily 5}}\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{main_8cpp_a1e3a225f52463d08f8fdade52ecff97a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8cpp_a1e3a225f52463d08f8fdade52ecff97a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{main_8cpp_afe461d27b9c48d5921c00d521181f12f}\index{main.cpp@{main.cpp}!loop@{loop}}
+\index{loop@{loop}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{loop()}{loop()}}
+{\footnotesize\ttfamily \label{main_8cpp_afe461d27b9c48d5921c00d521181f12f} 
+void loop (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Needs to be here, but I think for the most part we will be using tasks?
+
+TBH it may not need to be here, /shrug \Hypertarget{main_8cpp_ab7b86d33bf3c9d8569027730f9c28078}\index{main.cpp@{main.cpp}!searchFunction@{searchFunction}}
+\index{searchFunction@{searchFunction}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{searchFunction()}{searchFunction()}}
+{\footnotesize\ttfamily \label{main_8cpp_ab7b86d33bf3c9d8569027730f9c28078} 
+bool search\+Function (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8cpp_ab7b86d33bf3c9d8569027730f9c28078_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8cpp_ab7b86d33bf3c9d8569027730f9c28078_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}\index{main.cpp@{main.cpp}!setup@{setup}}
+\index{setup@{setup}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily \label{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d} 
+void setup (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Ye old {\ttfamily \doxylink{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}{setup()}} Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{main_8cpp_aa8d3539c1351069c65956d2dad78bb6c}\index{main.cpp@{main.cpp}!tcaselect@{tcaselect}}
+\index{tcaselect@{tcaselect}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{tcaselect()}{tcaselect()}}
+{\footnotesize\ttfamily \label{main_8cpp_aa8d3539c1351069c65956d2dad78bb6c} 
+void tcaselect (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{i}{}\end{DoxyParamCaption})}
+
+
+
+Simple function to select which device we are communicating with on the I2C multiplexer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & device number (1-\/8) \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8cpp_aa8d3539c1351069c65956d2dad78bb6c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{main_8cpp_aedf6834bd814409888ac3c328d8d5692}\index{main.cpp@{main.cpp}!turn@{turn}}
+\index{turn@{turn}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{turn()}{turn()}}
+{\footnotesize\ttfamily \label{main_8cpp_aedf6834bd814409888ac3c328d8d5692} 
+void turn (\begin{DoxyParamCaption}\item[{int}]{time\+To\+Turn\+For}{, }\item[{int}]{direction}{, }\item[{int}]{speed}{ = {\ttfamily 255}}\end{DoxyParamCaption})}
+
+
+
+\sout{Turns} \texorpdfstring{$<$}{<} the robot 
+
+Takes in a time (in {\ttfamily ms}) to turn for, and the direction, and then does a zero turn (ie, one motor goes backwards and the other goes forwards) for that period of time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em time\+To\+Turn\+For} & The time in milliseconds to turn the robot for -\/ later once we have done testing we can convert this to the number of degrees to turn\\
+\hline
+{\em direction} & The direction to turn -\/ {\ttfamily 0} is left, {\ttfamily 1} is right \\
+\hline
+{\em speed} & The speed to turn at -\/ defaults to 255\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8cpp_aedf6834bd814409888ac3c328d8d5692_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-var-members}
+\Hypertarget{main_8cpp_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{main_8cpp_a569ba06df8eb50c76911a4e9f038675b}\index{main.cpp@{main.cpp}!interruptHandlerHandleBoth@{interruptHandlerHandleBoth}}
+\index{interruptHandlerHandleBoth@{interruptHandlerHandleBoth}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{interruptHandlerHandleBoth}{interruptHandlerHandleBoth}}
+{\footnotesize\ttfamily \label{main_8cpp_a569ba06df8eb50c76911a4e9f038675b} 
+Task\+Handle\+\_\+t interrupt\+Handler\+Handle\+Both = nullptr}
+
+\Hypertarget{main_8cpp_aa9b7041fb230a0b04099e04559652b4e}\index{main.cpp@{main.cpp}!interruptHandlerHandleFL@{interruptHandlerHandleFL}}
+\index{interruptHandlerHandleFL@{interruptHandlerHandleFL}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{interruptHandlerHandleFL}{interruptHandlerHandleFL}}
+{\footnotesize\ttfamily \label{main_8cpp_aa9b7041fb230a0b04099e04559652b4e} 
+Task\+Handle\+\_\+t interrupt\+Handler\+Handle\+FL = nullptr}
+
+\Hypertarget{main_8cpp_a831caf42b22a3cc21f955c43d1d309f0}\index{main.cpp@{main.cpp}!interruptHandlerHandleFR@{interruptHandlerHandleFR}}
+\index{interruptHandlerHandleFR@{interruptHandlerHandleFR}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{interruptHandlerHandleFR}{interruptHandlerHandleFR}}
+{\footnotesize\ttfamily \label{main_8cpp_a831caf42b22a3cc21f955c43d1d309f0} 
+Task\+Handle\+\_\+t interrupt\+Handler\+Handle\+FR = nullptr}
+
+\Hypertarget{main_8cpp_aa29b61d79eefb0cda5d8bf013bfd1416}\index{main.cpp@{main.cpp}!leftMotor@{leftMotor}}
+\index{leftMotor@{leftMotor}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{leftMotor}{leftMotor}}
+{\footnotesize\ttfamily \label{main_8cpp_aa29b61d79eefb0cda5d8bf013bfd1416} 
+\mbox{\hyperlink{classMotor2}{Motor2}} left\+Motor = \mbox{\hyperlink{classMotor2}{Motor2}}(\mbox{\hyperlink{main_8cpp_abcf6be9880e6fb4706410fd5e7eb5fd5}{MOTOR2\+\_\+\+PIN\+\_\+A}}, \mbox{\hyperlink{main_8cpp_aca32da7fd30335f1f66388953349ad1c}{MOTOR2\+\_\+\+PIN\+\_\+B}})}
+
+\Hypertarget{main_8cpp_a8d3505bed85d709e59142f8dd028431f}\index{main.cpp@{main.cpp}!mainTaskHandle@{mainTaskHandle}}
+\index{mainTaskHandle@{mainTaskHandle}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{mainTaskHandle}{mainTaskHandle}}
+{\footnotesize\ttfamily \label{main_8cpp_a8d3505bed85d709e59142f8dd028431f} 
+Task\+Handle\+\_\+t main\+Task\+Handle = nullptr}
+
+
+
+Tasks. 
+
+\Hypertarget{main_8cpp_a16564fe46b984d748dd16582ac6ae304}\index{main.cpp@{main.cpp}!restartTask@{restartTask}}
+\index{restartTask@{restartTask}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{restartTask}{restartTask}}
+{\footnotesize\ttfamily \label{main_8cpp_a16564fe46b984d748dd16582ac6ae304} 
+volatile bool restart\+Task = false}
+
+\Hypertarget{main_8cpp_aad71ea8fd5cba9b4972d957b07d2fc48}\index{main.cpp@{main.cpp}!rightMotor@{rightMotor}}
+\index{rightMotor@{rightMotor}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{rightMotor}{rightMotor}}
+{\footnotesize\ttfamily \label{main_8cpp_aad71ea8fd5cba9b4972d957b07d2fc48} 
+\mbox{\hyperlink{classMotor1}{Motor1}} right\+Motor = \mbox{\hyperlink{classMotor1}{Motor1}}(\mbox{\hyperlink{main_8cpp_aa08b42a1db977f711c3675e6d04b4e4e}{MOTOR1\+\_\+\+PIN\+\_\+A}}, \mbox{\hyperlink{main_8cpp_a82cc20b249d2a0b91e2c2b247023ed6f}{MOTOR1\+\_\+\+PIN\+\_\+B}})}
+
+\Hypertarget{main_8cpp_a374ea58724edcdb900d21584ccbddb80}\index{main.cpp@{main.cpp}!tcs\_FL@{tcs\_FL}}
+\index{tcs\_FL@{tcs\_FL}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{tcs\_FL}{tcs\_FL}}
+{\footnotesize\ttfamily \label{main_8cpp_a374ea58724edcdb900d21584ccbddb80} 
+Adafruit\+\_\+\+TCS34725 tcs\+\_\+\+FL}
+
+\Hypertarget{main_8cpp_ae52dcf3da162cf0df5e079aff9d33db1}\index{main.cpp@{main.cpp}!tcs\_FR@{tcs\_FR}}
+\index{tcs\_FR@{tcs\_FR}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{tcs\_FR}{tcs\_FR}}
+{\footnotesize\ttfamily \label{main_8cpp_ae52dcf3da162cf0df5e079aff9d33db1} 
+Adafruit\+\_\+\+TCS34725 tcs\+\_\+\+FR}
+
+\Hypertarget{main_8cpp_ac5d2dc3534f30f704fd7529ad0f89ff1}\index{main.cpp@{main.cpp}!tft@{tft}}
+\index{tft@{tft}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{tft}{tft}}
+{\footnotesize\ttfamily \label{main_8cpp_ac5d2dc3534f30f704fd7529ad0f89ff1} 
+TFT\+\_\+e\+SPI tft = TFT\+\_\+e\+SPI(170, 320)}
+
+\Hypertarget{main_8cpp_a75a55d4535f4fb126b03a56188169609}\index{main.cpp@{main.cpp}!tof1@{tof1}}
+\index{tof1@{tof1}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{tof1}{tof1}}
+{\footnotesize\ttfamily \label{main_8cpp_a75a55d4535f4fb126b03a56188169609} 
+\mbox{\hyperlink{classToFSensor}{To\+FSensor}}\texorpdfstring{$\ast$}{*} tof1}
+
+\Hypertarget{main_8cpp_a71b9343ebbce8c28a81d88cffa8d252d}\index{main.cpp@{main.cpp}!Ultra1Pin@{Ultra1Pin}}
+\index{Ultra1Pin@{Ultra1Pin}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{Ultra1Pin}{Ultra1Pin}}
+{\footnotesize\ttfamily \label{main_8cpp_a71b9343ebbce8c28a81d88cffa8d252d} 
+int Ultra1\+Pin = \mbox{\hyperlink{main_8cpp_a12e3b92b62813d7a4fb8df1084df6e9f}{ULTRA1}}}
+
+\Hypertarget{main_8cpp_a338d831d97c4211f0e53c3ac7a523ec8}\index{main.cpp@{main.cpp}!Ultra2Pin@{Ultra2Pin}}
+\index{Ultra2Pin@{Ultra2Pin}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{Ultra2Pin}{Ultra2Pin}}
+{\footnotesize\ttfamily \label{main_8cpp_a338d831d97c4211f0e53c3ac7a523ec8} 
+int Ultra2\+Pin = \mbox{\hyperlink{main_8cpp_a2ff16d790a72042c05ece6ae8f08923c}{ULTRA2}}}
+
+\Hypertarget{main_8cpp_a14bace61cf834be6c64f446a7be71bf3}\index{main.cpp@{main.cpp}!WireOne@{WireOne}}
+\index{WireOne@{WireOne}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{WireOne}{WireOne}}
+{\footnotesize\ttfamily \label{main_8cpp_a14bace61cf834be6c64f446a7be71bf3} 
+Two\+Wire Wire\+One = Two\+Wire(1)}
+

@@ -1,0 +1,40 @@
+<map id="setup" name="setup">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,216,63,244"/>
+<area shape="rect" id="Node000002" href="$TCS34725_8hpp.html#a98ff0fc7d054ec414995400a6dd40095" title=" " alt="" coords="170,5,278,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="35,215,41,181,54,137,76,90,91,68,109,49,130,35,154,26,156,31,133,40,112,53,95,71,81,92,59,138,46,182,40,216"/>
+<area shape="rect" id="Node000003" href="$main_8cpp.html#aefff7a9aa932ddda357a478dfb612786" title="Makes sure the robot doesn&#39;t drive out of the circle going forwards when both rgb sensors on the fron..." alt="" coords="385,24,607,68"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="36,215,45,188,59,154,80,121,109,93,154,75,219,61,369,47,370,53,220,67,156,80,112,97,84,124,64,157,50,190,41,216"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html#a98a762711d22c9c7d36bcd571df24eef" title="Makes sure the robot doesn&#39;t drive out of the circle going forwards when left rgb sensor detects blac..." alt="" coords="116,108,332,152"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="47,213,74,187,109,162,121,156,123,161,112,167,77,192,50,217"/>
+<area shape="rect" id="Node000006" href="$main_8cpp.html#a2e3a01a126a856a6581427f775bdf688" title="Makes sure the robot doesn&#39;t drive out of the circle going forwards when right rgb sensor detects bla..." alt="" coords="111,177,337,222"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="63,223,95,217,96,223,63,228"/>
+<area shape="rect" id="Node000007" href="$main_8cpp.html#a3b39a4bd9469a9c59e18e2aa61784d5c" title="Effectively the main looping function." alt="" coords="160,245,288,273"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="63,232,145,244,145,250,63,237"/>
+<area shape="rect" id="Node000013" href="$main_8cpp.html#a6e943a19cd7a30cd19cdb1d03c51da7e" title=" " alt="" coords="124,297,324,325"/>
+<area shape="poly" id="edge16_Node000001_Node000013" title=" " alt="" coords="53,242,79,263,112,282,132,290,130,295,109,287,76,267,49,246"/>
+<area shape="rect" id="Node000014" href="$main_8cpp.html#aa8d3539c1351069c65956d2dad78bb6c" title="Simple function to select which device we are communicating with on the I2C multiplexer." alt="" coords="456,349,536,377"/>
+<area shape="poly" id="edge21_Node000001_Node000014" title=" " alt="" coords="43,243,68,290,87,315,112,334,153,353,196,366,241,374,286,379,371,378,441,370,441,376,371,383,286,384,240,380,195,371,151,358,109,339,84,318,63,293,38,245"/>
+<area shape="rect" id="Node000015" href="$debouncing_8hpp.html#ab89a447edc763e8d556f21bb6f5f995c" title=" " alt="" coords="149,401,299,429"/>
+<area shape="poly" id="edge18_Node000001_Node000015" title=" " alt="" coords="41,243,49,272,63,309,84,347,112,380,136,395,133,399,109,384,79,350,58,311,44,274,36,245"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html#aedf6834bd814409888ac3c328d8d5692" title="Turns &lt; the robot" alt="" coords="711,117,759,145"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="562,66,698,115,696,120,560,71"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="332,127,696,128,696,134,332,133"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="337,182,696,134,696,139,338,187"/>
+<area shape="rect" id="Node000008" href="$main_8cpp.html#afbf1cac3cbf9a434bfabcc3023659470" title="Drive forwards, with possible bias." alt="" coords="440,193,553,221"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="288,244,424,218,425,223,289,250"/>
+<area shape="rect" id="Node000009" href="$main_8cpp.html#a95ae1f5fc3a19341a2cb5bc0167fd8d4" title="Returns the difference in values between the reading of the left ultrasonic sensors and the right ult..." alt="" coords="446,297,547,325"/>
+<area shape="poly" id="edge10_Node000007_Node000009" title=" " alt="" coords="289,269,431,296,430,301,288,274"/>
+<area shape="rect" id="Node000012" href="$main_8cpp.html#ab7b86d33bf3c9d8569027730f9c28078" title=" " alt="" coords="436,245,556,273"/>
+<area shape="poly" id="edge13_Node000007_Node000012" title=" " alt="" coords="288,256,421,256,421,262,288,262"/>
+<area shape="rect" id="Node000010" href="$main_8cpp.html#a1e3a225f52463d08f8fdade52ecff97a" title=" " alt="" coords="655,271,815,298"/>
+<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="547,303,640,292,640,298,547,308"/>
+<area shape="rect" id="Node000011" href="$distance_8hpp.html#a0f602b4f0b199a8fa169d46e20ed9209" title=" " alt="" coords="863,271,964,298"/>
+<area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="815,282,847,282,847,287,815,287"/>
+<area shape="poly" id="edge15_Node000012_Node000004" title=" " alt="" coords="555,247,606,230,663,194,708,154,711,158,666,198,608,235,557,252"/>
+<area shape="poly" id="edge14_Node000012_Node000010" title=" " alt="" coords="557,263,640,272,640,277,556,268"/>
+<area shape="poly" id="edge17_Node000013_Node000014" title=" " alt="" coords="301,323,441,350,440,355,300,328"/>
+<area shape="rect" id="Node000016" href="$debouncing_8hpp.html#ad7a6fecdb22f28a0fef2fc6383f51af8" title=" " alt="" coords="421,401,571,429"/>
+<area shape="poly" id="edge19_Node000015_Node000016" title=" " alt="" coords="300,412,406,412,406,418,300,418"/>
+<area shape="rect" id="Node000017" href="$debouncing_8hpp.html#a0b954346d510af3d92bf238e2f35522f" title=" " alt="" coords="420,453,572,481"/>
+<area shape="poly" id="edge20_Node000015_Node000017" title=" " alt="" coords="300,427,405,447,404,452,299,432"/>
+</map>

@@ -1,0 +1,197 @@
+\doxysection{src/debouncing.hpp File Reference}
+\hypertarget{debouncing_8hpp}{}\label{debouncing_8hpp}\index{src/debouncing.hpp@{src/debouncing.hpp}}
+{\ttfamily \#include "{}Wi\+Fi.\+h"{}}\newline
+Include dependency graph for debouncing.\+hpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=191pt]{debouncing_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=191pt]{debouncing_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{debouncing_8hpp_a8129b8a94bc4253a26d2263a046c7053}{BUTTON\+\_\+L}}~0
+\item 
+\#define \mbox{\hyperlink{debouncing_8hpp_ab3c80df399c1411404ac1cf88c4910c8}{BUTTON\+\_\+R}}~14
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{debouncing_8hpp_a80f5470651e0275d03144012c9bc27f4}{get\+Button\+PressedL}} ()
+\item 
+bool \mbox{\hyperlink{debouncing_8hpp_af220b67f6d2c13eb6cc211cac134fa5f}{get\+Button\+PressedR}} ()
+\item 
+void \mbox{\hyperlink{debouncing_8hpp_a18bc788c7c3dec08a8f070d5ef8bb62b}{reset\+ButtonL}} ()
+\item 
+void \mbox{\hyperlink{debouncing_8hpp_ae9c33edcd0caaa254f307c49b91f6ef7}{reset\+ButtonR}} ()
+\item 
+void \mbox{\hyperlink{debouncing_8hpp_a647530dd51d6dc9c53a6963701c8004a}{toggle\+Button\+PressedL}} ()
+\item 
+void \mbox{\hyperlink{debouncing_8hpp_acd5f4cad0716e8e3f3b570fab280ace4}{toggle\+Button\+PressedR}} ()
+\item 
+void IRAM\+\_\+\+ATTR \mbox{\hyperlink{debouncing_8hpp_ad7a6fecdb22f28a0fef2fc6383f51af8}{handle\+Button\+PressL}} ()
+\item 
+void IRAM\+\_\+\+ATTR \mbox{\hyperlink{debouncing_8hpp_a0b954346d510af3d92bf238e2f35522f}{handle\+Button\+PressR}} ()
+\item 
+void \mbox{\hyperlink{debouncing_8hpp_ab89a447edc763e8d556f21bb6f5f995c}{setup\+Button\+Presses}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+volatile bool \mbox{\hyperlink{debouncing_8hpp_ad66b2f9258baf4a574a7ecda02faee87}{button\+PressedL}} = false
+\item 
+volatile bool \mbox{\hyperlink{debouncing_8hpp_a049190b1ed2e8c2075e0abaa660e3186}{button\+PressedR}} = false
+\item 
+const unsigned long \mbox{\hyperlink{debouncing_8hpp_a7d466b68c5e24096e6bcd063f3ab8736}{debounce\+Delay}} = 50
+\item 
+volatile unsigned long \mbox{\hyperlink{debouncing_8hpp_a10ce68ec0a8977c76887786f6c07821f}{last\+Press\+TimeL}} = 0
+\item 
+volatile unsigned long \mbox{\hyperlink{debouncing_8hpp_af1edc09c80f2b7085b4152aed45a7dc3}{last\+Press\+TimeR}} = 0
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{debouncing_8hpp_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{debouncing_8hpp_a8129b8a94bc4253a26d2263a046c7053}\index{debouncing.hpp@{debouncing.hpp}!BUTTON\_L@{BUTTON\_L}}
+\index{BUTTON\_L@{BUTTON\_L}!debouncing.hpp@{debouncing.hpp}}
+\doxysubsubsection{\texorpdfstring{BUTTON\_L}{BUTTON\_L}}
+{\footnotesize\ttfamily \label{debouncing_8hpp_a8129b8a94bc4253a26d2263a046c7053} 
+\#define BUTTON\+\_\+L~0}
+
+\Hypertarget{debouncing_8hpp_ab3c80df399c1411404ac1cf88c4910c8}\index{debouncing.hpp@{debouncing.hpp}!BUTTON\_R@{BUTTON\_R}}
+\index{BUTTON\_R@{BUTTON\_R}!debouncing.hpp@{debouncing.hpp}}
+\doxysubsubsection{\texorpdfstring{BUTTON\_R}{BUTTON\_R}}
+{\footnotesize\ttfamily \label{debouncing_8hpp_ab3c80df399c1411404ac1cf88c4910c8} 
+\#define BUTTON\+\_\+R~14}
+
+
+
+\label{doc-func-members}
+\Hypertarget{debouncing_8hpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{debouncing_8hpp_a80f5470651e0275d03144012c9bc27f4}\index{debouncing.hpp@{debouncing.hpp}!getButtonPressedL@{getButtonPressedL}}
+\index{getButtonPressedL@{getButtonPressedL}!debouncing.hpp@{debouncing.hpp}}
+\doxysubsubsection{\texorpdfstring{getButtonPressedL()}{getButtonPressedL()}}
+{\footnotesize\ttfamily \label{debouncing_8hpp_a80f5470651e0275d03144012c9bc27f4} 
+bool get\+Button\+PressedL (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{debouncing_8hpp_af220b67f6d2c13eb6cc211cac134fa5f}\index{debouncing.hpp@{debouncing.hpp}!getButtonPressedR@{getButtonPressedR}}
+\index{getButtonPressedR@{getButtonPressedR}!debouncing.hpp@{debouncing.hpp}}
+\doxysubsubsection{\texorpdfstring{getButtonPressedR()}{getButtonPressedR()}}
+{\footnotesize\ttfamily \label{debouncing_8hpp_af220b67f6d2c13eb6cc211cac134fa5f} 
+bool get\+Button\+PressedR (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{debouncing_8hpp_ad7a6fecdb22f28a0fef2fc6383f51af8}\index{debouncing.hpp@{debouncing.hpp}!handleButtonPressL@{handleButtonPressL}}
+\index{handleButtonPressL@{handleButtonPressL}!debouncing.hpp@{debouncing.hpp}}
+\doxysubsubsection{\texorpdfstring{handleButtonPressL()}{handleButtonPressL()}}
+{\footnotesize\ttfamily \label{debouncing_8hpp_ad7a6fecdb22f28a0fef2fc6383f51af8} 
+void IRAM\+\_\+\+ATTR handle\+Button\+PressL (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{debouncing_8hpp_ad7a6fecdb22f28a0fef2fc6383f51af8_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{debouncing_8hpp_a0b954346d510af3d92bf238e2f35522f}\index{debouncing.hpp@{debouncing.hpp}!handleButtonPressR@{handleButtonPressR}}
+\index{handleButtonPressR@{handleButtonPressR}!debouncing.hpp@{debouncing.hpp}}
+\doxysubsubsection{\texorpdfstring{handleButtonPressR()}{handleButtonPressR()}}
+{\footnotesize\ttfamily \label{debouncing_8hpp_a0b954346d510af3d92bf238e2f35522f} 
+void IRAM\+\_\+\+ATTR handle\+Button\+PressR (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{debouncing_8hpp_a0b954346d510af3d92bf238e2f35522f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{debouncing_8hpp_a18bc788c7c3dec08a8f070d5ef8bb62b}\index{debouncing.hpp@{debouncing.hpp}!resetButtonL@{resetButtonL}}
+\index{resetButtonL@{resetButtonL}!debouncing.hpp@{debouncing.hpp}}
+\doxysubsubsection{\texorpdfstring{resetButtonL()}{resetButtonL()}}
+{\footnotesize\ttfamily \label{debouncing_8hpp_a18bc788c7c3dec08a8f070d5ef8bb62b} 
+void reset\+ButtonL (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{debouncing_8hpp_ae9c33edcd0caaa254f307c49b91f6ef7}\index{debouncing.hpp@{debouncing.hpp}!resetButtonR@{resetButtonR}}
+\index{resetButtonR@{resetButtonR}!debouncing.hpp@{debouncing.hpp}}
+\doxysubsubsection{\texorpdfstring{resetButtonR()}{resetButtonR()}}
+{\footnotesize\ttfamily \label{debouncing_8hpp_ae9c33edcd0caaa254f307c49b91f6ef7} 
+void reset\+ButtonR (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{debouncing_8hpp_ab89a447edc763e8d556f21bb6f5f995c}\index{debouncing.hpp@{debouncing.hpp}!setupButtonPresses@{setupButtonPresses}}
+\index{setupButtonPresses@{setupButtonPresses}!debouncing.hpp@{debouncing.hpp}}
+\doxysubsubsection{\texorpdfstring{setupButtonPresses()}{setupButtonPresses()}}
+{\footnotesize\ttfamily \label{debouncing_8hpp_ab89a447edc763e8d556f21bb6f5f995c} 
+void setup\+Button\+Presses (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=343pt]{debouncing_8hpp_ab89a447edc763e8d556f21bb6f5f995c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{debouncing_8hpp_ab89a447edc763e8d556f21bb6f5f995c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{debouncing_8hpp_a647530dd51d6dc9c53a6963701c8004a}\index{debouncing.hpp@{debouncing.hpp}!toggleButtonPressedL@{toggleButtonPressedL}}
+\index{toggleButtonPressedL@{toggleButtonPressedL}!debouncing.hpp@{debouncing.hpp}}
+\doxysubsubsection{\texorpdfstring{toggleButtonPressedL()}{toggleButtonPressedL()}}
+{\footnotesize\ttfamily \label{debouncing_8hpp_a647530dd51d6dc9c53a6963701c8004a} 
+void toggle\+Button\+PressedL (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{debouncing_8hpp_acd5f4cad0716e8e3f3b570fab280ace4}\index{debouncing.hpp@{debouncing.hpp}!toggleButtonPressedR@{toggleButtonPressedR}}
+\index{toggleButtonPressedR@{toggleButtonPressedR}!debouncing.hpp@{debouncing.hpp}}
+\doxysubsubsection{\texorpdfstring{toggleButtonPressedR()}{toggleButtonPressedR()}}
+{\footnotesize\ttfamily \label{debouncing_8hpp_acd5f4cad0716e8e3f3b570fab280ace4} 
+void toggle\+Button\+PressedR (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-var-members}
+\Hypertarget{debouncing_8hpp_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{debouncing_8hpp_ad66b2f9258baf4a574a7ecda02faee87}\index{debouncing.hpp@{debouncing.hpp}!buttonPressedL@{buttonPressedL}}
+\index{buttonPressedL@{buttonPressedL}!debouncing.hpp@{debouncing.hpp}}
+\doxysubsubsection{\texorpdfstring{buttonPressedL}{buttonPressedL}}
+{\footnotesize\ttfamily \label{debouncing_8hpp_ad66b2f9258baf4a574a7ecda02faee87} 
+volatile bool button\+PressedL = false}
+
+\Hypertarget{debouncing_8hpp_a049190b1ed2e8c2075e0abaa660e3186}\index{debouncing.hpp@{debouncing.hpp}!buttonPressedR@{buttonPressedR}}
+\index{buttonPressedR@{buttonPressedR}!debouncing.hpp@{debouncing.hpp}}
+\doxysubsubsection{\texorpdfstring{buttonPressedR}{buttonPressedR}}
+{\footnotesize\ttfamily \label{debouncing_8hpp_a049190b1ed2e8c2075e0abaa660e3186} 
+volatile bool button\+PressedR = false}
+
+\Hypertarget{debouncing_8hpp_a7d466b68c5e24096e6bcd063f3ab8736}\index{debouncing.hpp@{debouncing.hpp}!debounceDelay@{debounceDelay}}
+\index{debounceDelay@{debounceDelay}!debouncing.hpp@{debouncing.hpp}}
+\doxysubsubsection{\texorpdfstring{debounceDelay}{debounceDelay}}
+{\footnotesize\ttfamily \label{debouncing_8hpp_a7d466b68c5e24096e6bcd063f3ab8736} 
+const unsigned long debounce\+Delay = 50}
+
+\Hypertarget{debouncing_8hpp_a10ce68ec0a8977c76887786f6c07821f}\index{debouncing.hpp@{debouncing.hpp}!lastPressTimeL@{lastPressTimeL}}
+\index{lastPressTimeL@{lastPressTimeL}!debouncing.hpp@{debouncing.hpp}}
+\doxysubsubsection{\texorpdfstring{lastPressTimeL}{lastPressTimeL}}
+{\footnotesize\ttfamily \label{debouncing_8hpp_a10ce68ec0a8977c76887786f6c07821f} 
+volatile unsigned long last\+Press\+TimeL = 0}
+
+\Hypertarget{debouncing_8hpp_af1edc09c80f2b7085b4152aed45a7dc3}\index{debouncing.hpp@{debouncing.hpp}!lastPressTimeR@{lastPressTimeR}}
+\index{lastPressTimeR@{lastPressTimeR}!debouncing.hpp@{debouncing.hpp}}
+\doxysubsubsection{\texorpdfstring{lastPressTimeR}{lastPressTimeR}}
+{\footnotesize\ttfamily \label{debouncing_8hpp_af1edc09c80f2b7085b4152aed45a7dc3} 
+volatile unsigned long last\+Press\+TimeR = 0}
+

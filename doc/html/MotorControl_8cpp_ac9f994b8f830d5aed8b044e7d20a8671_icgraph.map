@@ -1,0 +1,7 @@
+<map id="getSpeedForDir" name="getSpeedForDir">
+<area shape="rect" id="Node000001" title=" " alt="" coords="208,32,329,60"/>
+<area shape="rect" id="Node000002" href="$classMotor1.html#aa743a229fe1027605da289d437e2e89b" title=" " alt="" coords="5,5,160,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,38,160,33,160,28,192,32"/>
+<area shape="rect" id="Node000003" href="$classMotor2.html#ab737f7b807578359f6c51bef183ad5ed" title=" " alt="" coords="5,57,160,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="192,59,160,63,160,58,192,54"/>
+</map>

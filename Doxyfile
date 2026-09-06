@@ -74,7 +74,7 @@ PROJECT_ICON           =
 # entered, it will be relative to the location where Doxygen was started. If
 # left blank the current directory will be used.
 
-OUTPUT_DIRECTORY       =
+OUTPUT_DIRECTORY       = doc
 
 # If the CREATE_SUBDIRS tag is set to YES then Doxygen will create up to 4096
 # sub-directories (in 2 levels) under the output directory of each output format
@@ -991,7 +991,7 @@ WARN_LOGFILE           =
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  =
+INPUT                  = src/main.cpp src/
 
 # This tag can be used to specify the character encoding of the source files
 # that Doxygen parses. Internally Doxygen uses the UTF-8 encoding. Doxygen uses
@@ -1086,7 +1086,7 @@ FILE_PATTERNS          = *.c \
 # be searched for input files as well.
 # The default value is: NO.
 
-RECURSIVE              = NO
+RECURSIVE              = yes
 
 # The EXCLUDE tag can be used to specify files and/or directories that should be
 # excluded from the INPUT source files. This way you can easily exclude a
@@ -2575,7 +2575,7 @@ HIDE_UNDOC_RELATIONS   = YES
 # set to NO
 # The default value is: NO.
 
-HAVE_DOT               = NO
+HAVE_DOT               = YES
 
 # The DOT_NUM_THREADS specifies the number of dot invocations Doxygen is allowed
 # to run in parallel. When set to 0 Doxygen will base this on the number of
@@ -2756,7 +2756,7 @@ INCLUDED_BY_GRAPH      = YES
 # The default value is: NO.
 # This tag requires that the tag HAVE_DOT is set to YES.
 
-CALL_GRAPH             = NO
+CALL_GRAPH             = YES
 
 # If the CALLER_GRAPH tag is set to YES then Doxygen will generate a caller
 # dependency graph for every global function or class method.
@@ -2768,7 +2768,7 @@ CALL_GRAPH             = NO
 # The default value is: NO.
 # This tag requires that the tag HAVE_DOT is set to YES.
 
-CALLER_GRAPH           = NO
+CALLER_GRAPH           = YES
 
 # If the GRAPHICAL_HIERARCHY tag is set to YES then Doxygen will graphical
 # hierarchy of all classes instead of a textual one.
@@ -2812,7 +2812,7 @@ DIR_GRAPH_MAX_DEPTH    = 1
 # The default value is: png.
 # This tag requires that the tag HAVE_DOT is set to YES.
 
-DOT_IMAGE_FORMAT       = png
+DOT_IMAGE_FORMAT       = SVG
 
 # If DOT_IMAGE_FORMAT is set to svg or svg:svg or svg:svg:core, then this option
 # can be set to YES to enable generation of interactive SVG images that allow
@@ -2928,7 +2928,7 @@ GENERATE_LEGEND        = YES
 # files.
 # The default value is: YES.
 
-DOT_CLEANUP            = YES
+DOT_CLEANUP            = no
 
 # You can define message sequence charts within Doxygen comments using the \msc
 # command. If the MSCGEN_TOOL tag is left empty (the default), then Doxygen will
@@ -2945,3 +2945,17 @@ MSCGEN_TOOL            =
 # command).
 
 MSCFILE_DIRS           =
+EXTRACT_ALL = YES
+EXTRACT_STATIC = YES
+EXTRACT_LOCAL_CLASSES = YES
+EXTRACT_ANON_NSPACES = YES
+HAVE_DOT = YES
+DOT_IMAGE_FORMAT = svg
+DOT_TRANSPARENT = YES
+DOT_CLEANUP = NO
+DOT_GRAPH_MAX_NODES = 200
+
+# Catppuccin Mocha attributes (no outer quotes)
+DOT_GRAPH_ATTRIBUTES = bgcolor=#1e1e2e,fontcolor=#cdd6f4,color=#585b70
+DOT_NODE_ATTRIBUTES  = style=filled,fillcolor=#313244,color=#f5c2e7,fontcolor=#cdd6f4,shape=box,penwidth=1.5
+DOT_EDGE_ATTRIBUTES  = color=#89b4fa,fontcolor=#b4befe

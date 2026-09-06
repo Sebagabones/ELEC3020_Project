@@ -1,4 +1,4 @@
-#include "MotorControl/MotorControl.hpp"
+/.y #include "MotorControl/MotorControl.hpp"
 #include "Sensors/HC-SR04.hpp"
 #include "Sensors/TCS34725.hpp"
 #include "Sensors/VLX53L0.hpp"
@@ -18,11 +18,11 @@
 #include <cstdlib>
 
 // TODO:
-#define turnDirection                                                          \
-  1 // update this to turn on a different direction depending on which button
+#define turnDirection 1
+    // update this to turn on a different direction depending on which button
     // was pressed
 
-TFT_eSPI tft = TFT_eSPI(170, 320); // Init screen size
+    TFT_eSPI tft = TFT_eSPI(170, 320); // Init screen size
 ///////////////////////////////////////////////
 // Pins
 #define PIN_POWER_ON 15 // LCD and battery Power Enable
@@ -132,17 +132,23 @@ ultraDistances getDistancesAverage(int numOfAvg = 5) {
 }
 
 /**
- * @brief Turns the robot
- * @details Takes in a time (in `ms`) to turn for, and the direction, and then
- * does a zero turn (ie, one motor goes backwards and the other goes forwards)
- * for that period of time.
- *
- * @param timeToTurnFor The time in milliseconds to turn the robot for - later
- * once we have done testing we can convert this to the number of degrees to
- * turn
- * @param direction The direction to turn - `0` is left, `1` is right
- * @param speed The speed to turn at - defaults to 255
- */
+<summary>
+~~Turns~~ the robot
+</summary>
+<para>
+Takes in a time (in `ms`) to turn for, and the direction,
+and then does a zero turn (ie, one motor goes backwards and the other goes
+forwards) for that period of time.
+</para>
+<param name="timeToTurnFor">The time in milliseconds to turn the robot for -
+later once we have done testing we can convert this to the number of degrees to
+turn</param>
+<param name="direction"> The direction to turn - `0` is left, `1` is right
+</param> <param name="speed"> The speed to turn at - defaults to 255</param>
+<returns>
+None
+</returns>
+**/
 void turn(int timeToTurnFor, int direction, int speed = 255) {
   unsigned long initalMillis = millis();
   if (direction) { // Turn right
@@ -224,7 +230,7 @@ void Core0_MainTask(void *pvParameters) {
   for (;;) {
     static bool searching = true, robotFound = false;
     // static int state = 0, L_old = 1, R_old = 1, L, R;
-    tft.setTextColor(TFT_CATPPUCCIN_RED);
+    em tft.setTextColor(TFT_CATPPUCCIN_RED);
     tft.setTextSize(2);
     tft.drawString("Searching ", 85, 160);
 
@@ -325,7 +331,6 @@ void Core0_FrontBothCircleInterruptHandler(void *pvParameters) {
  * @param pvParameters parameters for the task, see `setup()`
  */
 void Core1_CircleDetectionFront(void *pvParameters) {
-  int lastCallTime = millis(); // just for testing, remove
   for (;;) {
     float rFR, gFR, bFR, rFL, gFL, bFL;
     float totalFR, totalFL;

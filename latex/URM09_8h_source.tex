@@ -1,0 +1,63 @@
+\doxysection{URM09.\+h}
+\hypertarget{URM09_8h_source}{}\label{URM09_8h_source}\index{src/Sensors/URM09.h@{src/Sensors/URM09.h}}
+\mbox{\hyperlink{URM09_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ \_\_URM09\_H\_\_}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ \_\_URM09\_H\_\_}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <Wire.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ MEASURE\_MODE\_AUTOMATIC\ 0x80\ }}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ MEASURE\_MODE\_PASSIVE\ 0x00\ \ \ }}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ CMD\_DISTANCE\_MEASURE\ 0x01\ }}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ MEASURE\_RANG\_500\ 0x20\ }}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ MEASURE\_RANG\_300\ 0x10\ }}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ MEASURE\_RANG\_150\ 0x00\ }}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classURM09_a214c86910cad6bf8e013493b5030be72}{URM09}}\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00032\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ eSLAVEADDR\_INDEX\ =\ 0,}
+\DoxyCodeLine{00034\ \ \ \ \ ePID\_INDEX,}
+\DoxyCodeLine{00035\ \ \ \ \ eVERSION\_INDEX,}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a148fd4c39f36c2764fd3fea7f4d8d737}{eDIST\_H\_INDEX}},\ }
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a29223cfda292dd436a28baa3bd1aa5c1}{eDIST\_L\_INDEX}},\ }
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a2609b4cb670ba064a9830e9fc1a55186}{eTEMP\_H\_INDEX}},\ }
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a16a418572ac3268f178a572fccf8d432}{eTEMP\_L\_INDEX}},\ }
+\DoxyCodeLine{00040\ \ \ \ \ eCFG\_INDEX,}
+\DoxyCodeLine{00041\ \ \ \ \ eCMD\_INDEX,}
+\DoxyCodeLine{00042\ \ \ \ \ eREG\_NUM}
+\DoxyCodeLine{00043\ \ \ \}\ \mbox{\hyperlink{classURM09_a9bfd42ce639fa8f40037e1d1330eb586}{eRegister\_t}};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00050\ \ \ \mbox{\hyperlink{classURM09_a214c86910cad6bf8e013493b5030be72}{URM09}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00057\ \ \ \mbox{\hyperlink{classURM09}{\string~URM09}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classURM09_a49dc252bea30cc759a7063c4cfa36212}{begin}}(uint8\_t\ address\ =\ 0x11);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classURM09_af38e78a850823231dfa9310aa00edd9a}{setModeRange}}(uint8\_t\ range,\ uint8\_t\ mode);}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classURM09_ae42ccd05e71bd09c0ce066b2f20cdd30}{measurement}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classURM09_ab74730b784849fa6fad6c2ce050accf1}{getTemperature}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00108\ \ \ int16\_t\ \mbox{\hyperlink{classURM09_afbc62feb8c7acd571d910794edc2ad06}{getDistance}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00117\ \ \ int16\_t\ \mbox{\hyperlink{classURM09_a53be2759e1c03ab81828502f3ebbf662}{scanDevice}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00124\ \ \ uint8\_t\ \mbox{\hyperlink{classURM09_a5a665759a3d056c73511d6d217633668}{getI2CAddress}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classURM09_aa76f6847a42cbc396e70ad3f3ea50eb0}{modifyI2CAddress}}(uint8\_t\ address);}
+\DoxyCodeLine{00133\ \ \ uint8\_t\ txbuf[10]\ =\ \{0\};}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00136\ \ \ \textcolor{keywordtype}{void}\ i2cWriteTemDistance(uint8\_t\ reg,\ uint8\_t\ *pdata,\ uint8\_t\ datalen);}
+\DoxyCodeLine{00137\ \ \ uint8\_t\ \_addr;}
+\DoxyCodeLine{00138\ \};}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

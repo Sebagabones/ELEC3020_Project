@@ -25,14 +25,29 @@
 var NAVTREE =
 [
   [ "My Project", "index.html", [
-    [ "PID libraries", "md_linkstoideas.html", null ],
-    [ "Embedded Systems Project", "md_README.html", null ]
+    [ "Classes", "annotated.html", [
+      [ "Class List", "annotated.html", "annotated_dup" ],
+      [ "Class Index", "classes.html", null ],
+      [ "Class Members", "functions.html", [
+        [ "All", "functions.html", null ],
+        [ "Functions", "functions_func.html", null ],
+        [ "Enumerations", "functions_enum.html", null ],
+        [ "Enumerator", "functions_eval.html", null ]
+      ] ]
+    ] ],
+    [ "Files", "files.html", [
+      [ "File List", "files.html", "files_dup" ],
+      [ "File Members", "globals.html", [
+        [ "All", "globals.html", null ],
+        [ "Macros", "globals_defs.html", null ]
+      ] ]
+    ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"index.html"
+"HC-SR04_8hpp_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

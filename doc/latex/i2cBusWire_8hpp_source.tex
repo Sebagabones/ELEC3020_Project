@@ -1,0 +1,56 @@
+\doxysection{i2c\+Bus\+Wire.\+hpp}
+\hypertarget{i2cBusWire_8hpp_source}{}\label{i2cBusWire_8hpp_source}\index{src/i2cBusWire.hpp@{src/i2cBusWire.hpp}}
+\mbox{\hyperlink{i2cBusWire_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Can\ have\ up\ to\ two\ Wires\ at\ the\ same\ time}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Go\ read\ this}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ https://randomnerdtutorials.com/esp32-\/i2c-\/communication-\/arduino-\/ide/}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <Wire.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{i2cBusWire_8hpp_af5f39005ad1d735803c7dd8605667eef}{wireSetup}}(TwoWire\ \&I2CInstance,\ \textcolor{keywordtype}{int}\ i2c\_sda,\ \textcolor{keywordtype}{int}\ i2c\_scl,}
+\DoxyCodeLine{00007\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ frequency\ =\ 100000)\ \{\ \textcolor{comment}{//\ unless\ you\ know\ what\ you\ are}}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ doing\ here,\ be\ careful,}}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ shit\ is\ janky\ af}}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ WireNumber\ should\ be\ either\ 0\ or\ 1}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ I2CInstance.begin(i2c\_sda,\ i2c\_scl,\ frequency);}
+\DoxyCodeLine{00013\ \}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ //\ I2C\ scan\ function}}
+\DoxyCodeLine{00016\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{i2cBusWire_8hpp_a9978f5a0f85188097de5edc4b1f18e00}{I2Cscan}}(TwoWire\ *wire)\ \{}
+\DoxyCodeLine{00017\ \ \ \textcolor{comment}{//\ scan\ for\ i2c\ devices}}
+\DoxyCodeLine{00018\ \ \ \textcolor{keywordtype}{byte}\ error,\ address;}
+\DoxyCodeLine{00019\ \ \ \textcolor{keywordtype}{int}\ nDevices;}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ Serial.println(\textcolor{stringliteral}{"{}Scanning..."{}});}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ nDevices\ =\ 0;}
+\DoxyCodeLine{00024\ \ \ \textcolor{keywordflow}{for}\ (address\ =\ 1;\ address\ <\ 127;\ address++)\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{comment}{//\ The\ i2c\_scanner\ uses\ the\ return\ value\ of}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{//\ the\ Write.endTransmisstion\ to\ see\ if}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ a\ device\ did\ acknowledge\ to\ the\ address.}}
+\DoxyCodeLine{00028\ \ \ \ \ wire-\/>beginTransmission(address);}
+\DoxyCodeLine{00029\ \ \ \ \ error\ =\ wire-\/>endTransmission();}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordflow}{if}\ (error\ ==\ 0)\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ Serial.print(\textcolor{stringliteral}{"{}I2C\ device\ found\ at\ address\ 0x"{}});}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (address\ <\ 16)}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ Serial.print(\textcolor{stringliteral}{"{}0"{}});}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ Serial.print(address,\ HEX);}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}\ \ !"{}});}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ nDevices++;}
+\DoxyCodeLine{00039\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (error\ ==\ 4)\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ Serial.print(\textcolor{stringliteral}{"{}Unknown\ error\ at\ address\ 0x"{}});}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (address\ <\ 16)}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ Serial.print(\textcolor{stringliteral}{"{}0"{}});}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ Serial.println(address,\ HEX);}
+\DoxyCodeLine{00044\ \ \ \ \ \}}
+\DoxyCodeLine{00045\ \ \ \}}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordflow}{if}\ (nDevices\ ==\ 0)}
+\DoxyCodeLine{00047\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}No\ I2C\ devices\ found\(\backslash\)n"{}});}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00049\ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}done\(\backslash\)n"{}});}
+\DoxyCodeLine{00050\ \}}
+
+\end{DoxyCode}

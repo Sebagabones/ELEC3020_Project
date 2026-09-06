@@ -1,0 +1,5 @@
+<map id="Core0_FrontBothCircleInterruptHandler" name="Core0_FrontBothCircleInterruptHandler">
+<area shape="rect" id="Node000001" title="Makes sure the robot doesn&#39;t drive out of the circle going forwards when both rgb sensors on the fron..." alt="" coords="5,5,228,50"/>
+<area shape="rect" id="Node000002" href="$main_8cpp.html#aedf6834bd814409888ac3c328d8d5692" title="Turns &lt; the robot" alt="" coords="276,14,323,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="228,25,260,25,260,30,228,30"/>
+</map>

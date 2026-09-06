@@ -1,0 +1,23 @@
+\doxysection{VLX53\+L0.\+hpp}
+\hypertarget{VLX53L0_8hpp_source}{}\label{VLX53L0_8hpp_source}\index{src/Sensors/VLX53L0.hpp@{src/Sensors/VLX53L0.hpp}}
+\mbox{\hyperlink{VLX53L0_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ TOFWRAPPER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ TOFWRAPPER\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <VL53L0X.h>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <Wire.h>}}
+\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classToFSensor_a900654ae65d16c4d6e25eb1fbba9819a}{ToFSensor}}\ \{}
+\DoxyCodeLine{00006\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00007\ \ \ \mbox{\hyperlink{classToFSensor_a900654ae65d16c4d6e25eb1fbba9819a}{ToFSensor}}(TwoWire\ *wire,\ \textcolor{keywordtype}{int}\ interuptPin,\ \textcolor{keywordtype}{int}\ timingBudget,\ \textcolor{keywordtype}{int}\ longRange);}
+\DoxyCodeLine{00008\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classToFSensor_a8066bb4747bcf64bd1336fd39325f91c}{readSensor}}();}
+\DoxyCodeLine{00009\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classToFSensor_a08bad1e1db348b43476fd08ca1297a7b}{setSensorI2CAddress}}(\textcolor{keywordtype}{int}\ newAddress);}
+\DoxyCodeLine{00010\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classToFSensor_a18b953cc8f9a6cba9c5eeb2d33c727d6}{getSensorI2CAddress}}();}
+\DoxyCodeLine{00011\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classToFSensor_a9481e93873803830e2abbb6ee4ff18a6}{lastDistanceMeasured}}();}
+\DoxyCodeLine{00012\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classToFSensor_adb4205721e7e284f62282a44666ef653}{isInitalised}};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00015\ \ \ VL53L0X\ sensor;}
+\DoxyCodeLine{00016\ \};}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

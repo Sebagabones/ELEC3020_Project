@@ -1,0 +1,81 @@
+\doxysection{To\+FSensor Class Reference}
+\hypertarget{classToFSensor}{}\label{classToFSensor}\index{ToFSensor@{ToFSensor}}
+
+
+{\ttfamily \#include $<$VLX53\+L0.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classToFSensor_a900654ae65d16c4d6e25eb1fbba9819a}{To\+FSensor}} (Two\+Wire \texorpdfstring{$\ast$}{*}wire, int interupt\+Pin, int timing\+Budget, int long\+Range)
+\item 
+int \mbox{\hyperlink{classToFSensor_a8066bb4747bcf64bd1336fd39325f91c}{read\+Sensor}} ()
+\item 
+void \mbox{\hyperlink{classToFSensor_a08bad1e1db348b43476fd08ca1297a7b}{set\+Sensor\+I2\+CAddress}} (int new\+Address)
+\item 
+int \mbox{\hyperlink{classToFSensor_a18b953cc8f9a6cba9c5eeb2d33c727d6}{get\+Sensor\+I2\+CAddress}} ()
+\item 
+int \mbox{\hyperlink{classToFSensor_a9481e93873803830e2abbb6ee4ff18a6}{last\+Distance\+Measured}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classToFSensor_adb4205721e7e284f62282a44666ef653}{is\+Initalised}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-constructors}
+\Hypertarget{classToFSensor_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classToFSensor_a900654ae65d16c4d6e25eb1fbba9819a}\index{ToFSensor@{ToFSensor}!ToFSensor@{ToFSensor}}
+\index{ToFSensor@{ToFSensor}!ToFSensor@{ToFSensor}}
+\doxysubsubsection{\texorpdfstring{ToFSensor()}{ToFSensor()}}
+{\footnotesize\ttfamily \label{classToFSensor_a900654ae65d16c4d6e25eb1fbba9819a} 
+To\+FSensor\+::\+To\+FSensor (\begin{DoxyParamCaption}\item[{Two\+Wire \texorpdfstring{$\ast$}{*}}]{wire}{, }\item[{int}]{interupt\+Pin}{, }\item[{int}]{timing\+Budget}{ = {\ttfamily 30000}, }\item[{int}]{long\+Range}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+
+
+\label{doc-func-members}
+\Hypertarget{classToFSensor_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classToFSensor_a18b953cc8f9a6cba9c5eeb2d33c727d6}\index{ToFSensor@{ToFSensor}!getSensorI2CAddress@{getSensorI2CAddress}}
+\index{getSensorI2CAddress@{getSensorI2CAddress}!ToFSensor@{ToFSensor}}
+\doxysubsubsection{\texorpdfstring{getSensorI2CAddress()}{getSensorI2CAddress()}}
+{\footnotesize\ttfamily \label{classToFSensor_a18b953cc8f9a6cba9c5eeb2d33c727d6} 
+int To\+FSensor\+::get\+Sensor\+I2\+CAddress (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classToFSensor_a9481e93873803830e2abbb6ee4ff18a6}\index{ToFSensor@{ToFSensor}!lastDistanceMeasured@{lastDistanceMeasured}}
+\index{lastDistanceMeasured@{lastDistanceMeasured}!ToFSensor@{ToFSensor}}
+\doxysubsubsection{\texorpdfstring{lastDistanceMeasured()}{lastDistanceMeasured()}}
+{\footnotesize\ttfamily \label{classToFSensor_a9481e93873803830e2abbb6ee4ff18a6} 
+int To\+FSensor\+::last\+Distance\+Measured (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classToFSensor_a8066bb4747bcf64bd1336fd39325f91c}\index{ToFSensor@{ToFSensor}!readSensor@{readSensor}}
+\index{readSensor@{readSensor}!ToFSensor@{ToFSensor}}
+\doxysubsubsection{\texorpdfstring{readSensor()}{readSensor()}}
+{\footnotesize\ttfamily \label{classToFSensor_a8066bb4747bcf64bd1336fd39325f91c} 
+int To\+FSensor\+::read\+Sensor (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classToFSensor_a08bad1e1db348b43476fd08ca1297a7b}\index{ToFSensor@{ToFSensor}!setSensorI2CAddress@{setSensorI2CAddress}}
+\index{setSensorI2CAddress@{setSensorI2CAddress}!ToFSensor@{ToFSensor}}
+\doxysubsubsection{\texorpdfstring{setSensorI2CAddress()}{setSensorI2CAddress()}}
+{\footnotesize\ttfamily \label{classToFSensor_a08bad1e1db348b43476fd08ca1297a7b} 
+void To\+FSensor\+::set\+Sensor\+I2\+CAddress (\begin{DoxyParamCaption}\item[{int}]{new\+Address}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-variable-members}
+\Hypertarget{classToFSensor_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classToFSensor_adb4205721e7e284f62282a44666ef653}\index{ToFSensor@{ToFSensor}!isInitalised@{isInitalised}}
+\index{isInitalised@{isInitalised}!ToFSensor@{ToFSensor}}
+\doxysubsubsection{\texorpdfstring{isInitalised}{isInitalised}}
+{\footnotesize\ttfamily \label{classToFSensor_adb4205721e7e284f62282a44666ef653} 
+int To\+FSensor\+::is\+Initalised}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Sensors/\mbox{\hyperlink{VLX53L0_8hpp}{VLX53\+L0.\+hpp}}\item 
+src/\+Sensors/\mbox{\hyperlink{VLX53L0_8cpp}{VLX53\+L0.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,301 @@
+\doxysection{URM09 Class Reference}
+\hypertarget{classURM09}{}\label{classURM09}\index{URM09@{URM09}}
+
+
+{\ttfamily \#include $<$URM09.\+h$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classURM09_a9bfd42ce639fa8f40037e1d1330eb586}{e\+Register\+\_\+t}} \{ \newline
+\mbox{\hyperlink{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a81ac24a840afe05eb08ebf0accef018f}{e\+SLAVEADDR\+\_\+\+INDEX}} = 0
+, \mbox{\hyperlink{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a5356100465d24bb7ac4872b744097452}{e\+PID\+\_\+\+INDEX}}
+, \mbox{\hyperlink{classURM09_a9bfd42ce639fa8f40037e1d1330eb586ae0be94a8029317f3606a91f70a897382}{e\+VERSION\+\_\+\+INDEX}}
+, \mbox{\hyperlink{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a148fd4c39f36c2764fd3fea7f4d8d737}{e\+DIST\+\_\+\+H\+\_\+\+INDEX}}
+, \newline
+\mbox{\hyperlink{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a29223cfda292dd436a28baa3bd1aa5c1}{e\+DIST\+\_\+\+L\+\_\+\+INDEX}}
+, \mbox{\hyperlink{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a2609b4cb670ba064a9830e9fc1a55186}{e\+TEMP\+\_\+\+H\+\_\+\+INDEX}}
+, \mbox{\hyperlink{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a16a418572ac3268f178a572fccf8d432}{e\+TEMP\+\_\+\+L\+\_\+\+INDEX}}
+, \mbox{\hyperlink{classURM09_a9bfd42ce639fa8f40037e1d1330eb586acba2d4d5b370ff2b3e19a2025bc6f83b}{e\+CFG\+\_\+\+INDEX}}
+, \newline
+\mbox{\hyperlink{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a01364cdfe9db90000112fbdc6b7e67d9}{e\+CMD\+\_\+\+INDEX}}
+, \mbox{\hyperlink{classURM09_a9bfd42ce639fa8f40037e1d1330eb586aafbafb167b2ee69daf6a635e672a3e63}{e\+REG\+\_\+\+NUM}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum register configuration. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classURM09_a214c86910cad6bf8e013493b5030be72}{URM09}} (void)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classURM09_a52f61a8bb0fa8e217c627743d2502f15}{\texorpdfstring{$\sim$}{\string~}\+URM09}} (void)
+\item 
+bool \mbox{\hyperlink{classURM09_a49dc252bea30cc759a7063c4cfa36212}{begin}} (uint8\+\_\+t address=0x11)
+\begin{DoxyCompactList}\small\item\em Init i2c. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classURM09_af38e78a850823231dfa9310aa00edd9a}{set\+Mode\+Range}} (uint8\+\_\+t range, uint8\+\_\+t mode)
+\begin{DoxyCompactList}\small\item\em Set mode and measure distance. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classURM09_ae42ccd05e71bd09c0ce066b2f20cdd30}{measurement}} (void)
+\begin{DoxyCompactList}\small\item\em Measure distance, send measurement command in passive mode. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classURM09_ab74730b784849fa6fad6c2ce050accf1}{get\+Temperature}} (void)
+\begin{DoxyCompactList}\small\item\em Get temperature value. \end{DoxyCompactList}\item 
+int16\+\_\+t \mbox{\hyperlink{classURM09_afbc62feb8c7acd571d910794edc2ad06}{get\+Distance}} (void)
+\begin{DoxyCompactList}\small\item\em Read distance. \end{DoxyCompactList}\item 
+int16\+\_\+t \mbox{\hyperlink{classURM09_a53be2759e1c03ab81828502f3ebbf662}{scan\+Device}} (void)
+\begin{DoxyCompactList}\small\item\em Scan i2c device. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{classURM09_a5a665759a3d056c73511d6d217633668}{get\+I2\+CAddress}} (void)
+\begin{DoxyCompactList}\small\item\em Get i2c device address number. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classURM09_aa76f6847a42cbc396e70ad3f3ea50eb0}{modify\+I2\+CAddress}} (uint8\+\_\+t address)
+\begin{DoxyCompactList}\small\item\em Change i2c device address. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classURM09_a83f5dc452e241dcf3ec58bc58043862c}{txbuf}} \mbox{[}10\mbox{]} = \{0\}
+\end{DoxyCompactItemize}
+
+
+\label{doc-enum-members}
+\Hypertarget{classURM09_doc-enum-members}
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{classURM09_a9bfd42ce639fa8f40037e1d1330eb586}\index{URM09@{URM09}!eRegister\_t@{eRegister\_t}}
+\index{eRegister\_t@{eRegister\_t}!URM09@{URM09}}
+\doxysubsubsection{\texorpdfstring{eRegister\_t}{eRegister\_t}}
+{\footnotesize\ttfamily \label{classURM09_a9bfd42ce639fa8f40037e1d1330eb586} 
+enum \mbox{\hyperlink{classURM09_a9bfd42ce639fa8f40037e1d1330eb586}{URM09\+::e\+Register\+\_\+t}}}
+
+
+
+Enum register configuration. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{eSLAVEADDR\_INDEX@{eSLAVEADDR\_INDEX}!URM09@{URM09}}\index{URM09@{URM09}!eSLAVEADDR\_INDEX@{eSLAVEADDR\_INDEX}}}\Hypertarget{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a81ac24a840afe05eb08ebf0accef018f}\label{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a81ac24a840afe05eb08ebf0accef018f} 
+e\+SLAVEADDR\+\_\+\+INDEX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ePID\_INDEX@{ePID\_INDEX}!URM09@{URM09}}\index{URM09@{URM09}!ePID\_INDEX@{ePID\_INDEX}}}\Hypertarget{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a5356100465d24bb7ac4872b744097452}\label{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a5356100465d24bb7ac4872b744097452} 
+e\+PID\+\_\+\+INDEX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{eVERSION\_INDEX@{eVERSION\_INDEX}!URM09@{URM09}}\index{URM09@{URM09}!eVERSION\_INDEX@{eVERSION\_INDEX}}}\Hypertarget{classURM09_a9bfd42ce639fa8f40037e1d1330eb586ae0be94a8029317f3606a91f70a897382}\label{classURM09_a9bfd42ce639fa8f40037e1d1330eb586ae0be94a8029317f3606a91f70a897382} 
+e\+VERSION\+\_\+\+INDEX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{eDIST\_H\_INDEX@{eDIST\_H\_INDEX}!URM09@{URM09}}\index{URM09@{URM09}!eDIST\_H\_INDEX@{eDIST\_H\_INDEX}}}\Hypertarget{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a148fd4c39f36c2764fd3fea7f4d8d737}\label{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a148fd4c39f36c2764fd3fea7f4d8d737} 
+e\+DIST\+\_\+\+H\+\_\+\+INDEX&High distance eight digits \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{eDIST\_L\_INDEX@{eDIST\_L\_INDEX}!URM09@{URM09}}\index{URM09@{URM09}!eDIST\_L\_INDEX@{eDIST\_L\_INDEX}}}\Hypertarget{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a29223cfda292dd436a28baa3bd1aa5c1}\label{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a29223cfda292dd436a28baa3bd1aa5c1} 
+e\+DIST\+\_\+\+L\+\_\+\+INDEX&Low distance eight digits \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{eTEMP\_H\_INDEX@{eTEMP\_H\_INDEX}!URM09@{URM09}}\index{URM09@{URM09}!eTEMP\_H\_INDEX@{eTEMP\_H\_INDEX}}}\Hypertarget{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a2609b4cb670ba064a9830e9fc1a55186}\label{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a2609b4cb670ba064a9830e9fc1a55186} 
+e\+TEMP\+\_\+\+H\+\_\+\+INDEX&High temperature eight digits \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{eTEMP\_L\_INDEX@{eTEMP\_L\_INDEX}!URM09@{URM09}}\index{URM09@{URM09}!eTEMP\_L\_INDEX@{eTEMP\_L\_INDEX}}}\Hypertarget{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a16a418572ac3268f178a572fccf8d432}\label{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a16a418572ac3268f178a572fccf8d432} 
+e\+TEMP\+\_\+\+L\+\_\+\+INDEX&Low temperature eight digits \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{eCFG\_INDEX@{eCFG\_INDEX}!URM09@{URM09}}\index{URM09@{URM09}!eCFG\_INDEX@{eCFG\_INDEX}}}\Hypertarget{classURM09_a9bfd42ce639fa8f40037e1d1330eb586acba2d4d5b370ff2b3e19a2025bc6f83b}\label{classURM09_a9bfd42ce639fa8f40037e1d1330eb586acba2d4d5b370ff2b3e19a2025bc6f83b} 
+e\+CFG\+\_\+\+INDEX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{eCMD\_INDEX@{eCMD\_INDEX}!URM09@{URM09}}\index{URM09@{URM09}!eCMD\_INDEX@{eCMD\_INDEX}}}\Hypertarget{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a01364cdfe9db90000112fbdc6b7e67d9}\label{classURM09_a9bfd42ce639fa8f40037e1d1330eb586a01364cdfe9db90000112fbdc6b7e67d9} 
+e\+CMD\+\_\+\+INDEX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{eREG\_NUM@{eREG\_NUM}!URM09@{URM09}}\index{URM09@{URM09}!eREG\_NUM@{eREG\_NUM}}}\Hypertarget{classURM09_a9bfd42ce639fa8f40037e1d1330eb586aafbafb167b2ee69daf6a635e672a3e63}\label{classURM09_a9bfd42ce639fa8f40037e1d1330eb586aafbafb167b2ee69daf6a635e672a3e63} 
+e\+REG\+\_\+\+NUM&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-constructors}
+\Hypertarget{classURM09_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classURM09_a214c86910cad6bf8e013493b5030be72}\index{URM09@{URM09}!URM09@{URM09}}
+\index{URM09@{URM09}!URM09@{URM09}}
+\doxysubsubsection{\texorpdfstring{URM09()}{URM09()}}
+{\footnotesize\ttfamily \label{classURM09_a214c86910cad6bf8e013493b5030be72} 
+URM09\+::\+URM09 (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+Destructor.
+
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+\Hypertarget{classURM09_a52f61a8bb0fa8e217c627743d2502f15}\index{URM09@{URM09}!````~URM09@{\texorpdfstring{$\sim$}{\string~}URM09}}
+\index{````~URM09@{\texorpdfstring{$\sim$}{\string~}URM09}!URM09@{URM09}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}URM09()}{\string~URM09()}}
+{\footnotesize\ttfamily \label{classURM09_a52f61a8bb0fa8e217c627743d2502f15} 
+URM09\+::\texorpdfstring{$\sim$}{\string~}\+URM09 (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-func-members}
+\Hypertarget{classURM09_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classURM09_a49dc252bea30cc759a7063c4cfa36212}\index{URM09@{URM09}!begin@{begin}}
+\index{begin@{begin}!URM09@{URM09}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily \label{classURM09_a49dc252bea30cc759a7063c4cfa36212} 
+bool URM09\+::begin (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{address}{ = {\ttfamily 0x11}}\end{DoxyParamCaption})}
+
+
+
+Init i2c. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em address} & i2c device number (1-\/127), default to 0x11 when no device number is uploaded \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return bool type, indicating init status 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em true} & Init succeed \\
+\hline
+{\em false} & init failed \\
+\hline
+\end{DoxyRetVals}
+\Hypertarget{classURM09_afbc62feb8c7acd571d910794edc2ad06}\index{URM09@{URM09}!getDistance@{getDistance}}
+\index{getDistance@{getDistance}!URM09@{URM09}}
+\doxysubsubsection{\texorpdfstring{getDistance()}{getDistance()}}
+{\footnotesize\ttfamily \label{classURM09_afbc62feb8c7acd571d910794edc2ad06} 
+int16\+\_\+t URM09\+::get\+Distance (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Read distance. 
+
+\begin{DoxyReturn}{Returns}
+Distance value, unit (cm) ~\newline
+ The increase is 10 times as the actual temperature ~\newline
+ For example\+: if the read value is 0x00fe, the actual temperature will be 0x00fe / 10 = 25.\+4 
+
+None 
+\end{DoxyReturn}
+\Hypertarget{classURM09_a5a665759a3d056c73511d6d217633668}\index{URM09@{URM09}!getI2CAddress@{getI2CAddress}}
+\index{getI2CAddress@{getI2CAddress}!URM09@{URM09}}
+\doxysubsubsection{\texorpdfstring{getI2CAddress()}{getI2CAddress()}}
+{\footnotesize\ttfamily \label{classURM09_a5a665759a3d056c73511d6d217633668} 
+uint8\+\_\+t URM09\+::get\+I2\+CAddress (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Get i2c device address number. 
+
+\begin{DoxyReturn}{Returns}
+i2c device address number 
+\end{DoxyReturn}
+\Hypertarget{classURM09_ab74730b784849fa6fad6c2ce050accf1}\index{URM09@{URM09}!getTemperature@{getTemperature}}
+\index{getTemperature@{getTemperature}!URM09@{URM09}}
+\doxysubsubsection{\texorpdfstring{getTemperature()}{getTemperature()}}
+{\footnotesize\ttfamily \label{classURM09_ab74730b784849fa6fad6c2ce050accf1} 
+float URM09\+::get\+Temperature (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Get temperature value. 
+
+\begin{DoxyReturn}{Returns}
+Temperature value, unit (℃) 
+\end{DoxyReturn}
+\Hypertarget{classURM09_ae42ccd05e71bd09c0ce066b2f20cdd30}\index{URM09@{URM09}!measurement@{measurement}}
+\index{measurement@{measurement}!URM09@{URM09}}
+\doxysubsubsection{\texorpdfstring{measurement()}{measurement()}}
+{\footnotesize\ttfamily \label{classURM09_ae42ccd05e71bd09c0ce066b2f20cdd30} 
+void URM09\+::measurement (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Measure distance, send measurement command in passive mode. 
+
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+\Hypertarget{classURM09_aa76f6847a42cbc396e70ad3f3ea50eb0}\index{URM09@{URM09}!modifyI2CAddress@{modifyI2CAddress}}
+\index{modifyI2CAddress@{modifyI2CAddress}!URM09@{URM09}}
+\doxysubsubsection{\texorpdfstring{modifyI2CAddress()}{modifyI2CAddress()}}
+{\footnotesize\ttfamily \label{classURM09_aa76f6847a42cbc396e70ad3f3ea50eb0} 
+void URM09\+::modify\+I2\+CAddress (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{address}{}\end{DoxyParamCaption})}
+
+
+
+Change i2c device address. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em address} & i2c device address number (1-\/127) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+\Hypertarget{classURM09_a53be2759e1c03ab81828502f3ebbf662}\index{URM09@{URM09}!scanDevice@{scanDevice}}
+\index{scanDevice@{scanDevice}!URM09@{URM09}}
+\doxysubsubsection{\texorpdfstring{scanDevice()}{scanDevice()}}
+{\footnotesize\ttfamily \label{classURM09_a53be2759e1c03ab81828502f3ebbf662} 
+int16\+\_\+t URM09\+::scan\+Device (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Scan i2c device. 
+
+\begin{DoxyReturn}{Returns}
+Scanning status 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em -\/1} & Device is not scanned \\
+\hline
+{\em other} & iic address \\
+\hline
+\end{DoxyRetVals}
+\Hypertarget{classURM09_af38e78a850823231dfa9310aa00edd9a}\index{URM09@{URM09}!setModeRange@{setModeRange}}
+\index{setModeRange@{setModeRange}!URM09@{URM09}}
+\doxysubsubsection{\texorpdfstring{setModeRange()}{setModeRange()}}
+{\footnotesize\ttfamily \label{classURM09_af38e78a850823231dfa9310aa00edd9a} 
+void URM09\+::set\+Mode\+Range (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{range}{, }\item[{uint8\+\_\+t}]{mode}{}\end{DoxyParamCaption})}
+
+
+
+Set mode and measure distance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em range} & is measured range ~\newline
+ MEASURE\+\_\+\+RANG\+\_\+500 Ranging from 500 ~\newline
+ MEASURE\+\_\+\+RANG\+\_\+300 Ranging from 300 ~\newline
+ MEASURE\+\_\+\+RANG\+\_\+150 Ranging from 150 \\
+\hline
+{\em mode} & is measurement mode, automatic measurement and passive measurement. ~\newline
+ MEASURE\+\_\+\+MODE\+\_\+\+AUTOMATIC automatic mode ~\newline
+ MEASURE\+\_\+\+MODE\+\_\+\+PASSIVE passive mode \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+
+
+\label{doc-variable-members}
+\Hypertarget{classURM09_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classURM09_a83f5dc452e241dcf3ec58bc58043862c}\index{URM09@{URM09}!txbuf@{txbuf}}
+\index{txbuf@{txbuf}!URM09@{URM09}}
+\doxysubsubsection{\texorpdfstring{txbuf}{txbuf}}
+{\footnotesize\ttfamily \label{classURM09_a83f5dc452e241dcf3ec58bc58043862c} 
+uint8\+\_\+t URM09\+::txbuf\mbox{[}10\mbox{]} = \{0\}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Sensors/\mbox{\hyperlink{URM09_8h}{URM09.\+h}}\item 
+src/\+Sensors/\mbox{\hyperlink{URM09_8cpp}{URM09.\+cpp}}\end{DoxyCompactItemize}

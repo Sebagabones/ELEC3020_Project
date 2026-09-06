@@ -1,0 +1,15 @@
+\doxysection{distance.\+hpp}
+\hypertarget{distance_8hpp_source}{}\label{distance_8hpp_source}\index{src/distance.hpp@{src/distance.hpp}}
+\mbox{\hyperlink{distance_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}WiFi.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{distance_8hpp_a0f602b4f0b199a8fa169d46e20ed9209}{GetDistance}}(\textcolor{keywordtype}{int}\ SensorPin)\ \{}
+\DoxyCodeLine{00010\ \ \ \textcolor{keywordtype}{float}\ millivolts\ =\ analogReadMilliVolts(SensorPin);}
+\DoxyCodeLine{00011\ \ \ \textcolor{comment}{//\ Serial.println(String(millivolts));}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \textcolor{keywordtype}{float}\ distance\ =\ millivolts\ *\ 520\ /\ 4095.0;}
+\DoxyCodeLine{00014\ \ \ \textcolor{keywordflow}{return}\ (distance);}
+\DoxyCodeLine{00015\ \}}
+
+\end{DoxyCode}

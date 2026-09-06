@@ -1,30 +1,104 @@
 #+TITLE:
 #+SUBTITLE:
 #+AUTHOR:
-#+latex_header: \usepackage[latte,styleAll]{catppuccinpalette} \setlength{\parindent}{0pt}  \usepackage{hyperref} \usepackage{scrextend} \usepackage{fvextra} \usepackage{upquote} \usepackage{xcolor}  \hypersetup{colorlinks=false, hidelinks=true} \usepackage{circuitikz} \usepackage{rotating} \usepackage{geometry}  \newgeometry{vmargin={17mm}, hmargin={19mm,19mm}}   % set the margins
+
+#+latex_header: \usepackage[latte,styleAll]{catppuccinpalette} \setlength{\parindent}{0pt}  \usepackage{hyperref} \usepackage{scrextend} \usepackage{fvextra} \usepackage{upquote} \usepackage{xcolor}  \hypersetup{colorlinks=false, hidelinks=true} \usepackage{circuitikz} \usepackage{rotating}  \usepackage{tabularx, colortbl} \usepackage{geometry}  \newgeometry{vmargin={22mm}, hmargin={22mm,22mm}}
 #+latex_header: \usepackage{sectsty} \sectionfont{\centering}  %To center heading
 #+OPTIONS: toc:nil  num:nil
+#+LATEX_ENGRAVED_THEME: base16-catppuccin-latte
+
 #+begin_comment
 Add this later
 #+LATEX_ENGRAVED_THEME: base16-catppuccin-latte
 #+end_comment
 
+
+
 #+ATTR_ORG: :align center
 #+ATTR_LATEX: :align center
-
 [[file:../killdozer.png]]
 * @@latex:{\color{CtpPink}@@ ELEC3020 Project Design Report@@latex:}@@
 * @@latex:{\color{CtpPink}@@ Team-27 @@latex:}@@
 
 \vspace{25mm}
-\renewcommand{\arraystretch}{5.5}
-\begin{tabular}{@{}p{3.5in}@{}}
-Mia O'Dea: \color{CtpPink}  \underline{\phantom{padddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddding}}  \\
-Sebastian Gazey: \color{CtpPink} \underline{\phantom{padddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddding}} \\
-Sophie Mattingly: \color{CtpPink} \underline{\phantom{paddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddding}} \\
-Carla Schultz: \color{CtpPink} \underline{\phantom{padddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddding}}
-\end{tabular}
-** Hardware Circuit Diagram:
+*Signed by:*\\
+\vspace{5mm}
+
+Mia O'Dea \\
+Sebastian Gazey\\
+Sophie Mattingly\\
+Carla Schultz\\
+
+#+latex: \clearpage
+
+** *Introduction*
+The objective of the project is to create a SumoBot using the ESP32 TTGO microcontroller.
+The robot is designed to detect, engage, and push other robot opponents outside a circular ring, while remaining within the white boundary line.
+The project enforces practical implementation of the concepts learnt in the Embedded Systems (ELEC3020) unit.\\
+
+This report documents the complete design, development, and implementation of the custom built SumoBot “KillDozer”.
+
+** Team Contributions
+The parts that each team member worked on is below:
+#+CAPTION: Team Member Contributions
+#+ATTR_LATEX: :environment tabularx :booktabs t :width \textwidth :align |X|X|
+| *Team Member (Student Number)* | *Contributions*                                                  |
+|------------------------------+----------------------------------------------------------------|
+| Sebastian Gazey (23417131)   | Design Decisions                                               |
+|                              | Project Design Report                                          |
+|                              | Software (both strategy and writing the code)                  |
+|                              | Chassis/Parts Design                                           |
+|                              | Electronics (purchasing, research, design, assembly/soldering) |
+|                              | Assembly                                                       |
+|                              | 3D printing                                                    |
+|                              | Testing                                                        |
+|                              | Bill of Materials                                              |
+|------------------------------+----------------------------------------------------------------|
+| Mia O'Dea (23729581)         | Design Decisions                                               |
+|                              | Chassis/Parts Design                                           |
+|                              | Project Design Report                                          |
+|                              | Electronics (soldering, design)                                |
+|                              | Assembly                                                       |
+|                              | 3D printing                                                    |
+|                              | Testing                                                        |
+|                              | Bill of Materials                                              |
+|------------------------------+----------------------------------------------------------------|
+| Carla Schultz (23854485)     | Bill of Materials                                              |
+|                              | User Manual                                                    |
+|                              | Marketing Document                                             |
+|                              | Project Design Report                                          |
+|------------------------------+----------------------------------------------------------------|
+| Sophie Mattingly (23771898)  | Bill of Materials                                              |
+|                              | User Manual                                                    |
+|                              | Marketing Document                                             |
+|                              | Project Design Report                                          |
+
+
+** Design Choices
+There were a few key principles that KillDozer was built around, these being maintaining traction, detection (of opponents and the competition area), and flipping/pushing the opponent.
+*** Traction
+A large surface area was crucial to maintaining traction, and as such, KillDozer uses two tracks as the driving system. These had the added benefit of increasing the agility of KillDozer, as differential steering could be used, allowing it to turn on the spot - this system also had the added benefit of reducing the complexity of the steering system (as a separate servo to control a steering axle was not needed).\\
+
+To increase traction even more, KillDozer was going to have Dycem^tm attached to the tracks (however, the team ran out of time to implement this).
+
+*** Detection
+KillDozer uses two URM09 ultrasonic sensors as the main way to detect opponents. These were chosen due to having a wider field of view than HC-SR04's.\\
+
+There are also RGB colour sensors at the front two corners, to detect if the robot is about to drive out of the circle.
+#+ATTR_ORG: :align center
+#+ATTR_LATEX: :align center :width 4in
+#+CAPTION: RGB sensors underneath the blade
+[[file:~/Storage/Uniwork/.gitJankness/ELEC3020_Project/RGBSensors.JPG]]
+
+*** Pushing/Flipping
+For this KillDozer has a bulldozer like blade - this has gone through numerous iterations to save weight, the final version:
+#+ATTR_ORG: :align center
+#+ATTR_LATEX: :align center :width 4in
+#+CAPTION: Bulldozer blade, with URM09 sensors
+[[file:~/Storage/Uniwork/.gitJankness/ELEC3020_Project/bladenew.jpg]]
+
+** Hardware:
+*** Circuit Diagram:
 #+begin_comment
 rgb,255:red,220;green,138;blue,221 -> CtpMauve
 rgb,255:red,255;green,190;blue,111 -> CtpPeach
@@ -247,4 +321,107 @@ rgb,255:red,53;green,53;blue,53 -> rgb,255:red,24;green,24;blue,37
 	\node[shape=rectangle, minimum width=2.215cm, minimum height=2.465cm] at (18.963, 10.912){} node[anchor=north west, align=left, text width=1.827cm, inner sep=6pt] at (17.838, 12.162){SCL:\\- Pink \\SDA:\\- Purple};
 \end{tikzpicture}
 \end{turn}
-** Team Member Reports:
+
+*** Chassis:
+
+3D-printed with PLA, as we thought it would help us stay underweight, and allowed us to designed complex parts that would be difficult to machine. PLA also is cheap, which was useful for us.\\
+
+The chassis went through multiple iterations, mostly due to our initial robot melting in Week 12 (turns out, don't leave your AliExpress LiPo's in your robot while you charge them). Hence, our marketing does look a little different to our final robot. In the last week, we repurposed the robot we built for testing software on, and modified the chassis from that to fit the blade.\\
+
+This weighed too much, and trying to remove excess material to lighten the robot resulted in it literally tearing itself apart at 23:00 on Wednesday night in Week 12.
+
+
+*** Sensors:
+#+CAPTION:  Reasoning beheind sensor choices for KillDozer
+#+ATTR_LATEX: :environment tabularx :booktabs t :width \textwidth :align |X|X|
+| Component                 | Reason                                                                                                                                                                                                                                                                                                                                                        |
+|---------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| URM-09 Ultrasonic sensors | Chosen as it provides a wider cone of "view" than a regular HC-SR04, meaning KillDozer needed less ultrasonic sensors.                                                                                                                                                                                                                                        |
+|                           | Ultrasonic sensors were chosen over ToF sensors or infrared sensors due to being less impacted by external light sources.                                                                                                                                                                                                                                     |
+|---------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| RGB Sensors               | Found to provide better responses than regular line sensors, and were more reliable                                                                                                                                                                                                                                                                           |
+|                           | Did require an I2C multiplexer due to the addresses being non-changeable                                                                                                                                                                                                                                                                                      |
+|---------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ToF Sensor                | While we found these to be less reliable than ultrasonic sensors, once we set it inside of the blade (so it had a cover from overhead lighting), we found it was accurate enough to determine if there was a robot inside of the bulldozer blade, however this did not end up being successfully implemented in the code/strategy due to running out of time. |
+|                           |                                                                                                                                                                                                                                                                                                                                                               |
+
+\clearpage
+** Software:
+*** Software Design Diagram
+#+ATTR_ORG: :align center
+#+ATTR_LATEX: :align center
+#+CAPTION: Software Call Graph
+[[file:../callgraph.png]]
+
+*** Strategy
+KillDozer uses both of the TTGO's cores, with one (core 1) checking the RGB sensors if the robot is nearing the edge of the circle, and the other (core 0) doing everything else. Core 1 will interrupt the first core's task(s), prioritising moving the robot to safety/telling the robot where to move to next.\\
+
+The main core has a simple program loop - when it starts, it first calls the ~searchFunction()~, which makes the robot turn until it detects an object closer than 1.6 meters away.
+Once this happens, the function returns, and then the main function loops over a set of instructions that tells the robot to drive forwards (if one sensor is closer to the opponent than the other, then it drives forwards with a slight bias towards that direction). This continues until the RGB sensors detect the edge, at which point Core 1 interrupts this task (and sets a flag to break the while loop).\\
+
+The interrupt handler running on Core 0 then handles the movements for the robot to take - if only one sensor is detecting the edge of the circle, the robot turns towards that sensor, until both sensors are touching (this is all done by Core 1 interrupts, using the sensor, so only one core is interfacing with the I2C bus). Turning so both are detecting the edge of the circle is done so that the opponent is definitely pushed out of the circle. Once both sensors are at the edge, the robot turns around 90 degrees, and restarts it's main looping task on Core 0, searching for another opponent.\\
+
+We ran out of time to implement the ToF sensor, but this would have been used to detect if the opponent was inside of the bulldozer blade.\\
+
+
+Using both cores meant that the robot could react immediately to a detection of going outside of the circle, whereas if we were using a single core, we could still use the task based approach to allow for interrupts, but we would not always be able to be checking the sensors, meaning that the robot could possibly go outside of the circle before it could react.
+#+CAPTION:  The task running on Core 1, which handles the edge detection sensors/logic
+#+begin_src cpp
+void Core1_CircleDetectionFront(void *pvParameters) {
+  for (;;) {
+    float rFR, gFR, bFR, rFL, gFL, bFL;
+    float totalFR, totalFL;
+    tcaselect(FRONT_RIGHT_TCS_I2C_NUMBER);
+    tcs_FR.getRGB(&rFR, &gFR, &bFR);
+    tcaselect(FRONT_LEFT_TCS_I2C_NUMBER);
+    tcs_FL.getRGB(&rFL, &gFL, &bFL);
+    totalFR = rFR + bFR + gFR;
+    totalFL = rFL + bFL + gFL;
+
+    if (totalFR < 350 && totalFL < 350) { // both are probably not white
+      BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+      xTaskNotifyFromISR(interruptHandlerHandleBoth, 0, eNoAction,
+                         &xHigherPriorityTaskWoken);
+      if (xHigherPriorityTaskWoken)
+        portYIELD_FROM_ISR();
+    } else if (totalFR < 350) {
+      BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+      xTaskNotifyFromISR(interruptHandlerHandleFR, 0, eNoAction,
+                         &xHigherPriorityTaskWoken);
+      if (xHigherPriorityTaskWoken)
+        portYIELD_FROM_ISR();
+    } else if (totalFL < 350) {
+      BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+      xTaskNotifyFromISR(interruptHandlerHandleFL, 0, eNoAction,
+                         &xHigherPriorityTaskWoken);
+      if (xHigherPriorityTaskWoken)
+        portYIELD_FROM_ISR();
+    }
+    vTaskDelay(20);
+  }
+}
+
+#+END_SRC
+\clearpage
+** Bill Of Materials
+\begin{table}[htbp]
+\caption{Reasoning beheind sensor choices for KillDozer}
+\centering
+    \begin{tabularx}{\textwidth}{|X|X|X|X|X|X|}
+    \hline
+        \rowcolor{CtpOverlay1}
+ \textbf{Model Number} & \textbf{Part Name} & \textbf{Supplier} & \textbf{Quantity} & \textbf{Price per part (\$)} & \textbf{Cost (\$AUD)} \\ \hline
+        MDD3A  & DUAL CHANNEL Motor Driver Board & Cytron & 1 & 8.5 & 8.5 \\ \hline
+        ZGY370 & Worm Gear Motor & Aliexpress  & 2 & 4.49 & 8.98 \\ \hline
+        TCS34725 & RGB Colour Sensor  & Aliexpress  & 2 & 2.4 & 4.8 \\ \hline
+        TCA9548A & I2C Multiplexer Board  & Aliexpress  & 1 & 2.14 & 2.14 \\ \hline
+        T100/T400  & Caterpillar Chain Track Pedrail Wheel  & Aliexpress  & 2 & 1.55 & 3.1 \\ \hline
+        URM09  & Ultrasonic distance sensor  & DFROBOT & 2 & 7.9 & 15.8 \\ \hline
+        VLX530 & Time of Flight (ToF) Laser Ranging Sensor & Aliexpress  & 1 & 1.55 & 1.55 \\ \hline
+        PCB & Prototype PCB Board 9x15cm Single-Sided  & Aliexpress  & 1 & 0.31 & 0.31 \\ \hline
+        OPY FLEX1K01 & Filament  & Aliexpress  & 1 & 3.9 & 3.9 \\ \hline
+        M3 & Stainless Steel Cap Head bolts (10pcs) & Maker Store  & 1 & 0.252 & 0.252 \\ \hline
+        IBUW & Dupont Jumper Wire Kit 40-pin 20cm & Aliexpress  & 1 & 0.517 & 0.517 \\ \hline
+        \rowcolor{CtpOverlay1} FINAL PRICE & ~ & ~ & ~ & ~ & 49.8 \\ \hline
+    \end{tabularx}
+\end{table}
